@@ -105,7 +105,7 @@
     'geo-horizonte':     'Click · busca ciudad/volcán · coords automáticas · Maps/Waze',
     'geo-ruta':          'Click · busca acceso/carretera · GPS automático · Maps/Waze',
     'geo-amenidad':      'Elige icono en el dock · click en el 360 para colocar · Arrastra para mover',
-    'tone':              'Anti-sol: aplica el preset y marca el centro del sol · lotes intactos',
+    'tone':              'Anti-sol: comprime luces y recupera sombras en todo el 360 · sin halos',
     'kmz-manip':         'Arrastra: mover · Shift+arrastre o rueda: escalar · Esc: salir'
   };
 

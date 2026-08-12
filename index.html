@@ -337,14 +337,9 @@
         <input type="range" id="tone-warmth" min="-30" max="30" step="1" value="0" aria-label="Calidez">
         <div class="tone-slider-row"><span>Altas luces</span><span id="tone-highlights-val">0%</span></div>
         <input type="range" id="tone-highlights" min="0" max="80" step="1" value="0" aria-label="Reducción de altas luces">
-        <div class="tone-slider-row"><span>Protección solar</span><span id="tone-sun-strength-val">0%</span></div>
-        <input type="range" id="tone-sun-strength" min="0" max="70" step="1" value="0" aria-label="Intensidad del protector solar">
-        <div class="tone-slider-row"><span>Radio del halo</span><span id="tone-sun-radius-val">24°</span></div>
-        <input type="range" id="tone-sun-radius" min="8" max="45" step="1" value="24" aria-label="Radio angular del protector solar">
-        <button type="button" id="tone-mark-sun-btn" class="kpk-action-btn tone-mark-sun-btn" style="width:100%;">
-          Marcar el sol en el 360
-        </button>
-        <p id="tone-sun-status" class="tone-sun-status">Primero aplica Anti-sol y luego marca el centro del sol.</p>
+        <div class="tone-slider-row"><span>Recuperar sombras</span><span id="tone-shadows-val">0%</span></div>
+        <input type="range" id="tone-shadows" min="0" max="60" step="1" value="0" aria-label="Recuperación de sombras">
+        <p class="tone-balance-hint">Corrección uniforme sobre el 360 completo, sin halos ni máscaras localizadas.</p>
         <div class="tone-slider-row"><span>Viñeta</span><span id="tone-vignette-val">0%</span></div>
         <input type="range" id="tone-vignette" min="0" max="50" step="1" value="0" aria-label="Viñeta">
         <button type="button" id="tone-reset-btn" class="kpk-action-btn" style="width:100%; margin-top:4px;">Reset tonos</button>
@@ -563,7 +558,7 @@
   <script src="js/core/f-places.js?v=13"></script>
   <script src="js/core/f-dom-cache.js?v=12"></script>
   <script src="js/core/f-camera.js?v=17"></script>
-  <script src="js/core/f-raf-loop.js?v=18"></script>
+  <script src="js/core/f-raf-loop.js?v=17"></script>
   <script src="js/core/f-idle-cam.js?v=3"></script>
 
   <!-- Ferrari Render: sync → paths → overlay -->
@@ -598,7 +593,7 @@
   <script src="js/tools/f-geo-tools.js?v=17"></script>
   <script src="js/tools/f-kmz-calco.js?v=2"></script>
   <script src="js/tools/f-amenities.js?v=1"></script>
-  <script src="js/tools/f-tone.js?v=2"></script>
+  <script src="js/tools/f-tone.js?v=3"></script>
 
   <!-- Ferrari Device: detección de capacidad (debe ir antes de f-init) -->
   <script src="js/core/f-device.js?v=8"></script>
