@@ -85,6 +85,9 @@
       if (window.FerrariCompass && window.FerrariCompass.refresh) {
         window.FerrariCompass.refresh();
       }
+      if (window.FerrariTone && window.FerrariTone.updateSunShield) {
+        window.FerrariTone.updateSunShield();
+      }
     }
     if (window.FerrariGeoPins && window.FerrariGeoPins.update && !editingVerts) {
       const geoDragging = window.FerrariGeoPins.isDragging && window.FerrariGeoPins.isDragging();

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Josefin+Sans:wght@400;500;600&family=Montserrat:wght@500;600;700&family=Outfit:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pannellum.css?v=7">
-  <link rel="stylesheet" href="css/ferrari.css?v=47">
+  <link rel="stylesheet" href="css/ferrari.css?v=48">
   <!-- Pills dock/CTA glass (vence a ferrari). Clásico: css/kbd-buttons-classic.css al final. -->
   <link rel="stylesheet" href="css/kbd-buttons-glass.css?v=4">
   <link rel="stylesheet" href="css/f-gallery.css?v=1">
@@ -325,6 +325,7 @@
           <button type="button" class="tone-preset-chip" data-tone-preset="vivo">Vivo Los Lagos</button>
           <button type="button" class="tone-preset-chip" data-tone-preset="calido">Cálido</button>
           <button type="button" class="tone-preset-chip" data-tone-preset="niebla">Niebla sur</button>
+          <button type="button" class="tone-preset-chip tone-preset-chip--sun" data-tone-preset="antisol">Anti-sol natural</button>
         </div>
         <div class="tone-slider-row"><span>Brillo</span><span id="tone-brightness-val">100%</span></div>
         <input type="range" id="tone-brightness" min="70" max="130" step="1" value="100" aria-label="Brillo">
@@ -334,6 +335,16 @@
         <input type="range" id="tone-saturate" min="40" max="180" step="1" value="100" aria-label="Saturación">
         <div class="tone-slider-row"><span>Calidez</span><span id="tone-warmth-val">0</span></div>
         <input type="range" id="tone-warmth" min="-30" max="30" step="1" value="0" aria-label="Calidez">
+        <div class="tone-slider-row"><span>Altas luces</span><span id="tone-highlights-val">0%</span></div>
+        <input type="range" id="tone-highlights" min="0" max="80" step="1" value="0" aria-label="Reducción de altas luces">
+        <div class="tone-slider-row"><span>Protección solar</span><span id="tone-sun-strength-val">0%</span></div>
+        <input type="range" id="tone-sun-strength" min="0" max="70" step="1" value="0" aria-label="Intensidad del protector solar">
+        <div class="tone-slider-row"><span>Radio del halo</span><span id="tone-sun-radius-val">24°</span></div>
+        <input type="range" id="tone-sun-radius" min="8" max="45" step="1" value="24" aria-label="Radio angular del protector solar">
+        <button type="button" id="tone-mark-sun-btn" class="kpk-action-btn tone-mark-sun-btn" style="width:100%;">
+          Marcar el sol en el 360
+        </button>
+        <p id="tone-sun-status" class="tone-sun-status">Primero aplica Anti-sol y luego marca el centro del sol.</p>
         <div class="tone-slider-row"><span>Viñeta</span><span id="tone-vignette-val">0%</span></div>
         <input type="range" id="tone-vignette" min="0" max="50" step="1" value="0" aria-label="Viñeta">
         <button type="button" id="tone-reset-btn" class="kpk-action-btn" style="width:100%; margin-top:4px;">Reset tonos</button>
@@ -552,7 +563,7 @@
   <script src="js/core/f-places.js?v=13"></script>
   <script src="js/core/f-dom-cache.js?v=12"></script>
   <script src="js/core/f-camera.js?v=17"></script>
-  <script src="js/core/f-raf-loop.js?v=17"></script>
+  <script src="js/core/f-raf-loop.js?v=18"></script>
   <script src="js/core/f-idle-cam.js?v=3"></script>
 
   <!-- Ferrari Render: sync → paths → overlay -->
@@ -565,7 +576,7 @@
   <!-- Ferrari UI -->
   <script src="js/ui/f-draggable.js?v=1"></script>
   <script src="js/ui/f-panel.js?v=19"></script>
-  <script src="js/ui/f-hud.js?v=16"></script>
+  <script src="js/ui/f-hud.js?v=17"></script>
   <script src="js/tools/f-street-network.js?v=16"></script>
   <script src="js/ui/f-persist.js?v=15"></script>
   <script src="js/ui/f-brand-dock.js?v=9"></script>
@@ -587,7 +598,7 @@
   <script src="js/tools/f-geo-tools.js?v=17"></script>
   <script src="js/tools/f-kmz-calco.js?v=2"></script>
   <script src="js/tools/f-amenities.js?v=1"></script>
-  <script src="js/tools/f-tone.js?v=1"></script>
+  <script src="js/tools/f-tone.js?v=2"></script>
 
   <!-- Ferrari Device: detección de capacidad (debe ir antes de f-init) -->
   <script src="js/core/f-device.js?v=8"></script>

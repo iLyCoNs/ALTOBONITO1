@@ -3656,6 +3656,31 @@ body:not(.kpk-ai-panel-open) .kpk-finance-widget {
     rgba(8, 12, 18, 0.55) 100%);
   transition: opacity 0.25s ease;
 }
+.kpk-tone-sun-shield {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  background: radial-gradient(circle,
+    rgba(22, 34, 48, 0.76) 0%,
+    rgba(28, 43, 58, 0.58) 24%,
+    rgba(42, 57, 70, 0.3) 52%,
+    rgba(48, 62, 72, 0.1) 72%,
+    transparent 100%);
+  mix-blend-mode: multiply;
+  will-change: left, top, width, height, opacity;
+}
+#pannellum-viewer.tone-sun-marking,
+#pannellum-viewer.tone-sun-marking .pnlm-render-container {
+  cursor: crosshair !important;
+}
 .tone-look-panel {
   margin-top: 8px;
 }
@@ -3694,5 +3719,29 @@ body:not(.kpk-ai-panel-open) .kpk-finance-widget {
 .tone-preset-chip:hover {
   background: rgba(201, 168, 76, 0.18);
   border-color: rgba(201, 168, 76, 0.45);
+}
+.tone-preset-chip--sun {
+  color: #f5d991;
+  border-color: rgba(224, 183, 79, 0.5);
+  background: linear-gradient(135deg, rgba(224, 183, 79, 0.18), rgba(255, 255, 255, 0.05));
+}
+.tone-mark-sun-btn {
+  margin-top: 2px;
+  border-color: rgba(224, 183, 79, 0.42);
+}
+.tone-mark-sun-btn.is-marking {
+  color: #fff2c8;
+  border-color: rgba(255, 211, 100, 0.8);
+  box-shadow: 0 0 0 2px rgba(224, 183, 79, 0.12), 0 0 18px rgba(224, 183, 79, 0.14);
+}
+.tone-sun-status {
+  width: 100%;
+  margin: -1px 0 3px;
+  color: var(--f-text-muted);
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+.tone-sun-status.is-set {
+  color: rgba(196, 224, 207, 0.9);
 }
 
