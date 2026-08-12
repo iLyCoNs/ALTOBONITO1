@@ -869,7 +869,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  transform: translate(-50%, -50%) scale(var(--kam-scale, 1));
+  transform: translate(-50%, -50%) scale(var(--kam-scale, var(--kam-user-scale, 1)));
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -888,7 +888,9 @@
     inset 0 1px 0 rgba(255,255,255,0.9);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* El tamaño sigue al terreno en cada frame; interpolar transform causaría
+     retraso visual respecto del panorama mientras se usa el zoom. */
+  transition: box-shadow 0.2s ease;
 }
 .kpk-amenity-mark:hover,
 .f-geo-pin.is-front .kpk-amenity-mark {

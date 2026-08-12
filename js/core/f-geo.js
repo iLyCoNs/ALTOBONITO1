@@ -709,6 +709,9 @@
         lat: p.lat,
         lng: p.lng,
         notas: p.notas || '',
+        icon: p.icon || null,
+        grupo: p.grupo || null,
+        scale: p.scale != null ? p.scale : 1,
         lockYaw: !!p.lockYaw,
         createdAt: p.createdAt,
         // Ruta persistida (Google/manual/OSRM) — sobrevive a recargas

@@ -447,7 +447,7 @@
       if (ico) ico.innerHTML = item && item.svg ? item.svg : '';
       if (lab) lab.textContent = pin.titulo || (item && item.label) || meta.label || '';
       const scale = Math.max(0.75, Math.min(1.45, Number(pin.scale) || 1));
-      el.style.setProperty('--kam-scale', String(scale));
+      el.style.setProperty('--kam-user-scale', String(scale));
       const del = el.querySelector('.kam-del');
       if (del) del.style.display = '';
       return;
@@ -519,6 +519,23 @@
     }
     const proj = window.FerrariCamera.getProjectionParams();
     const { px, py } = window.FerrariCamera.camToPixel(cam, proj);
+
+    if (pin.tipo === 'amenidad') {
+      // Un amenity representa un elemento del terreno, no un control de UI.
+      // Su tamaño debe seguir la distancia focal: a mayor HFOV (zoom lejos)
+      // se reduce junto al terreno; a menor HFOV crece en la misma proporción.
+      // HFOV 90° es la escala 1. El límite evita tamaños extremos al usar
+      // el zoom máximo sin romper la relación en el rango habitual 60–120°.
+      const referenceF = Math.max(1, proj.w * 0.5);
+      const terrainScale = Math.max(0.42, Math.min(2.4, proj.f / referenceF));
+      const userScale = Math.max(0.75, Math.min(1.45, Number(pin.scale) || 1));
+      const effectiveScale = terrainScale * userScale;
+      const nextScale = effectiveScale.toFixed(4);
+      if (el._kpkAmenityScale !== nextScale) {
+        el._kpkAmenityScale = nextScale;
+        el.style.setProperty('--kam-scale', nextScale);
+      }
+    }
 
     if (px < -120 || py < -40 || px > proj.w + 120 || py > proj.h + 120) {
       if (el.style.display !== 'none') el.style.display = 'none';
