@@ -522,12 +522,10 @@
 
     if (pin.tipo === 'amenidad') {
       // Un amenity representa un elemento del terreno, no un control de UI.
-      // Su tamaño debe seguir la distancia focal: a mayor HFOV (zoom lejos)
-      // se reduce junto al terreno; a menor HFOV crece en la misma proporción.
-      // HFOV 90° es la escala 1. El límite evita tamaños extremos al usar
-      // el zoom máximo sin romper la relación en el rango habitual 60–120°.
+      // Al alejarse se reduce junto al terreno, pero al acercarse no supera su
+      // tamaño editorial: debe señalar la infraestructura, nunca cubrirla.
       const referenceF = Math.max(1, proj.w * 0.5);
-      const terrainScale = Math.max(0.42, Math.min(2.4, proj.f / referenceF));
+      const terrainScale = Math.max(0.42, Math.min(0.88, proj.f / referenceF));
       const userScale = Math.max(0.75, Math.min(1.45, Number(pin.scale) || 1));
       const effectiveScale = terrainScale * userScale;
       const nextScale = effectiveScale.toFixed(4);

@@ -894,7 +894,7 @@
 }
 .kpk-amenity-mark:hover,
 .f-geo-pin.is-front .kpk-amenity-mark {
-  transform: translate(-50%, -50%) scale(calc(var(--kam-scale, 1) * 1.08));
+  transform: translate(-50%, -50%) scale(calc(var(--kam-scale, 1) * 1.04));
   box-shadow:
     0 12px 32px rgba(12, 28, 24, 0.36),
     0 0 0 1px rgba(201, 168, 76, 0.35);
