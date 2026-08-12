@@ -1,7 +1,11 @@
 {
   "version": 1,
-  "updatedAt": 1784787934185,
-  "droneOrigin": null,
+  "updatedAt": 1786566552665,
+  "droneOrigin": {
+    "lat": -41.4806906,
+    "lng": -73.0191634,
+    "label": "Alto Bonito"
+  },
   "northOffset": 0,
   "pins": []
 }
