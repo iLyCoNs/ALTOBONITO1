@@ -778,12 +778,8 @@
       const half = strokePx / 2;
 
       if (!hasPrev) {
-        // Punto aislado: círculo pequeño (M + L en 4 vértices)
-        outD += ' M ' + (pp.px - half).toFixed(1) + ' ' + (pp.py - half).toFixed(1);
-        outD += ' L ' + (pp.px + half).toFixed(1) + ' ' + (pp.py - half).toFixed(1);
-        outD += ' L ' + (pp.px + half).toFixed(1) + ' ' + (pp.py + half).toFixed(1);
-        outD += ' L ' + (pp.px - half).toFixed(1) + ' ' + (pp.py + half).toFixed(1);
-        outD += ' Z';
+        // El primer punto solo inicia el tramo. Dibujar aquí un polígono
+        // aislado generaba una placa cuadrada visible en los empalmes T.
         lastPx = pp.px; lastPy = pp.py;
         hasPrev = true;
       } else {

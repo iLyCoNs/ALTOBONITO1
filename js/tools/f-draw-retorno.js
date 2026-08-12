@@ -124,6 +124,10 @@
       'Cabeza de retorno de ' + _formatMeters(_diameterM) + ' fusionada con la calle.',
       'success'
     );
+    // El retorno guardado ya vive en el asfalto unificado. Retirar la guía
+    // evita una segunda capa translúcida sobre la misma geometría.
+    _snap = null;
+    _removePreview();
     console.log('[Ferrari/Retorno] Creado:', id, 'calle:', street.id, 'diámetro:', _diameterM);
   }
 
