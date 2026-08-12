@@ -40,6 +40,7 @@
   let _mapLoadedFor = null;
   let _nearbyRadius = 10; // km, configurable por el cliente 1–30
   let _nearbySearched = false; // true una vez que se disparó la búsqueda OSM en la sesión
+  let _lastOriginKey = null; // detecta cambios de coordenadas para invalidar Cercanos
   let _showMapInLugares = false; // si el usuario quiere ver el mini-mapa dentro del tab Cercanos
 
   const ICON_PLUS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
@@ -94,6 +95,11 @@
 
   function _origin() {
     return (window.FerrariGeo && window.FerrariGeo.droneOrigin) || null;
+  }
+
+  function _originKey() {
+    const o = _origin();
+    return o ? `${Number(o.lat).toFixed(7)},${Number(o.lng).toFixed(7)}` : null;
   }
 
   function _originLinks() {
@@ -469,6 +475,7 @@
     const group = POI_GROUPS.find(g => g.id === _poiFilter);
     const cats = group && group.cats ? group.cats : POI_GROUPS.flatMap(g => g.cats || []).filter((v, i, a) => a.indexOf(v) === i);
     if (window.FerrariGeoTools && window.FerrariGeoTools.fetchNearby) {
+      _nearbySearched = true;
       window.FerrariGeoTools.fetchNearby(_nearbyRadius * 1000, cats, o, opts || {});
     }
   }
@@ -827,6 +834,10 @@
     setCtaOpen(false);
     _renderCta();
     render();
+    _lastOriginKey = _originKey();
+    // Si GitHub/localStorage ya trae lugares publicados, no duplicarlos con
+    // otra consulta automática cada vez que se recarga la página.
+    _nearbySearched = _poiOnly().length > 0;
     
     // Auto-gatillar búsqueda de lugares cercanos al iniciar si el origen ya existe
     // silent: evita toast rojo 504/404 si Overpass está caído al cargar la demo
@@ -841,11 +852,16 @@
       if (_root && !_isToolMode()) _renderCta();
     }, 3000);
     document.addEventListener('ferrari:panel-toggle', render);
-    document.addEventListener('ferrari:geo-changed', () => {
+    document.addEventListener('ferrari:geo-changed', (event) => {
       _mapLoadedFor = null;
-      if (!_nearbySearched && _origin()) {
-        _nearbySearched = true;
-        setTimeout(() => _searchNearby({ silent: true }), 500);
+      const nextOriginKey = _originKey();
+      const reason = event && event.detail && event.detail.reason;
+      const originReset = reason === 'origin-changed' || reason === 'origin-cleared';
+      if (originReset || nextOriginKey !== _lastOriginKey) {
+        _lastOriginKey = nextOriginKey;
+        _nearbySearched = false;
+        _poiFilter = 'all';
+        _setNearbyOnPhoto(false, null);
       }
       render();
     });

@@ -469,7 +469,7 @@
 
   // ─── CRUD ─────────────────────────────────────────────────────────
 
-  function _notify() {
+  function _notify(detail) {
     if (window.FerrariGeoPins && window.FerrariGeoPins.markDirty) {
       window.FerrariGeoPins.markDirty();
     }
@@ -477,14 +477,28 @@
       window.FerrariCompass.refresh();
     }
     try {
-      document.dispatchEvent(new CustomEvent('ferrari:geo-changed'));
+      document.dispatchEvent(new CustomEvent('ferrari:geo-changed', { detail: detail || null }));
     } catch (e) {}
+  }
+
+  /**
+   * Elimina los resultados de la herramienta Cercanos.
+   * Los pines de horizonte y rutas creados manualmente se conservan.
+   */
+  function _clearNearbyPins() {
+    const before = state.pins.length;
+    state.pins = state.pins.filter(pin => pin.tipo !== 'poi');
+    return before - state.pins.length;
   }
 
   function setDroneOrigin(lat, lng, label) {
     const la = _normCoord(lat, 'lat');
     const ln = _normCoord(lng, 'lng');
     if (isNaN(la) || isNaN(ln)) return false;
+    const previousOrigin = state.droneOrigin
+      ? { lat: state.droneOrigin.lat, lng: state.droneOrigin.lng }
+      : null;
+    const clearedNearby = _clearNearbyPins();
     state.droneOrigin = {
       lat: la,
       lng: ln,
@@ -494,17 +508,23 @@
     _markDirty();
     _recomputePinMetrics();
     saveLocal();
-    _notify();
+    _notify({
+      reason: 'origin-changed',
+      previousOrigin,
+      origin: { lat: la, lng: ln },
+      clearedNearby
+    });
     return true;
   }
 
   function clearDroneOrigin() {
+    const clearedNearby = _clearNearbyPins();
     state.droneOrigin = null;
     _touch();
     _markDirty();
     _recomputePinMetrics();
     saveLocal();
-    _notify();
+    _notify({ reason: 'origin-cleared', origin: null, clearedNearby });
   }
 
   function setNorthOffset(offsetDeg) {

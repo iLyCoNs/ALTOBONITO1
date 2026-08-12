@@ -519,6 +519,8 @@
       let lat = document.getElementById('fge-lat').value;
       let lng = document.getElementById('fge-lng').value;
       const label = document.getElementById('fge-label').value;
+      const previousNearbyCount = (window.FerrariGeo.pins || [])
+        .filter(pin => pin.tipo === 'poi').length;
 
       if (pasteRaw) {
         const pair = window.FerrariGeo.parseLatLngPair(pasteRaw);
@@ -538,7 +540,7 @@
       const o = window.FerrariGeo.droneOrigin;
       window.FerrariUI && window.FerrariUI.showToast(
         o
-          ? `✓ Origen fijado (${o.lat}, ${o.lng}). Usa Guardar del panel para publicarlo.`
+          ? `✓ Origen fijado (${o.lat}, ${o.lng}).${previousNearbyCount ? ` ${previousNearbyCount} lugares anteriores reiniciados.` : ''} Usa Guardar del panel para publicarlo.`
           : 'Origen dron guardado localmente.',
         'success'
       );

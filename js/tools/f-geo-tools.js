@@ -8,6 +8,16 @@
 
   let _mode = null; // 'north' | 'horizonte' | 'ruta' | null
   let _bound = false;
+  let _nearbyGeneration = 0;
+
+  // Invalida cualquier consulta Overpass que siga en vuelo, incluso cuando el
+  // usuario vuelve a guardar exactamente las mismas coordenadas.
+  document.addEventListener('ferrari:geo-changed', function (event) {
+    const reason = event && event.detail && event.detail.reason;
+    if (reason === 'origin-changed' || reason === 'origin-cleared') {
+      _nearbyGeneration++;
+    }
+  });
 
   function activate(mode) {
     window.FerrariTools.deactivateAllTools();
@@ -207,6 +217,11 @@
       return;
     }
 
+    // La consulta puede tardar varios segundos. Guardamos el origen usado para
+    // impedir que una respuesta vieja repueble Cercanos después de cambiarlo.
+    const requestOriginKey = `${Number(origin.lat).toFixed(7)},${Number(origin.lng).toFixed(7)}`;
+    const requestGeneration = _nearbyGeneration;
+
     const r = radiusM || 8000;
     const cats = Array.isArray(categories) && categories.length
       ? categories.filter(c => c !== 'otro')
@@ -278,6 +293,15 @@
       if (!silent) {
         window.FerrariUI && window.FerrariUI.showToast(msg, 'error');
       }
+      return;
+    }
+
+    const currentOrigin = window.FerrariGeo.droneOrigin;
+    const currentOriginKey = currentOrigin
+      ? `${Number(currentOrigin.lat).toFixed(7)},${Number(currentOrigin.lng).toFixed(7)}`
+      : null;
+    if (currentOriginKey !== requestOriginKey || requestGeneration !== _nearbyGeneration) {
+      console.log('[Ferrari/GeoTools] Respuesta Cercanos descartada: el origen del dron cambió.');
       return;
     }
 
