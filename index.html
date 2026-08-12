@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Josefin+Sans:wght@400;500;600&family=Montserrat:wght@500;600;700&family=Outfit:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pannellum.css?v=7">
-  <link rel="stylesheet" href="css/ferrari.css?v=46">
+  <link rel="stylesheet" href="css/ferrari.css?v=47">
   <!-- Pills dock/CTA glass (vence a ferrari). Clásico: css/kbd-buttons-classic.css al final. -->
   <link rel="stylesheet" href="css/kbd-buttons-glass.css?v=4">
   <link rel="stylesheet" href="css/f-gallery.css?v=1">
@@ -139,6 +139,10 @@
       <button id="tool-calle-arq2"    class="kpk-tool-btn" data-tool="calle-curva-arq2" title="Calle Curva Arq2" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4,18 C8,18 8,6 12,6 C16,6 16,18 20,18"/></svg>
         <span>Calle Curva</span>
+      </button>
+      <button id="tool-calle-retorno" class="kpk-tool-btn" data-tool="calle-retorno" title="Cabeza de retorno / cul-de-sac" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M4 5v7h7"/><path d="M4 12h8"/></svg>
+        <span>Retorno</span>
       </button>
       <button id="tool-edit"          class="kpk-tool-btn" data-tool="edit"          title="Editar Lotes" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/><line x1="18" y1="8" x2="18" y2="16"/></svg>
@@ -276,6 +280,16 @@
         <span id="calle-width-value">18px</span>
       </div>
       <input type="range" id="calle-width-slider" min="8" max="60" step="1" value="18" aria-label="Ancho de calle en píxeles">
+    </div>
+
+    <div id="retorno-size-panel" class="kpk-width-panel" style="display:none" aria-label="Diámetro de cabeza de retorno">
+      <div class="kpk-width-panel-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M7 9l-3 3 3 3M17 9l3 3-3 3"/></svg>
+        <span>Diámetro retorno</span>
+        <span id="retorno-size-value">24 m</span>
+      </div>
+      <input type="range" id="retorno-size-slider" min="12" max="44" step="1" value="24" aria-label="Diámetro del retorno en metros">
+      <p class="kpk-width-panel-hint">Mueve el cursor sobre una calle y haz clic cuando aparezca la vista previa.</p>
     </div>
 
     <!-- Panel de datos de Hilera de Lotes -->
@@ -542,17 +556,17 @@
   <script src="js/core/f-idle-cam.js?v=3"></script>
 
   <!-- Ferrari Render: sync → paths → overlay -->
-  <script src="js/render/f-svg-sync.js?v=13"></script>
-  <script src="js/render/f-svg-paths.js?v=27"></script>
+  <script src="js/render/f-svg-sync.js?v=14"></script>
+  <script src="js/render/f-svg-paths.js?v=28"></script>
   <script src="js/render/f-smart-pins.js?v=1"></script>
   <script src="js/render/f-overlay.js?v=13"></script>
   <script src="js/render/f-geo-pins.js?v=32"></script>
 
   <!-- Ferrari UI -->
   <script src="js/ui/f-draggable.js?v=1"></script>
-  <script src="js/ui/f-panel.js?v=18"></script>
-  <script src="js/ui/f-hud.js?v=15"></script>
-  <script src="js/tools/f-street-network.js?v=15"></script>
+  <script src="js/ui/f-panel.js?v=19"></script>
+  <script src="js/ui/f-hud.js?v=16"></script>
+  <script src="js/tools/f-street-network.js?v=16"></script>
   <script src="js/ui/f-persist.js?v=15"></script>
   <script src="js/ui/f-brand-dock.js?v=9"></script>
   <script src="js/ui/f-buyer-dock.js?v=14"></script>
@@ -565,9 +579,10 @@
   <!-- Ferrari Tools -->
   <script src="js/tools/f-draw-lote.js?v=13"></script>
   <script src="js/tools/f-draw-calle.js?v=16"></script>
+  <script src="js/tools/f-draw-retorno.js?v=1"></script>
   <script src="js/tools/f-draw-hilera.js?v=12"></script>
-  <script src="js/tools/f-eraser.js?v=12"></script>
-  <script src="js/tools/f-edit.js?v=18"></script>
+  <script src="js/tools/f-eraser.js?v=13"></script>
+  <script src="js/tools/f-edit.js?v=19"></script>
   <script src="js/tools/f-add-pin.js?v=12"></script>
   <script src="js/tools/f-geo-tools.js?v=17"></script>
   <script src="js/tools/f-kmz-calco.js?v=2"></script>

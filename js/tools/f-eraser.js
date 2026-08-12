@@ -64,7 +64,10 @@
     let bestDist = Infinity;
 
     for (const line of window.allDrawnLines) {
-      const dist = _minDistToLine(line.puntos, cursor.px, cursor.py, proj);
+      const isReturn = line.tipo === 'calle-retorno';
+      const dist = isReturn && _pointInProjectedPolygon(line.puntos, cursor.px, cursor.py, proj)
+        ? 0
+        : _minDistToLine(line.puntos, cursor.px, cursor.py, proj, isReturn);
       if (dist < bestDist) {
         bestDist = dist;
         bestId   = line.id;
@@ -92,7 +95,7 @@
    * Distancia mínima en píxeles desde el punto (cx, cy) a los
    * segmentos proyectados de una línea.
    */
-  function _minDistToLine(puntos, cx, cy, proj) {
+  function _minDistToLine(puntos, cx, cy, proj, closed) {
     if (!puntos || puntos.length === 0) return Infinity;
 
     let minDist = Infinity;
@@ -107,8 +110,9 @@
       if (dv < minDist) minDist = dv;
 
       // Distancia al segmento (i → i+1)
-      if (i < puntos.length - 1) {
-        const cam2 = window.FerrariCamera.getCam(puntos[i+1][0], puntos[i+1][1]);
+      if (i < puntos.length - 1 || closed) {
+        const next = (i + 1) % puntos.length;
+        const cam2 = window.FerrariCamera.getCam(puntos[next][0], puntos[next][1]);
         if (cam2.z <= 0.0001) continue;
         const p2 = window.FerrariCamera.camToPixel(cam2, proj);
         const ds = _distToSegment(cx, cy, px, py, p2.px, p2.py);
@@ -117,6 +121,27 @@
     }
 
     return minDist;
+  }
+
+  /** Permite borrar un retorno haciendo clic en cualquier punto de su superficie. */
+  function _pointInProjectedPolygon(puntos, cx, cy, proj) {
+    if (!puntos || puntos.length < 3) return false;
+    const polygon = [];
+    for (const point of puntos) {
+      const cam = window.FerrariCamera.getCam(point[0], point[1]);
+      if (cam.z <= 0.0001) return false;
+      polygon.push(window.FerrariCamera.camToPixel(cam, proj));
+    }
+
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const a = polygon[i];
+      const b = polygon[j];
+      const crosses = ((a.py > cy) !== (b.py > cy)) &&
+        (cx < (b.px - a.px) * (cy - a.py) / (b.py - a.py) + a.px);
+      if (crosses) inside = !inside;
+    }
+    return inside;
   }
 
   /**

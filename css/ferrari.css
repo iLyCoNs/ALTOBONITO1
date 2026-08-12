@@ -530,6 +530,23 @@ body.kpk-lote-fill-hover-only .lote-interactivo:hover .path-default {
   stroke-width:     2px;
   pointer-events:   none;
 }
+
+.calle-retorno-preview {
+  fill: rgba(165, 168, 178, 0.48);
+  stroke: rgba(255, 255, 255, 0.88);
+  stroke-width: 1.5px;
+  stroke-dasharray: 7 5;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+  filter: drop-shadow(0 0 7px rgba(0, 180, 255, 0.28));
+}
+
+.kpk-width-panel-hint {
+  margin: 7px 0 0;
+  color: var(--f-text-muted);
+  font-size: 10px;
+  line-height: 1.35;
+}
 /* CRÍTICO: Radio SOLO via setAttribute desde JS. NUNCA via CSS r: */
 .vertex-circle {
   fill:          var(--svg-vertex);

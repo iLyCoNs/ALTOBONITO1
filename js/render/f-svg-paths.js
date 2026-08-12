@@ -143,6 +143,7 @@
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       if (line.puntos === undefined) continue;
+      if (line.tipo === 'calle-retorno') continue;
 
       for (let j = 0; j < line.puntos.length; j++) {
         const pt = line.puntos[j];
@@ -531,7 +532,9 @@
         line.tipo === 'kprano-capsule'
       );
 
-      const isCalleType = (line.tipo === 'calle' || line.tipo === 'calle-curva-arq2');
+      const isStreetAxis = (line.tipo === 'calle' || line.tipo === 'calle-curva-arq2');
+      const isStreetSurface = line.tipo === 'calle-retorno';
+      const isCalleType = isStreetAxis || isStreetSurface;
 
       // ── Culling: si el centroide está muy lejos del viewport, saltar
       //    todo el cómputo pesado (trigonometría + string + DOM).
@@ -612,7 +615,26 @@
 
       let d = '';
 
-      if (isCalleType) {
+      if (isStreetSurface) {
+        d = _buildPathD(line.puntos, proj, true, _segScratch);
+        const surfaceSegCnt = _segScratch.seg;
+
+        // El cuerpo individual queda oculto: retorno y calles se pintan en el
+        // mismo path para que el solape no acumule opacidad ni deje costuras.
+        if (!entry._calleFlat) {
+          entry._calleFlat = true;
+          path.style.filter = 'none';
+          path.style.fill = '';
+          path.style.stroke = '';
+          path.style.strokeWidth = '';
+          path.setAttribute('d', D_EMPTY);
+        }
+        if (surfaceSegCnt >= 3) {
+          // Duplicar el subpath garantiza relleno nonzero aunque su orientación
+          // sea opuesta a la del polígono de la calle conectada.
+          _unionParts.push(d, d);
+        }
+      } else if (isStreetAxis) {
         const alpha = line.anchoAngular || 1.0;
         // Cache: no regenerar el polígono 3D si la geometría de la calle no cambió.
         // (Editar un lote no debe recalcular asfalto → evita lag en vértices traseros.)

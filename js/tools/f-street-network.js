@@ -273,7 +273,7 @@
         const dist = Math.hypot(px.px - cur.px, px.py - cur.py);
         if (dist < bestDist) {
           bestDist = dist;
-          best = { pitch: pt[0], yaw: pt[1], px: px.px, py: px.py, kind: 'vertex' };
+          best = { pitch: pt[0], yaw: pt[1], px: px.px, py: px.py, kind: 'vertex', lineId: line.id };
         }
       }
 
@@ -303,7 +303,7 @@
           if (dyaw < -180) dyaw += 360;
           const yawS = p1[1] + dyaw * t;
           bestDist = dist;
-          best = { pitch: pitchS, yaw: yawS, px: sx, py: sy, kind: 'edge' };
+          best = { pitch: pitchS, yaw: yawS, px: sx, py: sy, kind: 'edge', lineId: line.id };
         }
       }
     }

@@ -71,6 +71,7 @@
     // Registrar herramientas
     registerTool(window.FerrariDrawLote);
     registerTool(window.FerrariDrawCalle);
+    registerTool(window.FerrariDrawRetorno);
     registerTool(window.FerrariDrawHilera);
     registerTool(window.FerrariEraser);
     registerTool(window.FerrariEdit);
@@ -85,6 +86,7 @@
     // Registrar eventos de cada tool (una sola vez)
     window.FerrariDrawLote.bindEvents();
     window.FerrariDrawCalle.bindEvents();
+    window.FerrariDrawRetorno.bindEvents();
     window.FerrariDrawHilera.bindEvents();
     window.FerrariEraser.bindEvents();
     window.FerrariEdit.bindEvents();
@@ -117,6 +119,7 @@
     _bindToolButton('tool-lote-organico', () => _activateTool('lote-organico'));
     _bindToolButton('tool-calle',         () => _activateTool('calle'));
     _bindToolButton('tool-calle-arq2',    () => _activateTool('calle-curva-arq2'));
+    _bindToolButton('tool-calle-retorno', () => _activateTool('calle-retorno'));
     _bindToolButton('tool-hilera',        () => _activateTool('hilera'));
     _bindToolButton('tool-edit',          () => _activateTool('edit'));
     _bindToolButton('tool-eraser',        () => _activateTool('eraser'));
@@ -241,6 +244,9 @@
       case 'calle':
       case 'calle-curva-arq2':
         window.FerrariDrawCalle.activate(tipo);
+        break;
+      case 'calle-retorno':
+        window.FerrariDrawRetorno.activate();
         break;
       case 'hilera':
         window.FerrariDrawHilera.activate();
