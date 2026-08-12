@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1786566915540,
+  "updatedAt": 1786567765054,
   "droneOrigin": {
     "lat": -41.4806906,
     "lng": -73.0191634,
@@ -13,8 +13,8 @@
       "tipo": "amenidad",
       "categoria": "agua_potable",
       "titulo": "Agua potable",
-      "pitch": -84.7176931862635,
-      "yaw": -138.5799524312004,
+      "pitch": -82.53089927786573,
+      "yaw": -158.14541032368794,
       "lat": null,
       "lng": null,
       "notas": "",

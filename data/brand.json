@@ -1,14 +1,14 @@
 {
   "version": 3,
-  "projectName": "NUEVO PROYECTO 360°",
+  "projectName": "ALTO BONITO 360°",
   "logoPath": null,
   "logoId": null,
   "logos": [],
   "titleBannerPath": null,
   "titleBannerHref": null,
   "titleBannerScale": 100,
-  "font": "cormorant",
-  "dockStyle": "crystal",
+  "font": "montserrat",
+  "dockStyle": "graphite",
   "mobileSolid": true,
   "hideLoteFill": false,
   "loteFillOnHoverOnly": false,
@@ -26,5 +26,5 @@
     "waAlertsPhone": "",
     "waAlertsKey": ""
   },
-  "updatedAt": 1784787934185
+  "updatedAt": 1786570631149
 }
