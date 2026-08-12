@@ -49,6 +49,11 @@
   // Reuso permanentes para edit handles (Set + array de posiciones).
   const _handleSet = new Set();
   const _handlePos = [];
+  // Proyección reutilizable para normalizar el sentido de todos los subpaths
+  // del asfalto. Si dos polígonos llegan con sentidos opuestos, nonzero los
+  // resta y aparecen calles transparentes dentro de los retornos.
+  const _unionXs = [];
+  const _unionYs = [];
 
   /**
    * Genera el atributo "d" de un path SVG a partir de puntos proyectados.
@@ -114,6 +119,41 @@
     if (!hasVisible) return 'M -9999 -9999';
     if (outSeg) outSeg.seg = segCount;
     return d.trim();
+  }
+
+  /** Construye un polígono vial con orientación de pantalla siempre positiva. */
+  function _buildUnionPathD(puntos, proj, outSeg) {
+    if (outSeg) outSeg.seg = 0;
+    _unionXs.length = 0;
+    _unionYs.length = 0;
+    if (!puntos || puntos.length < 3) return 'M -9999 -9999';
+
+    const FCam = window.FerrariCamera;
+    for (let i = 0; i < puntos.length; i++) {
+      const cam = FCam.getCamFastInto(puntos[i], _camA);
+      if (cam.z <= 0.0001) continue;
+      const pp = FCam.camToPixel(cam, proj);
+      if (!pp.visible) continue;
+      _unionXs.push(pp.px);
+      _unionYs.push(pp.py);
+    }
+
+    const count = _unionXs.length;
+    if (count < 3) return 'M -9999 -9999';
+
+    let signedArea2 = 0;
+    for (let i = 0, j = count - 1; i < count; j = i++) {
+      signedArea2 += _unionXs[j] * _unionYs[i] - _unionXs[i] * _unionYs[j];
+    }
+
+    let d = '';
+    for (let step = 0; step < count; step++) {
+      const i = signedArea2 >= 0 ? step : count - 1 - step;
+      d += (step === 0 ? 'M ' : 'L ') +
+        _unionXs[i].toFixed(2) + ' ' + _unionYs[i].toFixed(2) + ' ';
+    }
+    if (outSeg) outSeg.seg = count;
+    return d + 'Z';
   }
 
   /**
@@ -616,7 +656,7 @@
       let d = '';
 
       if (isStreetSurface) {
-        d = _buildPathD(line.puntos, proj, true, _segScratch);
+        d = _buildUnionPathD(line.puntos, proj, _segScratch);
         const surfaceSegCnt = _segScratch.seg;
 
         // El cuerpo individual queda oculto: retorno y calles se pintan en el
@@ -630,9 +670,7 @@
           path.setAttribute('d', D_EMPTY);
         }
         if (surfaceSegCnt >= 3) {
-          // Duplicar el subpath garantiza relleno nonzero aunque su orientación
-          // sea opuesta a la del polígono de la calle conectada.
-          _unionParts.push(d, d);
+          _unionParts.push(d);
         }
       } else if (isStreetAxis) {
         const alpha = line.anchoAngular || 1.0;
@@ -645,7 +683,7 @@
         }
         const polyPoints = line._streetPolygon;
 
-        d = _buildPathD(polyPoints, proj, true, _segScratch);
+        d = _buildUnionPathD(polyPoints, proj, _segScratch);
         const polySegCnt = _segScratch.seg;
 
         const strokePx = 2 * proj.f * Math.tan((alpha / 2) * Math.PI / 180);
