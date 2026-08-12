@@ -532,13 +532,14 @@ body.kpk-lote-fill-hover-only .lote-interactivo:hover .path-default {
 }
 
 .calle-retorno-preview {
-  fill: rgba(165, 168, 178, 0.48);
-  stroke: rgba(255, 255, 255, 0.88);
-  stroke-width: 1.5px;
-  stroke-dasharray: 7 5;
+  fill: rgba(140, 145, 154, 0.18);
+  fill-rule: nonzero;
+  stroke: rgba(0, 205, 255, 0.78);
+  stroke-width: 1px;
+  stroke-dasharray: 3 4;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
-  filter: drop-shadow(0 0 7px rgba(0, 180, 255, 0.28));
+  filter: none;
 }
 
 .kpk-width-panel-hint {

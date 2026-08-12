@@ -13,7 +13,7 @@
 
   let _active = false;
   let _bound = false;
-  let _diameterM = 24;
+  let _diameterM = 12;
   let _snap = null;
   let _preview = null;
 
@@ -60,11 +60,11 @@
     const slider = document.getElementById('retorno-size-slider');
     const value = document.getElementById('retorno-size-value');
     if (slider) {
-      _diameterM = parseInt(slider.value, 10) || 24;
+      _diameterM = parseFloat(slider.value) || 12;
       slider.addEventListener('input', function () {
-        _diameterM = Math.max(12, Math.min(44, parseInt(slider.value, 10) || 24));
-        if (value) value.textContent = _diameterM + ' m';
-        const pct = ((_diameterM - 12) / 32) * 100;
+        _diameterM = Math.max(4, Math.min(44, parseFloat(slider.value) || 12));
+        if (value) value.textContent = _formatMeters(_diameterM);
+        const pct = ((_diameterM - 4) / 40) * 100;
         slider.style.setProperty('--val', pct + '%');
         _updatePreview();
       });
@@ -121,7 +121,7 @@
       window.FerrariRAF.markDataDirty();
     }
     window.FerrariUI && window.FerrariUI.showToast(
-      'Cabeza de retorno de ' + _diameterM + ' m fusionada con la calle.',
+      'Cabeza de retorno de ' + _formatMeters(_diameterM) + ' fusionada con la calle.',
       'success'
     );
     console.log('[Ferrari/Retorno] Creado:', id, 'calle:', street.id, 'diámetro:', _diameterM);
@@ -153,12 +153,21 @@
 
   function _ensurePreview() {
     if (_preview) return _preview;
-    const overlay = document.getElementById('kpk-draw-overlay');
-    if (!overlay) return null;
+    const layer = document.getElementById('layer-calles-asfalto');
+    if (!layer) return null;
     _preview = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     _preview.setAttribute('class', 'calle-retorno-preview');
-    overlay.appendChild(_preview);
+    // Debajo de todos los ejes centrales: la vista previa nunca tapa las
+    // líneas blancas punteadas de las calles existentes.
+    const union = document.getElementById('calles-asfalto-union');
+    layer.insertBefore(_preview, union ? union.nextSibling : layer.firstChild);
     return _preview;
+  }
+
+  function _formatMeters(value) {
+    return (Math.round(value * 10) / 10).toLocaleString('es-CL', {
+      maximumFractionDigits: 1
+    }) + ' m';
   }
 
   function _updatePreview() {
