@@ -18,6 +18,7 @@
   // Refs DOM estáticas: getElementById cada frame es evitable.
   let _elUnion    = null;
   let _elShared   = null;
+  let _elDivisionShared = null;
   let _elUnshared = null;
   let _elHover    = null;
   let _elHandles  = null;
@@ -38,6 +39,7 @@
   // Arrays reutilizados de partes de path (cero alocación por frame).
   const _unionParts     = [];
   const _sharedParts    = [];
+  const _divisionSharedParts = [];
   const _unsharedParts  = [];
   // Vectores de cámara scratch (reused): getCamFastInto escribe aquí.
   // 2 scratches para bordes (necesita cam1+cam2 simultáneos).
@@ -251,12 +253,13 @@
    */
   // ─── CACHE DE CLASIFICACIÓN DE ARISTAS (solo cambia con geometría, no con cámara) ──
   let _edgeCacheVersion = -1;
-  let _edgeCacheArray   = [];  // [{ p1: [pitch,yaw], p2: [pitch,yaw], shared: boolean }]
+  let _edgeCacheArray   = [];  // [{ p1, p2, shared, divisionShared, dash, gap }]
   let _edgeCacheCount   = 0;
 
   function _rebuildEdgeCache() {
     const lines = window.allDrawnLines;
     const edgeCounts = {};
+    const edgeOwners = {};
     const edgesArray = [];
 
     for (let i = 0; i < lines.length; i++) {
@@ -274,9 +277,11 @@
         const edgeKey = k1 < k2 ? k1 + '|' + k2 : k2 + '|' + k1;
         if (!edgeCounts[edgeKey]) {
           edgeCounts[edgeKey] = 1;
+          edgeOwners[edgeKey] = [{ parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx }];
           edgesArray.push({ p1: p1, p2: p2, key: edgeKey });
         } else {
           edgeCounts[edgeKey]++;
+          edgeOwners[edgeKey].push({ parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx });
         }
       }
     }
@@ -285,7 +290,18 @@
     _edgeCacheCount = edgesArray.length;
     for (let i = 0; i < edgesArray.length; i++) {
       const e = edgesArray[i];
-      _edgeCacheArray.push({ p1: e.p1, p2: e.p2, shared: edgeCounts[e.key] > 1 });
+      const owners = edgeOwners[e.key] || [];
+      const divisionShared = owners.length > 1 && owners[0].parent && owners.every(function (owner) {
+        return owner.parent === owners[0].parent;
+      });
+      _edgeCacheArray.push({
+        p1: e.p1,
+        p2: e.p2,
+        shared: edgeCounts[e.key] > 1,
+        divisionShared: !!divisionShared,
+        dash: Number(owners[0] && owners[0].dash) || 9,
+        gap: Number(owners[0] && owners[0].gap) || 22
+      });
     }
     _edgeCacheVersion = window.DOMCache ? window.DOMCache.version : 0;
   }
@@ -293,8 +309,9 @@
   function _updateBorders(proj) {
     if (!_elShared || !_elUnshared) {
       _elShared   = document.getElementById('shared-edges-path');
+      _elDivisionShared = document.getElementById('division-shared-edges-path');
       _elUnshared = document.getElementById('unshared-edges-path');
-      if (!_elShared || !_elUnshared) return;
+      if (!_elShared || !_elDivisionShared || !_elUnshared) return;
     }
     if (!_elHover) _elHover = document.getElementById('hover-lote-edges-path');
 
@@ -305,6 +322,7 @@
 
     const FCam = window.FerrariCamera;
     _sharedParts.length = 0;
+    _divisionSharedParts.length = 0;
     _unsharedParts.length = 0;
 
     for (let i = 0; i < _edgeCacheCount; i++) {
@@ -318,7 +336,9 @@
         if (!pt1.visible || !pt2.visible) continue;
         const lineStr = 'M ' + pt1.px.toFixed(2) + ' ' + pt1.py.toFixed(2) + ' L ' + pt2.px.toFixed(2) + ' ' + pt2.py.toFixed(2);
 
-        if (e.shared) {
+        if (e.divisionShared) {
+          _divisionSharedParts.push(lineStr);
+        } else if (e.shared) {
           _sharedParts.push(lineStr);
         } else {
           _unsharedParts.push(lineStr);
@@ -327,8 +347,10 @@
     }
 
     const dShared    = _sharedParts.length   ? _sharedParts.join(' ')   : 'M -9999 -9999';
+    const dDivisionShared = _divisionSharedParts.length ? _divisionSharedParts.join(' ') : 'M -9999 -9999';
     const dUnshared  = _unsharedParts.length ? _unsharedParts.join(' ') : 'M -9999 -9999';
     if (_elShared.getAttribute('d')   !== dShared)   _elShared.setAttribute('d', dShared);
+    if (_elDivisionShared.getAttribute('d') !== dDivisionShared) _elDivisionShared.setAttribute('d', dDivisionShared);
     if (_elUnshared.getAttribute('d') !== dUnshared) _elUnshared.setAttribute('d', dUnshared);
 
     const baseF = 0.5 * proj.w;
@@ -339,6 +361,7 @@
     if (strokeW !== _lastBorderStroke) {
       _lastBorderStroke = strokeW;
       _elShared.style.strokeWidth = strokeW + 'px';
+      _elDivisionShared.style.strokeWidth = Math.max(1, strokeW * 1.1) + 'px';
       _elUnshared.style.strokeWidth = strokeW + 'px';
     }
 
@@ -350,6 +373,21 @@
       _lastBorderDash = dashStr;
       _elShared.setAttribute('stroke-dasharray', dashStr);
     }
+
+    // Las subdivisiones curvas usan un patrón mucho más aireado para no
+    // confundirse con un borde continuo. Toma los valores guardados en los lotes.
+    let divisionDash = 9;
+    let divisionGap = 22;
+    for (let i = 0; i < _edgeCacheCount; i++) {
+      if (_edgeCacheArray[i].divisionShared) {
+        divisionDash = _edgeCacheArray[i].dash;
+        divisionGap = _edgeCacheArray[i].gap;
+        break;
+      }
+    }
+    const divisionScale = Math.max(0.65, Math.min(2.2, scaleFactor));
+    _elDivisionShared.setAttribute('stroke-dasharray',
+      Math.round(divisionDash * divisionScale) + ' ' + Math.round(divisionGap * divisionScale));
 
     _updateHoverEdges(proj, scaleFactor);
   }
@@ -750,11 +788,12 @@
         if (line.tipo === 'division-curva') {
           const width = Math.max(1, Math.min(8, Number(line.grosorPx) || 3));
           const dash = Math.max(5, Math.min(30, Number(line.dashPx) || 14));
+          const gap = Math.max(8, Math.min(45, Number(line.gapPx) || 22));
           if (entry._lastDivisionWidth !== width) {
             entry._lastDivisionWidth = width;
             path.style.strokeWidth = width + 'px';
           }
-          const dashValue = dash + ' ' + Math.max(4, dash * 0.72);
+          const dashValue = dash + ' ' + gap;
           if (entry._lastDivisionDash !== dashValue) {
             entry._lastDivisionDash = dashValue;
             path.setAttribute('stroke-dasharray', dashValue);

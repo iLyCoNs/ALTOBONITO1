@@ -13,6 +13,7 @@
   let _bound = false;
   let _widthPx = 3;
   let _dashPx = 14;
+  let _gapPx = 22;
   let _closed = false;
   let _preview = null;
 
@@ -64,6 +65,10 @@
     _bindSlider('division-dash-slider', 'division-dash-value', function (value) {
       _dashPx = Math.max(5, Math.min(30, value));
       return Math.round(_dashPx) + ' px';
+    });
+    _bindSlider('division-gap-slider', 'division-gap-value', function (value) {
+      _gapPx = Math.max(8, Math.min(45, value));
+      return Math.round(_gapPx) + ' px';
     });
 
     const closeToggle = document.getElementById('division-close-toggle');
@@ -124,6 +129,7 @@
       cerrada: _closed,
       grosorPx: _widthPx,
       dashPx: _dashPx,
+      gapPx: _gapPx,
       altitudM: ALTITUDE_M,
       createdAt: Date.now()
     });
@@ -263,6 +269,8 @@
     });
     base.tipo = 'lote-libre';
     base.subdivididoDe = parent.id;
+    base.divisionDashPx = _dashPx;
+    base.divisionGapPx = _gapPx;
     base.createdAt = Date.now();
 
     const areaA = window.FerrariMathScale.calculateGroundArea(polygonA, ALTITUDE_M);
@@ -403,7 +411,7 @@
     if (previewClosed && d) d += 'Z';
     el.setAttribute('d', d || 'M -9999 -9999');
     el.style.strokeWidth = _widthPx + 'px';
-    el.setAttribute('stroke-dasharray', _dashPx + ' ' + Math.max(4, _dashPx * 0.72));
+    el.setAttribute('stroke-dasharray', _dashPx + ' ' + _gapPx);
   }
 
   function _removePreview() {
