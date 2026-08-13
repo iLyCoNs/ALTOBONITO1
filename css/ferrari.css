@@ -565,6 +565,9 @@ body.kpk-lote-fill-hover-only .lote-interactivo:hover .path-default {
 .division-curva-active .path-lote-libre-preview {
   opacity: 0;
 }
+.division-curva-active .lote-interactivo {
+  pointer-events: none !important;
+}
 
 .division-close-toggle {
   display: flex;

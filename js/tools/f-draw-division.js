@@ -7,6 +7,7 @@
 (function () {
   const ALTITUDE_M = 120;
   const SUBDIVISIONS = 10;
+  const EDGE_SNAP_M = 9;
 
   let _active = false;
   let _bound = false;
@@ -87,8 +88,36 @@
       return;
     }
 
-    const smooth = _smoothOnGround(controls, _closed);
+    let smooth = _smoothOnGround(controls, _closed);
     if (smooth.length < minPoints) return;
+
+    if (!_closed) {
+      const split = _splitLoteLibre(smooth);
+      if (split) {
+        window.FerrariState.removeLine(split.source.id);
+        split.lotes.forEach(function (lote) {
+          window.FerrariState.addLine(lote);
+        });
+        window.FerrariOverlay.startDrawing([]);
+        _removePreview();
+        if (window.FerrariCamera) window.FerrariCamera.markDirty();
+        if (window.FerrariRAF && window.FerrariRAF.markDataDirty) window.FerrariRAF.markDataDirty();
+        window.FerrariHUD && window.FerrariHUD.updateDraw('division-curva', 0);
+        window.FerrariUI && window.FerrariUI.showToast(
+          'Lote Libre subdividido: se crearon dos nuevos Lotes Libres.',
+          'success'
+        );
+        return;
+      }
+      if (_curveInsideLoteLibre(smooth)) {
+        window.FerrariUI && window.FerrariUI.showToast(
+          'Para subdividir, comienza y termina la curva tocando dos bordes del Lote Libre.',
+          'info'
+        );
+        return;
+      }
+    }
+
     window.FerrariState.addLine({
       tipo: 'division-curva',
       puntos: smooth,
@@ -185,6 +214,158 @@
       }
     }
     if (!closed) output.push(points[points.length - 1].slice());
+    return output;
+  }
+
+  function _splitLoteLibre(smoothPoints) {
+    const lots = (window.allDrawnLines || []).filter(function (line) {
+      return line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3;
+    });
+    if (!lots.length || smoothPoints.length < 2) return null;
+
+    const startGround = _toGround(smoothPoints[0]);
+    const endGround = _toGround(smoothPoints[smoothPoints.length - 1]);
+    let best = null;
+
+    lots.forEach(function (lot) {
+      const polygon = lot.puntos.map(_toGround);
+      const start = _nearestOnBoundary(startGround, polygon);
+      const end = _nearestOnBoundary(endGround, polygon);
+      if (!start || !end || start.dist > EDGE_SNAP_M || end.dist > EDGE_SNAP_M) return;
+      if (start.edge === end.edge && Math.abs(start.t - end.t) < 0.04) return;
+      const mid = _toGround(smoothPoints[Math.floor(smoothPoints.length / 2)]);
+      if (!_pointInPolygon(mid, polygon)) return;
+      const score = start.dist + end.dist;
+      if (!best || score < best.score) best = { lot: lot, polygon: polygon, start: start, end: end, score: score };
+    });
+    if (!best) return null;
+
+    const snappedStart = _toSphere(best.start.point);
+    const snappedEnd = _toSphere(best.end.point);
+    const divider = smoothPoints.map(function (point) { return point.slice(); });
+    divider[0] = snappedStart;
+    divider[divider.length - 1] = snappedEnd;
+
+    const boundaryA = _boundaryPath(best.lot.puntos, best.start, best.end);
+    const boundaryB = _boundaryPath(best.lot.puntos, best.end, best.start);
+    if (boundaryA.length < 2 || boundaryB.length < 2) return null;
+
+    const polygonA = _dedupePoints(boundaryA.concat(divider.slice().reverse().slice(1, -1)));
+    const polygonB = _dedupePoints(boundaryB.concat(divider.slice(1, -1)));
+    if (polygonA.length < 3 || polygonB.length < 3) return null;
+
+    const parent = best.lot;
+    const baseTitle = parent.titulo || 'Lote';
+    const base = {};
+    Object.keys(parent).forEach(function (key) {
+      if (key === 'id' || key === 'puntos' || key.charAt(0) === '_') return;
+      base[key] = parent[key];
+    });
+    base.tipo = 'lote-libre';
+    base.subdivididoDe = parent.id;
+    base.createdAt = Date.now();
+
+    const areaA = window.FerrariMathScale.calculateGroundArea(polygonA, ALTITUDE_M);
+    const areaB = window.FerrariMathScale.calculateGroundArea(polygonB, ALTITUDE_M);
+
+    return {
+      source: parent,
+      lotes: [
+        Object.assign({}, base, {
+          puntos: polygonA,
+          titulo: baseTitle + ' A',
+          dimensiones: Math.round(areaA).toString(),
+          hasSmartPin: false
+        }),
+        Object.assign({}, base, {
+          puntos: polygonB,
+          titulo: baseTitle + ' B',
+          dimensiones: Math.round(areaB).toString(),
+          hasSmartPin: false
+        })
+      ]
+    };
+  }
+
+  function _toGround(point) {
+    return window.FerrariMathScale.pitchYawToGround(point[0], point[1], ALTITUDE_M);
+  }
+
+  function _toSphere(point) {
+    const sphere = window.FerrariMathScale.groundToPitchYaw(point.x, point.z, ALTITUDE_M);
+    return [sphere.pitch, sphere.yaw];
+  }
+
+  function _nearestOnBoundary(point, polygon) {
+    let best = null;
+    for (let i = 0; i < polygon.length; i++) {
+      const a = polygon[i];
+      const b = polygon[(i + 1) % polygon.length];
+      const dx = b.x - a.x;
+      const dz = b.z - a.z;
+      const len2 = dx * dx + dz * dz;
+      let t = len2 > 1e-9 ? ((point.x - a.x) * dx + (point.z - a.z) * dz) / len2 : 0;
+      t = Math.max(0, Math.min(1, t));
+      const q = { x: a.x + dx * t, z: a.z + dz * t };
+      const dist = Math.hypot(point.x - q.x, point.z - q.z);
+      if (!best || dist < best.dist) best = { edge: i, t: t, point: q, dist: dist };
+    }
+    return best;
+  }
+
+  function _boundaryPath(points, from, to) {
+    const output = [_toSphere(from.point)];
+    if (from.edge === to.edge && from.t > to.t) {
+      for (let step = 0; step < points.length; step++) {
+        output.push(points[(from.edge + 1 + step) % points.length].slice());
+      }
+      output.push(_toSphere(to.point));
+      return output;
+    }
+    let edge = from.edge;
+    let guard = 0;
+    while (edge !== to.edge && guard++ <= points.length) {
+      output.push(points[(edge + 1) % points.length].slice());
+      edge = (edge + 1) % points.length;
+    }
+    output.push(_toSphere(to.point));
+    return output;
+  }
+
+  function _curveInsideLoteLibre(points) {
+    if (!points.length) return false;
+    const sample = _toGround(points[Math.floor(points.length / 2)]);
+    return (window.allDrawnLines || []).some(function (line) {
+      return line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3 &&
+        _pointInPolygon(sample, line.puntos.map(_toGround));
+    });
+  }
+
+  function _pointInPolygon(point, polygon) {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const a = polygon[i];
+      const b = polygon[j];
+      const crosses = ((a.z > point.z) !== (b.z > point.z)) &&
+        (point.x < (b.x - a.x) * (point.z - a.z) / ((b.z - a.z) || 1e-9) + a.x);
+      if (crosses) inside = !inside;
+    }
+    return inside;
+  }
+
+  function _dedupePoints(points) {
+    const output = [];
+    points.forEach(function (point) {
+      const last = output[output.length - 1];
+      if (!last || Math.abs(last[0] - point[0]) > 1e-7 || Math.abs(last[1] - point[1]) > 1e-7) {
+        output.push(point);
+      }
+    });
+    if (output.length > 2) {
+      const first = output[0];
+      const last = output[output.length - 1];
+      if (Math.abs(first[0] - last[0]) < 1e-7 && Math.abs(first[1] - last[1]) < 1e-7) output.pop();
+    }
     return output;
   }
 
