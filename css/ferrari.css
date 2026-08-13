@@ -542,6 +542,44 @@ body.kpk-lote-fill-hover-only .lote-interactivo:hover .path-default {
   filter: none;
 }
 
+.path-division-curva-line {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.94);
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  pointer-events: none;
+  paint-order: stroke;
+}
+
+.division-curva-preview {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 3px;
+  stroke-dasharray: 14 10;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.division-curva-active .path-lote-libre-preview {
+  opacity: 0;
+}
+
+.division-close-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  color: var(--f-text-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.division-close-toggle input {
+  accent-color: var(--f-accent);
+}
+
 .kpk-width-panel-hint {
   margin: 7px 0 0;
   color: var(--f-text-muted);

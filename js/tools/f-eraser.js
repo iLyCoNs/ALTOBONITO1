@@ -65,9 +65,10 @@
 
     for (const line of window.allDrawnLines) {
       const isReturn = line.tipo === 'calle-retorno';
+      const isClosed = isReturn || (line.tipo === 'division-curva' && line.cerrada);
       const dist = isReturn && _pointInProjectedPolygon(line.puntos, cursor.px, cursor.py, proj)
         ? 0
-        : _minDistToLine(line.puntos, cursor.px, cursor.py, proj, isReturn);
+        : _minDistToLine(line.puntos, cursor.px, cursor.py, proj, isClosed);
       if (dist < bestDist) {
         bestDist = dist;
         bestId   = line.id;

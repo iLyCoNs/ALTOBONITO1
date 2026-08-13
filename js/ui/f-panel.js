@@ -72,6 +72,7 @@
     registerTool(window.FerrariDrawLote);
     registerTool(window.FerrariDrawCalle);
     registerTool(window.FerrariDrawRetorno);
+    registerTool(window.FerrariDrawDivision);
     registerTool(window.FerrariDrawHilera);
     registerTool(window.FerrariEraser);
     registerTool(window.FerrariEdit);
@@ -87,6 +88,7 @@
     window.FerrariDrawLote.bindEvents();
     window.FerrariDrawCalle.bindEvents();
     window.FerrariDrawRetorno.bindEvents();
+    window.FerrariDrawDivision.bindEvents();
     window.FerrariDrawHilera.bindEvents();
     window.FerrariEraser.bindEvents();
     window.FerrariEdit.bindEvents();
@@ -120,6 +122,7 @@
     _bindToolButton('tool-calle',         () => _activateTool('calle'));
     _bindToolButton('tool-calle-arq2',    () => _activateTool('calle-curva-arq2'));
     _bindToolButton('tool-calle-retorno', () => _activateTool('calle-retorno'));
+    _bindToolButton('tool-division-curva', () => _activateTool('division-curva'));
     _bindToolButton('tool-hilera',        () => _activateTool('hilera'));
     _bindToolButton('tool-edit',          () => _activateTool('edit'));
     _bindToolButton('tool-eraser',        () => _activateTool('eraser'));
@@ -248,6 +251,9 @@
       case 'calle-retorno':
         window.FerrariDrawRetorno.activate();
         break;
+      case 'division-curva':
+        window.FerrariDrawDivision.activate();
+        break;
       case 'hilera':
         window.FerrariDrawHilera.activate();
         break;
@@ -346,6 +352,8 @@
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
     } else if (window.FerrariDrawCalle.isActive()) {
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    } else if (window.FerrariDrawDivision.isActive()) {
+      window.FerrariDrawDivision.finish();
     }
   }
 

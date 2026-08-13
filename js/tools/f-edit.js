@@ -157,6 +157,7 @@
       const line = lines[i];
       if (!line.puntos) continue;
       if (line.tipo === 'calle-retorno') continue;
+      if (line.tipo === 'division-curva') continue;
 
       for (let j = 0; j < line.puntos.length; j++) {
         const pt = line.puntos[j];
@@ -183,6 +184,7 @@
         const line = lines[i];
         if (!line.puntos) continue;
         if (line.tipo === 'calle-retorno') continue;
+        if (line.tipo === 'division-curva') continue;
 
         for (let j = 0; j < line.puntos.length; j++) {
           const pt = line.puntos[j];

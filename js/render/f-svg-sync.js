@@ -25,6 +25,7 @@
     'calle':               'layer-calles-asfalto',
     'calle-curva-arq2':    'layer-calles-arq2',
     'calle-retorno':       'layer-calles-asfalto',
+    'division-curva':      'layer-divisiones',
     'franja-grupo':        'layer-lotes',
     'franja-curva-grupo':  'layer-lotes',
     'costura':             'layer-calles-bordes',
@@ -135,6 +136,11 @@
     else if (tipo === 'calle-retorno') {
       const p1 = _createSVGEl('path');
       p1.classList.add('path-calle-edge');
+      g.appendChild(p1);
+    }
+    else if (tipo === 'division-curva') {
+      const p1 = _createSVGEl('path');
+      p1.classList.add('path-division-curva-line');
       g.appendChild(p1);
     }
     else if (tipo === 'lote-libre' || tipo === 'lote-organico') {

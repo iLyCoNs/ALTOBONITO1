@@ -81,6 +81,7 @@
         <path id="hover-lote-edges-path" class="path-border-hover-fx" d="M -9999 -9999" fill="none" />
       </g>
       <g id="layer-calles-arq2"     class="svg-layer"></g>
+      <g id="layer-divisiones"      class="svg-layer"></g>
       <!-- Calco KMZ/KML (debajo del overlay de dibujo, sin pointer-events) -->
       <g id="layer-kmz-calco"       class="svg-layer" style="display:none" pointer-events="none"></g>
       <g id="kpk-draw-overlay"      class="svg-layer svg-overlay-active"></g>
@@ -143,6 +144,10 @@
       <button id="tool-calle-retorno" class="kpk-tool-btn" data-tool="calle-retorno" title="Cabeza de retorno / cul-de-sac" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20a8 8 0 1 0-8-8"/><path d="M4 5v7h7"/><path d="M4 12h8"/></svg>
         <span>Retorno</span>
+      </button>
+      <button id="tool-division-curva" class="kpk-tool-btn" data-tool="division-curva" title="División territorial curva punteada" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 16c4-8 8-8 11-3s5 3 7-2" stroke-dasharray="3 2"/><circle cx="3" cy="16" r="1.2"/><circle cx="21" cy="11" r="1.2"/></svg>
+        <span>División Curva</span>
       </button>
       <button id="tool-edit"          class="kpk-tool-btn" data-tool="edit"          title="Editar Lotes" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/><line x1="18" y1="8" x2="18" y2="16"/></svg>
@@ -290,6 +295,24 @@
       </div>
       <input type="range" id="retorno-size-slider" min="4" max="44" step="0.5" value="12" aria-label="Diámetro del retorno en metros">
       <p class="kpk-width-panel-hint">Ajuste fino desde 4 m · las líneas de la calle quedan siempre por encima.</p>
+    </div>
+
+    <div id="division-curva-panel" class="kpk-width-panel" style="display:none" aria-label="División curva punteada">
+      <div class="kpk-width-panel-header">
+        <span>Grosor línea</span>
+        <span id="division-width-value">3 px</span>
+      </div>
+      <input type="range" id="division-width-slider" min="1" max="8" step="0.5" value="3" aria-label="Grosor de división curva">
+      <div class="kpk-width-panel-header">
+        <span>Tamaño punteado</span>
+        <span id="division-dash-value">14 px</span>
+      </div>
+      <input type="range" id="division-dash-slider" min="5" max="30" step="1" value="14" aria-label="Tamaño del punteado">
+      <label class="division-close-toggle">
+        <input type="checkbox" id="division-close-toggle">
+        <span>Cerrar como óvalo o perímetro</span>
+      </label>
+      <p class="kpk-width-panel-hint">Coloca varios puntos · Enter termina · activa “cerrar” para formar un óvalo.</p>
     </div>
 
     <!-- Panel de datos de Hilera de Lotes -->
@@ -562,16 +585,16 @@
   <script src="js/core/f-idle-cam.js?v=3"></script>
 
   <!-- Ferrari Render: sync → paths → overlay -->
-  <script src="js/render/f-svg-sync.js?v=14"></script>
-  <script src="js/render/f-svg-paths.js?v=30"></script>
+  <script src="js/render/f-svg-sync.js?v=15"></script>
+  <script src="js/render/f-svg-paths.js?v=31"></script>
   <script src="js/render/f-smart-pins.js?v=1"></script>
   <script src="js/render/f-overlay.js?v=13"></script>
   <script src="js/render/f-geo-pins.js?v=32"></script>
 
   <!-- Ferrari UI -->
   <script src="js/ui/f-draggable.js?v=1"></script>
-  <script src="js/ui/f-panel.js?v=19"></script>
-  <script src="js/ui/f-hud.js?v=17"></script>
+  <script src="js/ui/f-panel.js?v=20"></script>
+  <script src="js/ui/f-hud.js?v=18"></script>
   <script src="js/tools/f-street-network.js?v=16"></script>
   <script src="js/ui/f-persist.js?v=15"></script>
   <script src="js/ui/f-brand-dock.js?v=9"></script>
@@ -586,9 +609,10 @@
   <script src="js/tools/f-draw-lote.js?v=13"></script>
   <script src="js/tools/f-draw-calle.js?v=16"></script>
   <script src="js/tools/f-draw-retorno.js?v=3"></script>
+  <script src="js/tools/f-draw-division.js?v=1"></script>
   <script src="js/tools/f-draw-hilera.js?v=12"></script>
-  <script src="js/tools/f-eraser.js?v=13"></script>
-  <script src="js/tools/f-edit.js?v=19"></script>
+  <script src="js/tools/f-eraser.js?v=14"></script>
+  <script src="js/tools/f-edit.js?v=20"></script>
   <script src="js/tools/f-add-pin.js?v=12"></script>
   <script src="js/tools/f-geo-tools.js?v=17"></script>
   <script src="js/tools/f-kmz-calco.js?v=2"></script>

@@ -184,6 +184,7 @@
       const line = lines[i];
       if (line.puntos === undefined) continue;
       if (line.tipo === 'calle-retorno') continue;
+      if (line.tipo === 'division-curva') continue;
 
       for (let j = 0; j < line.puntos.length; j++) {
         const pt = line.puntos[j];
@@ -569,12 +570,14 @@
         line.tipo === 'lote-organico'      ||
         line.tipo === 'franja-grupo'       ||
         line.tipo === 'franja-curva-grupo' ||
-        line.tipo === 'kprano-capsule'
+        line.tipo === 'kprano-capsule'     ||
+        (line.tipo === 'division-curva' && line.cerrada)
       );
 
       const isStreetAxis = (line.tipo === 'calle' || line.tipo === 'calle-curva-arq2');
       const isStreetSurface = line.tipo === 'calle-retorno';
       const isCalleType = isStreetAxis || isStreetSurface;
+      const isLongLinear = isCalleType || line.tipo === 'division-curva';
 
       // ── Culling: si el centroide está muy lejos del viewport, saltar
       //    todo el cómputo pesado (trigonometría + string + DOM).
@@ -607,7 +610,7 @@
         // cachea por array (seguro: _pinCentroid se invalida al cambiar geometría).
         const cc = FCam.getCamFastInto(repPt, _camA);
         if (cc.z <= 0.0001) {
-          if (isCalleType && line.puntos && line.puntos.length >= 2) {
+          if (isLongLinear && line.puntos && line.puntos.length >= 2) {
             let anyFront = false;
             for (let k = 0; k < line.puntos.length; k += Math.max(1, Math.floor(line.puntos.length / 6))) {
               const tc = FCam.getCamFastInto(line.puntos[k], _camB);
@@ -629,7 +632,7 @@
           const cullFactor = window.FerrariDevice && window.FerrariDevice.getTier() === 'low' ? 1.2 : 2;
           const cullM = Math.max(proj.w, proj.h) * cullFactor * Math.max(1, scaleFactor);
           if (cpx < -cullM || cpx > proj.w + cullM || cpy < -cullM || cpy > proj.h + cullM) {
-            if (isCalleType && line.puntos && line.puntos.length >= 2) {
+            if (isLongLinear && line.puntos && line.puntos.length >= 2) {
               let anyNear = false;
               for (let k = 0; k < line.puntos.length; k += Math.max(1, Math.floor(line.puntos.length / 6))) {
                 const tc = FCam.getCamFastInto(line.puntos[k], _camB);
@@ -743,6 +746,19 @@
           path.setAttribute('d', d);
           if (entry.pathEls[1]) entry.pathEls[1].setAttribute('d', d);
           if (entry.pathEls[2]) entry.pathEls[2].setAttribute('d', d);
+        }
+        if (line.tipo === 'division-curva') {
+          const width = Math.max(1, Math.min(8, Number(line.grosorPx) || 3));
+          const dash = Math.max(5, Math.min(30, Number(line.dashPx) || 14));
+          if (entry._lastDivisionWidth !== width) {
+            entry._lastDivisionWidth = width;
+            path.style.strokeWidth = width + 'px';
+          }
+          const dashValue = dash + ' ' + Math.max(4, dash * 0.72);
+          if (entry._lastDivisionDash !== dashValue) {
+            entry._lastDivisionDash = dashValue;
+            path.setAttribute('stroke-dasharray', dashValue);
+          }
         }
       }
       
