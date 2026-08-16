@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1786567765054,
+  "updatedAt": 1786851794499,
   "droneOrigin": {
     "lat": -41.4806906,
     "lng": -73.0191634,
@@ -8,26 +8,6 @@
   },
   "northOffset": 0,
   "pins": [
-    {
-      "id": "cda31d74-a8c9-4f04-9d37-72aa233e3a3e",
-      "tipo": "amenidad",
-      "categoria": "agua_potable",
-      "titulo": "Agua potable",
-      "pitch": -82.53089927786573,
-      "yaw": -158.14541032368794,
-      "lat": null,
-      "lng": null,
-      "notas": "",
-      "icon": null,
-      "grupo": null,
-      "scale": 1,
-      "lockYaw": true,
-      "createdAt": 1786566881691,
-      "routeDistM": null,
-      "routeSec": null,
-      "routeSource": null,
-      "routeManual": false
-    },
     {
       "id": "ce3ad453-8e4e-4fda-84ea-e7063d0c1082",
       "tipo": "poi",
