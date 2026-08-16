@@ -76,6 +76,7 @@
     registerTool(window.FerrariDrawHilera);
     registerTool(window.FerrariEraser);
     registerTool(window.FerrariEdit);
+    if (window.FerrariLinkLotes) registerTool(window.FerrariLinkLotes);
     registerTool(window.FerrariAddPin);
     registerTool(window.FerrariGeoTools);
     if (window.FerrariKmzCalco) {
@@ -92,6 +93,7 @@
     window.FerrariDrawHilera.bindEvents();
     window.FerrariEraser.bindEvents();
     window.FerrariEdit.bindEvents();
+    if (window.FerrariLinkLotes && window.FerrariLinkLotes.bindEvents) window.FerrariLinkLotes.bindEvents();
     window.FerrariAddPin.bindEvents();
     window.FerrariGeoTools.bindEvents();
     if (window.FerrariKmzCalco && window.FerrariKmzCalco.bindEvents) {
@@ -125,6 +127,7 @@
     _bindToolButton('tool-division-curva', () => _activateTool('division-curva'));
     _bindToolButton('tool-hilera',        () => _activateTool('hilera'));
     _bindToolButton('tool-edit',          () => _activateTool('edit'));
+    _bindToolButton('tool-link-lotes',    () => _activateTool('anexar-lotes'));
     _bindToolButton('tool-eraser',        () => _activateTool('eraser'));
     _bindToolButton('tool-smart-pin',     () => _activateTool('smart-pin'));
     _bindToolButton('tool-geo-north',     () => _activateTool('geo-north'));
@@ -192,6 +195,10 @@
     }, false);
 
     btnFinish && btnFinish.addEventListener('click', function() {
+      if (window.FerrariLinkLotes && window.FerrariLinkLotes.isActive()) {
+        window.FerrariLinkLotes.finish();
+        return;
+      }
       const pts = window.FerrariOverlay.getActivePoints();
       if (pts.length < 2) {
         window.FerrariUI && window.FerrariUI.showToast('Se necesitan al menos 2 vértices.', 'error');
@@ -283,6 +290,9 @@
         break;
       case 'edit':
         window.FerrariEdit.activate();
+        break;
+      case 'anexar-lotes':
+        window.FerrariLinkLotes.activate();
         break;
       case 'eraser':
         window.FerrariEraser.activate();
@@ -400,6 +410,8 @@
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
     } else if (window.FerrariDrawDivision.isActive()) {
       window.FerrariDrawDivision.finish();
+    } else if (window.FerrariLinkLotes && window.FerrariLinkLotes.isActive()) {
+      window.FerrariLinkLotes.finish();
     }
   }
 

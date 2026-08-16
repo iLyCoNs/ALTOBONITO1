@@ -88,6 +88,7 @@
     'calle-curva-arq2':  'Calle Curva',
     'calle-retorno':     'Cabeza de Retorno',
     'division-curva':    'División Curva',
+    'anexar-lotes':      'Anexar partes',
     'geo-north':         'Fijar Norte',
     'geo-horizonte':     'Pin Horizonte',
     'geo-ruta':          'Pin Ruta',
@@ -103,6 +104,7 @@
     'calle-curva-arq2':  'Click: punto · Enter/2×click: terminar · Esc: cancelar',
     'calle-retorno':     'Ajusta el diámetro · apunta a una calle · click para fusionar',
     'division-curva':    'Click: puntos guía · Enter/2×click: terminar · opción cerrar: óvalo',
+    'anexar-lotes':      'Click: selecciona 2 o más partes · Enter: anexar · Esc: limpiar',
     'geo-north':         'Click en la dirección del Norte real para calibrar la brújula',
     'geo-horizonte':     'Click · busca ciudad/volcán · coords automáticas · Maps/Waze',
     'geo-ruta':          'Click · busca acceso/carretera · GPS automático · Maps/Waze',
@@ -114,7 +116,7 @@
   function showDraw(tipo) {
     if (!_elHudDraw) return;
     if (_elTool)  _elTool.textContent  = TOOL_LABELS[tipo] || tipo;
-    if (_elCount) _elCount.textContent = '0 vértices';
+    if (_elCount) _elCount.textContent = tipo === 'anexar-lotes' ? '0 partes' : '0 vértices';
     if (_elHint)  _elHint.textContent  = TOOL_HINTS[tipo]  || 'Click para agregar puntos';
     _elHudDraw.style.display = 'flex';
   }
@@ -126,7 +128,9 @@
   function updateDraw(tipo, count) {
     if (!_elHudDraw || _elHudDraw.style.display === 'none') return;
     if (_elCount) {
-      _elCount.textContent = `${count} vértic${count === 1 ? 'e' : 'es'}`;
+      _elCount.textContent = tipo === 'anexar-lotes'
+        ? `${count} parte${count === 1 ? '' : 's'}`
+        : `${count} vértic${count === 1 ? 'e' : 'es'}`;
     }
   }
 

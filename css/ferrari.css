@@ -311,6 +311,18 @@ body.kpk-lote-fill-hover-only .lote-interactivo:hover .path-default {
   paint-order: stroke fill;
 }
 
+/* Selección explícita de fragmentos para formar un lote lógico único. */
+body.link-lotes-active .lote-interactivo {
+  cursor: cell !important;
+}
+.lote-interactivo.is-link-selected .path-lote,
+.lote-interactivo.is-link-selected .path-default {
+  fill: rgba(92, 255, 231, 0.3) !important;
+  stroke: #5CFFE7 !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 0 6px rgba(92, 255, 231, 0.85));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .path-border-hover-fx.is-active {
     animation: none;

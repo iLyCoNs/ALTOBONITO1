@@ -24,7 +24,7 @@
   let _elHandles  = null;
   let _hoveredLoteId = null;
   let _lastHoverD = '';
-  let _lastPointerG = null;
+  const _lastPointerGs = [];
   let _hoverBound = false;
   let _hoverRaf = 0;
   let _hoverMx = 0;
@@ -277,19 +277,65 @@
         const edgeKey = k1 < k2 ? k1 + '|' + k2 : k2 + '|' + k1;
         if (!edgeCounts[edgeKey]) {
           edgeCounts[edgeKey] = 1;
-          edgeOwners[edgeKey] = [{ parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx }];
+          edgeOwners[edgeKey] = [{ lineId: line.id, parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx }];
           edgesArray.push({ p1: p1, p2: p2, key: edgeKey });
         } else {
           edgeCounts[edgeKey]++;
-          edgeOwners[edgeKey].push({ parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx });
+          edgeOwners[edgeKey].push({ lineId: line.id, parent: line.subdivididoDe || null, dash: line.divisionDashPx, gap: line.divisionGapPx });
+        }
+      }
+    }
+
+    // Recuperación de medianeras antiguas: antes del cierre magnético era
+    // posible dibujar dos curvas casi iguales sin que sus coordenadas fueran
+    // idénticas. Las consolidamos en una sola costura punteada centrada.
+    const math = window.FerrariMathScale;
+    if (math && math.pitchYawToGround && math.groundToPitchYaw) {
+      const toleranceM = 2.5;
+      const matched = new Set();
+      const ground = function (point) {
+        return math.pitchYawToGround(point[0], point[1], 120);
+      };
+      const distance = function (a, b) {
+        return Math.hypot(a.x - b.x, a.z - b.z);
+      };
+      for (let i = 0; i < edgesArray.length; i++) {
+        const a = edgesArray[i];
+        if (edgeCounts[a.key] > 1 || matched.has(i)) continue;
+        const ownerA = edgeOwners[a.key] && edgeOwners[a.key][0];
+        const a1 = ground(a.p1);
+        const a2 = ground(a.p2);
+        for (let j = i + 1; j < edgesArray.length; j++) {
+          const b = edgesArray[j];
+          if (edgeCounts[b.key] > 1 || matched.has(j)) continue;
+          const ownerB = edgeOwners[b.key] && edgeOwners[b.key][0];
+          if (!ownerA || !ownerB || ownerA.lineId === ownerB.lineId) continue;
+          const b1 = ground(b.p1);
+          const b2 = ground(b.p2);
+          const direct = Math.max(distance(a1, b1), distance(a2, b2));
+          const reverse = Math.max(distance(a1, b2), distance(a2, b1));
+          const reversed = reverse < direct;
+          if (Math.min(direct, reverse) > toleranceM) continue;
+
+          const c1 = reversed ? b2 : b1;
+          const c2 = reversed ? b1 : b2;
+          const avg1 = math.groundToPitchYaw((a1.x + c1.x) / 2, (a1.z + c1.z) / 2, 120);
+          const avg2 = math.groundToPitchYaw((a2.x + c2.x) / 2, (a2.z + c2.z) / 2, 120);
+          a.p1 = [avg1.pitch, avg1.yaw];
+          a.p2 = [avg2.pitch, avg2.yaw];
+          a.approxShared = true;
+          b.hiddenApproxDuplicate = true;
+          matched.add(i);
+          matched.add(j);
+          break;
         }
       }
     }
 
     _edgeCacheArray = [];
-    _edgeCacheCount = edgesArray.length;
     for (let i = 0; i < edgesArray.length; i++) {
       const e = edgesArray[i];
+      if (e.hiddenApproxDuplicate) continue;
       const owners = edgeOwners[e.key] || [];
       const divisionShared = owners.length > 1 && owners[0].parent && owners.every(function (owner) {
         return owner.parent === owners[0].parent;
@@ -297,12 +343,13 @@
       _edgeCacheArray.push({
         p1: e.p1,
         p2: e.p2,
-        shared: edgeCounts[e.key] > 1,
+        shared: edgeCounts[e.key] > 1 || !!e.approxShared,
         divisionShared: !!divisionShared,
         dash: Number(owners[0] && owners[0].dash) || 9,
         gap: Number(owners[0] && owners[0].gap) || 22
       });
     }
+    _edgeCacheCount = _edgeCacheArray.length;
     _edgeCacheVersion = window.DOMCache ? window.DOMCache.version : 0;
   }
 
@@ -398,31 +445,31 @@
     let dHover = 'M -9999 -9999';
 
     if (_hoveredLoteId) {
-      const lines = window.allDrawnLines;
-      let line = null;
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].id === _hoveredLoteId) { line = lines[i]; break; }
-      }
-      if (line && line.puntos && line.puntos.length >= 2) {
+      const hoverLines = _logicalLoteMembers(_hoveredLoteId);
+      if (hoverLines.length) {
         const parts = [];
-        const n = line.puntos.length;
-        const closed = (
-          line.tipo === 'lote-libre' ||
-          line.tipo === 'lote-organico' ||
-          line.tipo === 'franja-grupo' ||
-          line.tipo === 'kprano-capsule'
-        );
-        const edgeCount = closed ? n : n - 1;
-        for (let j = 0; j < edgeCount; j++) {
-          const p1 = line.puntos[j];
-          const p2 = line.puntos[(j + 1) % n];
-          const cam1 = FCam.getCamFastInto(p1, _camA);
-          const cam2 = FCam.getCamFastInto(p2, _camB);
-          if (cam1.z <= 0.0001 || cam2.z <= 0.0001) continue;
-          const pt1 = FCam.camToPixel(cam1, proj);
-          const pt2 = FCam.camToPixel(cam2, proj);
-          if (!pt1.visible || !pt2.visible) continue;
-          parts.push('M ' + pt1.px.toFixed(2) + ' ' + pt1.py.toFixed(2) + ' L ' + pt2.px.toFixed(2) + ' ' + pt2.py.toFixed(2));
+        for (let h = 0; h < hoverLines.length; h++) {
+          const line = hoverLines[h];
+          if (!line.puntos || line.puntos.length < 2) continue;
+          const n = line.puntos.length;
+          const closed = (
+            line.tipo === 'lote-libre' ||
+            line.tipo === 'lote-organico' ||
+            line.tipo === 'franja-grupo' ||
+            line.tipo === 'kprano-capsule'
+          );
+          const edgeCount = closed ? n : n - 1;
+          for (let j = 0; j < edgeCount; j++) {
+            const p1 = line.puntos[j];
+            const p2 = line.puntos[(j + 1) % n];
+            const cam1 = FCam.getCamFastInto(p1, _camA);
+            const cam2 = FCam.getCamFastInto(p2, _camB);
+            if (cam1.z <= 0.0001 || cam2.z <= 0.0001) continue;
+            const pt1 = FCam.camToPixel(cam1, proj);
+            const pt2 = FCam.camToPixel(cam2, proj);
+            if (!pt1.visible || !pt2.visible) continue;
+            parts.push('M ' + pt1.px.toFixed(2) + ' ' + pt1.py.toFixed(2) + ' L ' + pt2.px.toFixed(2) + ' ' + pt2.py.toFixed(2));
+          }
         }
         if (parts.length) dHover = parts.join(' ');
       }
@@ -447,16 +494,18 @@
     _hoveredLoteId = next;
 
     // Clase visual en el <g> del lote
-    if (_lastPointerG) {
-      _lastPointerG.classList.remove('is-pointer');
-      _lastPointerG = null;
+    while (_lastPointerGs.length) {
+      const oldGroup = _lastPointerGs.pop();
+      if (oldGroup) oldGroup.classList.remove('is-pointer');
     }
     if (next && window.DOMCache && window.DOMCache.paths) {
-      const entry = window.DOMCache.paths.get(next);
-      if (entry && entry.gNode) {
+      const members = _logicalLoteMembers(next);
+      members.forEach(function (line) {
+        const entry = window.DOMCache.paths.get(line.id);
+        if (!entry || !entry.gNode) return;
         entry.gNode.classList.add('is-pointer');
-        _lastPointerG = entry.gNode;
-      }
+        _lastPointerGs.push(entry.gNode);
+      });
     }
 
     try {
@@ -469,6 +518,37 @@
         _updateHoverEdges(proj, scaleFactor);
       }
     } catch (e) { /* ok */ }
+  }
+
+  function _normalizeLoteNumber(title) {
+    return String(title || '')
+      .trim()
+      .toLocaleLowerCase('es-CL')
+      .replace(/^lote\s*[-:#]?\s*/, '')
+      .replace(/\s+/g, ' ');
+  }
+
+  function _logicalLoteMembers(id) {
+    const lines = window.allDrawnLines || [];
+    let source = null;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].id === id) { source = lines[i]; break; }
+    }
+    if (!source) return [];
+
+    if (source.loteGrupoId) {
+      return lines.filter(function (line) {
+        return _isLoteHoverable(line) && line.loteGrupoId === source.loteGrupoId;
+      });
+    }
+
+    // Sin anexo explícito, repetir el mismo Número/ID de lote también basta.
+    const number = _normalizeLoteNumber(source.titulo);
+    if (!number) return [source];
+    const matches = lines.filter(function (line) {
+      return _isLoteHoverable(line) && _normalizeLoteNumber(line.titulo) === number;
+    });
+    return matches.length > 1 ? matches : [source];
   }
 
   function _pointInPoly(x, y, pts) {
@@ -973,6 +1053,7 @@
     updateSVGPaths,
     calculateStreetPolygon: _createStreetPolygon,
     setHoveredLote,
+    getLogicalLoteMembers: _logicalLoteMembers,
     bindHoverTracking
   };
 

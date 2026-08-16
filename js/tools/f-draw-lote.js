@@ -216,10 +216,10 @@
       return;
     }
 
-    // Tres puntos que parten y terminan sobre el perímetro de un Lote Libre
-    // representan una subdivisión, no un triángulo independiente. Ambos lotes
+    // Un trazado que parte y termina sobre el perímetro de un Lote Libre
+    // representa una subdivisión o un lote adyacente, no un polígono aislado. Ambos lotes
     // reutilizan exactamente el mismo trazado para impedir huecos o solapes.
-    if (tipo === 'lote-libre' && pts.length === 3) {
+    if (tipo === 'lote-libre' && pts.length >= 3) {
       const split = _splitExistingFreeLot(pts);
       if (split) {
         const nextLines = window.allDrawnLines.slice();
@@ -396,15 +396,14 @@
   }
 
   /**
-   * Divide un Lote Libre cuando una polilínea de tres puntos une dos bordes
-   * y su punto central cae dentro del lote.
+   * Divide o anexa un Lote Libre cuando una polilínea une dos puntos del borde.
    */
   function _splitExistingFreeLot(points) {
     const math = window.FerrariMathScale;
-    if (!math || points.length !== 3) return null;
+    if (!math || points.length < 3) return null;
 
     const startGround = _lotPointToGround(points[0]);
-    const middleGround = _lotPointToGround(points[1]);
+    const middleGround = _lotPointToGround(points[Math.floor(points.length / 2)]);
     const endGround = _lotPointToGround(points[2]);
     const candidates = (window.allDrawnLines || []).filter(line =>
       line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3

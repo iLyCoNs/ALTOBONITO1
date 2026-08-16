@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&family=Josefin+Sans:wght@400;500;600&family=Montserrat:wght@500;600;700&family=Outfit:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="pannellum.css?v=7">
-  <link rel="stylesheet" href="css/ferrari.css?v=50">
+  <link rel="stylesheet" href="css/ferrari.css?v=51">
   <!-- Pills dock/CTA glass (vence a ferrari). Clásico: css/kbd-buttons-classic.css al final. -->
   <link rel="stylesheet" href="css/kbd-buttons-glass.css?v=4">
   <link rel="stylesheet" href="css/f-gallery.css?v=1">
@@ -153,6 +153,10 @@
       <button id="tool-edit"          class="kpk-tool-btn" data-tool="edit"          title="Editar Lotes" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/><line x1="18" y1="8" x2="18" y2="16"/></svg>
         <span>Editar Lotes</span>
+      </button>
+      <button id="tool-link-lotes" class="kpk-tool-btn" data-tool="anexar-lotes" title="Anexar partes separadas de un mismo lote" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>
+        <span>Anexar partes</span>
       </button>
       <button id="tool-smart-pin" class="kpk-tool-btn" data-tool="smart-pin" title="Añadir Smart Pin" aria-label="Añadir Smart Pin">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -596,33 +600,34 @@
 
   <!-- Ferrari Render: sync → paths → overlay -->
   <script src="js/render/f-svg-sync.js?v=15"></script>
-  <script src="js/render/f-svg-paths.js?v=32"></script>
+  <script src="js/render/f-svg-paths.js?v=33"></script>
   <script src="js/render/f-smart-pins.js?v=1"></script>
   <script src="js/render/f-overlay.js?v=13"></script>
   <script src="js/render/f-geo-pins.js?v=32"></script>
 
   <!-- Ferrari UI -->
   <script src="js/ui/f-draggable.js?v=1"></script>
-  <script src="js/ui/f-panel.js?v=21"></script>
-  <script src="js/ui/f-hud.js?v=18"></script>
+  <script src="js/ui/f-panel.js?v=22"></script>
+  <script src="js/ui/f-hud.js?v=19"></script>
   <script src="js/tools/f-street-network.js?v=16"></script>
   <script src="js/ui/f-persist.js?v=15"></script>
   <script src="js/ui/f-brand-dock.js?v=9"></script>
   <script src="js/ui/f-buyer-dock.js?v=14"></script>
-  <script src="js/ui/f-lote-panel.js?v=16"></script>
+  <script src="js/ui/f-lote-panel.js?v=17"></script>
   <script src="js/ui/f-gallery.js?v=12"></script>
   <script src="js/ui/f-compass.js?v=18"></script>
   <script src="js/ui/f-geo-editor.js?v=25"></script>
   <script src="js/ui/f-tourism.js?v=15"></script>
 
   <!-- Ferrari Tools -->
-  <script src="js/tools/f-draw-lote.js?v=14"></script>
+  <script src="js/tools/f-draw-lote.js?v=15"></script>
   <script src="js/tools/f-draw-calle.js?v=16"></script>
   <script src="js/tools/f-draw-retorno.js?v=3"></script>
   <script src="js/tools/f-draw-division.js?v=3"></script>
   <script src="js/tools/f-draw-hilera.js?v=12"></script>
   <script src="js/tools/f-eraser.js?v=14"></script>
   <script src="js/tools/f-edit.js?v=20"></script>
+  <script src="js/tools/f-link-lotes.js?v=1"></script>
   <script src="js/tools/f-add-pin.js?v=12"></script>
   <script src="js/tools/f-geo-tools.js?v=17"></script>
   <script src="js/tools/f-kmz-calco.js?v=2"></script>

@@ -216,7 +216,17 @@
       caracteristicas: rawHashVal
     };
 
-    window.FerrariState.updateLine(_currentLoteId, updates);
+    const current = window.FerrariState.getLine(_currentLoteId);
+    if (current && current.loteGrupoId) {
+      const next = (window.allDrawnLines || []).map(function (line) {
+        return line.loteGrupoId === current.loteGrupoId
+          ? Object.assign({}, line, updates)
+          : line;
+      });
+      window.FerrariState.replaceAll(next);
+    } else {
+      window.FerrariState.updateLine(_currentLoteId, updates);
+    }
     window.FerrariCamera.markDirty(); // Forzar update visual del pin y lote
     
     if (window.FerrariUI && window.FerrariUI.showToast) {
