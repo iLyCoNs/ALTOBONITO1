@@ -392,6 +392,9 @@
    *  @returns {boolean} true si el intro arrancó ahora
    */
   function _tryCinematicIntro() {
+    // El modo Arquitecto arranca inmóvil para no desplazar los trazos.
+    // El recorrido puede habilitarse después desde su botón dedicado.
+    if (window.FERRARI_MODE === 'editor') return false;
     if (sessionStorage.getItem('ferrari_cinematic_played')) return false;
     const viewer = window.Ferrari && window.Ferrari.viewer;
     const lines = window.allDrawnLines || [];

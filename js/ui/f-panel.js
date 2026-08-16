@@ -135,6 +135,30 @@
     _bindToolButton('tool-geo-amenidad',  () => _activateTool('geo-amenidad'));
     _bindToolButton('tool-tone',          () => _activateTool('tone'));
 
+    const btnCameraFixed = document.getElementById('tool-camera-fixed');
+    if (btnCameraFixed) {
+      btnCameraFixed.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const api = window.FerrariIdleCam;
+        if (!api || typeof api.setEditorMotionEnabled !== 'function') return;
+        const enableMotion = !api.isEditorMotionEnabled();
+        api.setEditorMotionEnabled(enableMotion);
+        _syncCameraFixedBtn();
+        if (window.FerrariUI && window.FerrariUI.showToast) {
+          window.FerrariUI.showToast(
+            enableMotion ? 'Recorrido cinematográfico activado' : 'Cámara fija — ya puedes dibujar con precisión',
+            'info'
+          );
+        }
+      }, false);
+      // Arquitecto siempre inicia inmóvil, independientemente de otras tools.
+      if (window.FerrariIdleCam && window.FerrariIdleCam.setEditorMotionEnabled) {
+        window.FerrariIdleCam.setEditorMotionEnabled(false);
+      }
+      _syncCameraFixedBtn();
+    }
+
     const btnNearbyHide = document.getElementById('tool-geo-nearby-hide');
     if (btnNearbyHide) {
       btnNearbyHide.addEventListener('click', function (e) {
@@ -326,6 +350,28 @@
     btn.title = hidden
       ? 'Mostrar pins Cercanos en la foto'
       : 'Ocultar pins Cercanos mientras editas Horizonte';
+  }
+
+  function _syncCameraFixedBtn() {
+    const btn = document.getElementById('tool-camera-fixed');
+    const label = document.getElementById('tool-camera-fixed-label');
+    const icon = document.getElementById('tool-camera-fixed-icon');
+    if (!btn) return;
+    const motionEnabled = !!(window.FerrariIdleCam
+      && typeof window.FerrariIdleCam.isEditorMotionEnabled === 'function'
+      && window.FerrariIdleCam.isEditorMotionEnabled());
+    const fixed = !motionEnabled;
+    btn.classList.toggle('active', fixed);
+    btn.setAttribute('aria-pressed', fixed ? 'true' : 'false');
+    btn.title = fixed
+      ? 'Cámara fija: impide que el panorama se mueva solo'
+      : 'Recorrido activo: pulsa para inmovilizar la cámara';
+    if (label) label.textContent = fixed ? 'Cámara fija' : 'Recorrido cine';
+    if (icon) {
+      icon.innerHTML = fixed
+        ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>'
+        : '<path d="M8 5v14l11-7z"/>';
+    }
   }
 
   function _bindToolButton(id, handler) {

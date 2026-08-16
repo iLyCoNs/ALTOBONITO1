@@ -14,6 +14,13 @@
   var _started = false;
   var _terrainPitch = FALLBACK_PITCH;
   var _pendingTimer = null;
+  // En Arquitecto la cámara debe permanecer estable para dibujar con precisión.
+  // El usuario puede habilitar el recorrido manualmente desde el panel.
+  var _editorMotionEnabled = window.FERRARI_MODE !== 'editor';
+
+  function _motionAllowed() {
+    return window.FERRARI_MODE !== 'editor' || _editorMotionEnabled;
+  }
 
   function _viewer() {
     return window.Ferrari && window.Ferrari.viewer;
@@ -22,7 +29,7 @@
   function _restoreDelay(viewer) {
     try {
       var cfg = viewer.getConfig && viewer.getConfig();
-      if (cfg) cfg.autoRotateInactivityDelay = DELAY_MS;
+      if (cfg) cfg.autoRotateInactivityDelay = _motionAllowed() ? DELAY_MS : -1;
     } catch (e) {}
   }
 
@@ -41,7 +48,7 @@
   /** Config inicial del viewer (llamar desde _createViewer). */
   function applyViewerConfig(config) {
     if (!config) return config;
-    config.autoRotateInactivityDelay = DELAY_MS;
+    config.autoRotateInactivityDelay = _motionAllowed() ? DELAY_MS : -1;
     return config;
   }
 
@@ -49,6 +56,10 @@
     opts = opts || {};
     var viewer = _viewer();
     if (!viewer || !viewer.startAutoRotate) return;
+    if (!_motionAllowed()) {
+      pause();
+      return;
+    }
     if (_paused && !opts.force) return;
 
     if (opts.pitch != null) setTerrainPitch(opts.pitch);
@@ -76,10 +87,11 @@
       clearTimeout(_pendingTimer);
       _pendingTimer = null;
     }
+    if (!_motionAllowed()) return;
     var ms = delayMs == null ? 400 : delayMs;
     _pendingTimer = setTimeout(function () {
       _pendingTimer = null;
-      if (_paused) return;
+      if (_paused || !_motionAllowed()) return;
       start({ force: false });
     }, ms);
   }
@@ -101,6 +113,10 @@
   }
 
   function resume() {
+    if (!_motionAllowed()) {
+      pause();
+      return;
+    }
     if (!_paused && _started) return;
     _paused = false;
     if (!_armed && !_started) {
@@ -108,6 +124,21 @@
       return;
     }
     start({ force: true });
+  }
+
+  function setEditorMotionEnabled(enabled) {
+    _editorMotionEnabled = !!enabled;
+    if (window.FERRARI_MODE !== 'editor') return;
+    if (!_editorMotionEnabled) {
+      pause();
+    } else {
+      _paused = false;
+      scheduleStart(120);
+    }
+  }
+
+  function isEditorMotionEnabled() {
+    return window.FERRARI_MODE !== 'editor' || _editorMotionEnabled;
   }
 
   function isPaused() { return !!_paused; }
@@ -123,6 +154,8 @@
     scheduleStart: scheduleStart,
     pause: pause,
     resume: resume,
+    setEditorMotionEnabled: setEditorMotionEnabled,
+    isEditorMotionEnabled: isEditorMotionEnabled,
     isPaused: isPaused,
     isStarted: isStarted
   };
