@@ -25,6 +25,7 @@
   let _bound        = false;  // Guard: listeners registrados solo una vez
   let _lastSnapMeta = null;
   let _pointSnapMeta = [];
+  let _snapTargetLotId = null;
   const GROUND_ALTITUDE_M = 120;
   const LOT_EDGE_SNAP_M = 1.25;
 
@@ -37,6 +38,7 @@
     _activeTool = tipo;
     _pointSnapMeta = [];
     _lastSnapMeta = null;
+    _snapTargetLotId = null;
 
     // UI
     document.getElementById('panorama-container').classList.add('drawing-active');
@@ -60,6 +62,7 @@
     window.FerrariOverlay.clearOverlay();
     _pointSnapMeta = [];
     _lastSnapMeta = null;
+    _snapTargetLotId = null;
     _setPannellumDraggable(true);
 
     window.FerrariHUD && window.FerrariHUD.hideDraw();
@@ -124,6 +127,9 @@
 
     // Agregar vértice
     window.FerrariOverlay.addPoint(pitch, yaw);
+    if (_pointSnapMeta.length === 0 && _lastSnapMeta && _lastSnapMeta.lotId) {
+      _snapTargetLotId = _lastSnapMeta.lotId;
+    }
     _pointSnapMeta.push(_lastSnapMeta ? Object.assign({}, _lastSnapMeta) : null);
     _updateHUD();
   }
@@ -175,6 +181,9 @@
     }
 
     window.FerrariOverlay.addPoint(pitch, yaw);
+    if (_pointSnapMeta.length === 0 && _lastSnapMeta && _lastSnapMeta.lotId) {
+      _snapTargetLotId = _lastSnapMeta.lotId;
+    }
     _pointSnapMeta.push(_lastSnapMeta ? Object.assign({}, _lastSnapMeta) : null);
     _updateHUD();
   }
@@ -198,6 +207,7 @@
         e.preventDefault();
         window.FerrariOverlay.removeLastPoint();
         _pointSnapMeta.pop();
+        if (_pointSnapMeta.length === 0) _snapTargetLotId = null;
         _updateHUD();
         break;
 
@@ -207,6 +217,7 @@
           e.preventDefault();
           window.FerrariOverlay.removeLastPoint();
           _pointSnapMeta.pop();
+          if (_pointSnapMeta.length === 0) _snapTargetLotId = null;
           _updateHUD();
         }
         break;
@@ -244,6 +255,7 @@
           window.FerrariOverlay.startDrawing([]);
           _pointSnapMeta = [];
           _lastSnapMeta = null;
+          _snapTargetLotId = null;
           _updateHUD();
           window.FerrariCamera && window.FerrariCamera.markDirty();
           window.FerrariRAF && window.FerrariRAF.markDataDirty && window.FerrariRAF.markDataDirty();
@@ -275,6 +287,7 @@
     window.FerrariOverlay.startDrawing([]);
     _pointSnapMeta = [];
     _lastSnapMeta = null;
+    _snapTargetLotId = null;
     _updateHUD();
   }
 
@@ -286,6 +299,7 @@
     window.FerrariOverlay.startDrawing([]);
     _pointSnapMeta = [];
     _lastSnapMeta = null;
+    _snapTargetLotId = null;
     _updateHUD();
     window.FerrariUI && window.FerrariUI.showToast('Dibujo cancelado.', 'info');
   }
@@ -294,6 +308,7 @@
     if (!_activeTool) return;
     window.FerrariOverlay.removeLastPoint();
     _pointSnapMeta.pop();
+    if (_pointSnapMeta.length === 0) _snapTargetLotId = null;
     _updateHUD();
   }
 
@@ -325,9 +340,11 @@
     let snapPitchEdge = null;
     let snapYawEdge = null;
     let snapLotIdEdge = null;
+    let bestLotSnap = null;
 
     for (const line of window.allDrawnLines) {
       if (!line.puntos) continue;
+      if (_snapTargetLotId && line.id !== _snapTargetLotId) continue;
       
       const isCalle = (line.tipo === 'calle' || line.tipo === 'calle-curva-arq2');
       const isLote = (line.tipo === 'lote-libre' || line.tipo === 'lote-organico');
@@ -355,6 +372,9 @@
           snapPitchVertex = pt[0];
           snapYawVertex = pt[1];
           snapLotIdVertex = isLote ? line.id : null;
+          if (isLote && (!bestLotSnap || dist < bestLotSnap.dist)) {
+            bestLotSnap = { pitch: pt[0], yaw: pt[1], lotId: line.id, dist };
+          }
         }
       }
 
@@ -389,10 +409,23 @@
               snapPitchEdge = res[0];
               snapYawEdge = res[1];
               snapLotIdEdge = isLote ? line.id : null;
+              if (isLote && (!bestLotSnap || dist < bestLotSnap.dist)) {
+                bestLotSnap = { pitch: res[0], yaw: res[1], lotId: line.id, dist };
+              }
             }
           }
         }
       }
+    }
+
+    // Una vez elegido un lote objetivo, cualquier punto que no esté realmente
+    // cerca de su borde queda libre. Calles, calcos y otros lotes no intervienen.
+    if (_snapTargetLotId) {
+      if (bestLotSnap) {
+        _lastSnapMeta = { lotId: bestLotSnap.lotId };
+        return [bestLotSnap.pitch, bestLotSnap.yaw];
+      }
+      return [rawPitch, rawYaw];
     }
 
     // 1b. Vértices del calco KMZ (prioridad al calco para calcado preciso)
@@ -404,6 +437,13 @@
         snapYawVertex = kmzSnap[1];
         snapLotIdVertex = null;
       }
+    }
+
+    // Para Lote Libre, un contorno de lote tiene prioridad sobre una calle
+    // cercana. Esto permite iniciar correctamente una subdivisión.
+    if (bestLotSnap && snapDistVertex !== 0) {
+      _lastSnapMeta = { lotId: bestLotSnap.lotId };
+      return [bestLotSnap.pitch, bestLotSnap.yaw];
     }
     
     // Seleccionar el snap más cercano (borde vs vértice)
