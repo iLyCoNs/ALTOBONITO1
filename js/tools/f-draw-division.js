@@ -19,6 +19,7 @@
 
   function activate() {
     window.FerrariTools.deactivateAllTools();
+    const repaired = _repairStandaloneMedianeras();
     _active = true;
     window.currentTool = 'division-curva';
     document.getElementById('panorama-container').classList.add('drawing-active', 'division-curva-active');
@@ -28,8 +29,10 @@
     _setDraggable(false);
     window.FerrariHUD && window.FerrariHUD.showDraw('division-curva');
     window.FerrariUI && window.FerrariUI.showToast(
-      'División Curva: marca puntos sobre el terreno y pulsa Enter para terminar.',
-      'info'
+      repaired
+        ? 'Medianera anterior reparada · ya puedes continuar dibujando.'
+        : 'División Curva: marca puntos sobre el terreno y pulsa Enter para terminar.',
+      repaired ? 'success' : 'info'
     );
   }
 
@@ -97,6 +100,25 @@
     if (smooth.length < minPoints) return;
 
     if (!_closed) {
+      const reshaped = _reshapeExistingMedianera(smooth);
+      if (reshaped) {
+        const replacements = new Map(reshaped.lotes.map(function (line) { return [line.id, line]; }));
+        const nextLines = (window.allDrawnLines || []).map(function (line) {
+          return replacements.get(line.id) || line;
+        });
+        window.FerrariState.replaceAll(nextLines);
+        window.FerrariOverlay.startDrawing([]);
+        _removePreview();
+        if (window.FerrariCamera) window.FerrariCamera.markDirty();
+        if (window.FerrariRAF && window.FerrariRAF.markDataDirty) window.FerrariRAF.markDataDirty();
+        window.FerrariHUD && window.FerrariHUD.updateDraw('division-curva', 0);
+        window.FerrariUI && window.FerrariUI.showToast(
+          'Medianera reemplazada: ambos lotes comparten ahora la curva punteada.',
+          'success'
+        );
+        return;
+      }
+
       const split = _splitLoteLibre(smooth);
       if (split) {
         window.FerrariState.removeLine(split.source.id);
@@ -295,6 +317,136 @@
     };
   }
 
+  /**
+   * Si ya existen dos lotes unidos por una arista recta, sustituye esa arista
+   * en ambos polígonos por la curva recién trazada. Evita conservar el cordón
+   * sólido debajo de una división punteada independiente.
+   */
+  function _reshapeExistingMedianera(smoothPoints) {
+    if (!smoothPoints || smoothPoints.length < 2) return null;
+    const lots = (window.allDrawnLines || []).filter(function (line) {
+      return line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3;
+    });
+    if (lots.length < 2) return null;
+
+    const startGround = _toGround(smoothPoints[0]);
+    const endGround = _toGround(smoothPoints[smoothPoints.length - 1]);
+    const candidates = [];
+
+    lots.forEach(function (lot) {
+      const polygon = lot.puntos.map(_toGround);
+      const start = _nearestOnBoundary(startGround, polygon);
+      const end = _nearestOnBoundary(endGround, polygon);
+      if (!start || !end || start.dist > EDGE_SNAP_M || end.dist > EDGE_SNAP_M) return;
+      if (start.edge === end.edge && Math.abs(start.t - end.t) < 0.04) return;
+
+      const pathA = _boundaryPath(lot.puntos, start, end);
+      const pathB = _boundaryPath(lot.puntos, end, start);
+      const lengthA = _spherePathLength(pathA);
+      const lengthB = _spherePathLength(pathB);
+      const replaceA = lengthA <= lengthB;
+      candidates.push({
+        lot: lot,
+        start: start,
+        end: end,
+        oldPath: replaceA ? pathA : pathB.slice().reverse(),
+        preservedPath: replaceA ? pathB : pathA,
+        preservedStartsAtEnd: replaceA,
+        score: start.dist + end.dist
+      });
+    });
+    if (candidates.length < 2) return null;
+
+    // Solo transformar cuando dos lotes comparten la misma medianera previa.
+    // Se comparan los extremos y la longitud para tolerar pequeñas diferencias antiguas.
+    let pair = null;
+    for (let i = 0; i < candidates.length && !pair; i++) {
+      for (let j = i + 1; j < candidates.length; j++) {
+        if (!_sameMedianera(candidates[i].oldPath, candidates[j].oldPath)) continue;
+        pair = [candidates[i], candidates[j]];
+        break;
+      }
+    }
+    if (!pair) return null;
+
+    const divider = smoothPoints.map(function (point) { return point.slice(); });
+    divider[0] = _toSphere(pair[0].start.point);
+    divider[divider.length - 1] = _toSphere(pair[0].end.point);
+
+    const updated = pair.map(function (candidate) {
+      let polygon;
+      const perimeter = candidate.preservedPath.map(function (point) { return point.slice(); });
+      if (candidate.preservedStartsAtEnd) {
+        // end → perímetro exterior → start → curva → end
+        perimeter[0] = divider[divider.length - 1].slice();
+        perimeter[perimeter.length - 1] = divider[0].slice();
+        polygon = _dedupePoints(perimeter.concat(divider.slice(1, -1)));
+      } else {
+        // start → perímetro exterior → end → curva inversa → start
+        perimeter[0] = divider[0].slice();
+        perimeter[perimeter.length - 1] = divider[divider.length - 1].slice();
+        polygon = _dedupePoints(perimeter.concat(divider.slice().reverse().slice(1, -1)));
+      }
+      return Object.assign({}, candidate.lot, {
+        puntos: polygon,
+        divisionDashPx: _dashPx,
+        divisionGapPx: _gapPx
+      });
+    });
+    if (updated.some(function (line) { return !line.puntos || line.puntos.length < 3; })) return null;
+    return { lotes: updated };
+  }
+
+  function _repairStandaloneMedianeras() {
+    const attempted = new Set();
+    let repaired = 0;
+    let guard = 0;
+    while (guard++ < 30) {
+      const division = (window.allDrawnLines || []).find(function (line) {
+        return line.tipo === 'division-curva' && !line.cerrada && !attempted.has(line.id);
+      });
+      if (!division) break;
+      attempted.add(division.id);
+      const result = _reshapeExistingMedianera(division.puntos);
+      if (!result) continue;
+
+      const replacements = new Map(result.lotes.map(function (line) { return [line.id, line]; }));
+      const next = (window.allDrawnLines || [])
+        .filter(function (line) { return line.id !== division.id; })
+        .map(function (line) { return replacements.get(line.id) || line; });
+      window.FerrariState.replaceAll(next);
+      repaired++;
+    }
+    if (repaired) {
+      if (window.FerrariCamera) window.FerrariCamera.markDirty();
+      if (window.FerrariRAF && window.FerrariRAF.markDataDirty) window.FerrariRAF.markDataDirty();
+    }
+    return repaired;
+  }
+
+  function _spherePathLength(points) {
+    let length = 0;
+    for (let i = 1; i < points.length; i++) {
+      const a = _toGround(points[i - 1]);
+      const b = _toGround(points[i]);
+      length += Math.hypot(b.x - a.x, b.z - a.z);
+    }
+    return length;
+  }
+
+  function _sameMedianera(pathA, pathB) {
+    if (!pathA || !pathB || pathA.length < 2 || pathB.length < 2) return false;
+    const a0 = _toGround(pathA[0]);
+    const a1 = _toGround(pathA[pathA.length - 1]);
+    const b0 = _toGround(pathB[0]);
+    const b1 = _toGround(pathB[pathB.length - 1]);
+    const direct = Math.hypot(a0.x - b0.x, a0.z - b0.z) + Math.hypot(a1.x - b1.x, a1.z - b1.z);
+    const reverse = Math.hypot(a0.x - b1.x, a0.z - b1.z) + Math.hypot(a1.x - b0.x, a1.z - b0.z);
+    const lenA = _spherePathLength(pathA);
+    const lenB = _spherePathLength(pathB);
+    return Math.min(direct, reverse) <= EDGE_SNAP_M * 2 && Math.abs(lenA - lenB) <= Math.max(EDGE_SNAP_M * 2, Math.min(lenA, lenB) * 0.18);
+  }
+
   function _toGround(point) {
     return window.FerrariMathScale.pitchYawToGround(point[0], point[1], ALTITUDE_M);
   }
@@ -454,6 +606,14 @@
     window.FerrariHUD && window.FerrariHUD.updateDraw('division-curva', count);
   }
 
-  window.FerrariDrawDivision = { activate, deactivate, isActive, bindEvents, finish };
+  window.FerrariDrawDivision = {
+    activate,
+    deactivate,
+    isActive,
+    bindEvents,
+    finish,
+    reshapeExistingMedianera: _reshapeExistingMedianera,
+    repairStandaloneMedianeras: _repairStandaloneMedianeras
+  };
   console.log('[Ferrari/DivisiónCurva] ✓ Módulo inicializado');
 })();
