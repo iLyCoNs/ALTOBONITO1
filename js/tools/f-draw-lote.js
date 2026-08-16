@@ -23,8 +23,10 @@
 
   let _activeTool   = null;   // 'lote-libre' | 'lote-organico' | null
   let _bound        = false;  // Guard: listeners registrados solo una vez
+  let _lastSnapMeta = null;
+  let _pointSnapMeta = [];
   const GROUND_ALTITUDE_M = 120;
-  const LOT_EDGE_SNAP_M = 12;
+  const LOT_EDGE_SNAP_M = 1.25;
 
   // ─── ACTIVACIÓN / DESACTIVACIÓN ───────────────────────────────────
 
@@ -33,6 +35,8 @@
     window.FerrariTools.deactivateAllTools();
 
     _activeTool = tipo;
+    _pointSnapMeta = [];
+    _lastSnapMeta = null;
 
     // UI
     document.getElementById('panorama-container').classList.add('drawing-active');
@@ -54,6 +58,8 @@
 
     document.getElementById('panorama-container').classList.remove('drawing-active');
     window.FerrariOverlay.clearOverlay();
+    _pointSnapMeta = [];
+    _lastSnapMeta = null;
     _setPannellumDraggable(true);
 
     window.FerrariHUD && window.FerrariHUD.hideDraw();
@@ -118,6 +124,7 @@
 
     // Agregar vértice
     window.FerrariOverlay.addPoint(pitch, yaw);
+    _pointSnapMeta.push(_lastSnapMeta ? Object.assign({}, _lastSnapMeta) : null);
     _updateHUD();
   }
 
@@ -130,6 +137,7 @@
     if (pts.length >= 2) {
       // El doble-click agrega un click primero — remover el último duplicado
       window.FerrariOverlay.removeLastPoint();
+      _pointSnapMeta.pop();
       _finishPolygon();
     }
   }
@@ -167,6 +175,7 @@
     }
 
     window.FerrariOverlay.addPoint(pitch, yaw);
+    _pointSnapMeta.push(_lastSnapMeta ? Object.assign({}, _lastSnapMeta) : null);
     _updateHUD();
   }
 
@@ -188,6 +197,7 @@
       case 'Backspace':
         e.preventDefault();
         window.FerrariOverlay.removeLastPoint();
+        _pointSnapMeta.pop();
         _updateHUD();
         break;
 
@@ -196,6 +206,7 @@
         if (e.ctrlKey || e.metaKey) {
           e.preventDefault();
           window.FerrariOverlay.removeLastPoint();
+          _pointSnapMeta.pop();
           _updateHUD();
         }
         break;
@@ -219,8 +230,11 @@
     // Un trazado que parte y termina sobre el perímetro de un Lote Libre
     // representa una subdivisión o un lote adyacente, no un polígono aislado. Ambos lotes
     // reutilizan exactamente el mismo trazado para impedir huecos o solapes.
-    if (tipo === 'lote-libre' && pts.length >= 3) {
-      const split = _splitExistingFreeLot(pts);
+    const firstSnap = _pointSnapMeta[0];
+    const lastSnap = _pointSnapMeta[pts.length - 1];
+    const explicitSameLotSnap = firstSnap && lastSnap && firstSnap.lotId === lastSnap.lotId;
+    if (tipo === 'lote-libre' && pts.length >= 3 && explicitSameLotSnap) {
+      const split = _splitExistingFreeLot(pts, firstSnap.lotId);
       if (split) {
         const nextLines = window.allDrawnLines.slice();
         const sourceIndex = nextLines.findIndex(line => line.id === split.source.id);
@@ -228,6 +242,8 @@
           nextLines.splice(sourceIndex, 1, split.lotes[0], split.lotes[1]);
           window.FerrariState.replaceAll(nextLines);
           window.FerrariOverlay.startDrawing([]);
+          _pointSnapMeta = [];
+          _lastSnapMeta = null;
           _updateHUD();
           window.FerrariCamera && window.FerrariCamera.markDirty();
           window.FerrariRAF && window.FerrariRAF.markDataDirty && window.FerrariRAF.markDataDirty();
@@ -257,6 +273,8 @@
 
     // Limpiar overlay y comenzar uno nuevo
     window.FerrariOverlay.startDrawing([]);
+    _pointSnapMeta = [];
+    _lastSnapMeta = null;
     _updateHUD();
   }
 
@@ -266,8 +284,17 @@
   function _cancelDrawing() {
     window.FerrariOverlay.clearOverlay();
     window.FerrariOverlay.startDrawing([]);
+    _pointSnapMeta = [];
+    _lastSnapMeta = null;
     _updateHUD();
     window.FerrariUI && window.FerrariUI.showToast('Dibujo cancelado.', 'info');
+  }
+
+  function undoLastPoint() {
+    if (!_activeTool) return;
+    window.FerrariOverlay.removeLastPoint();
+    _pointSnapMeta.pop();
+    _updateHUD();
   }
 
   // ─── HELPERS ────────────────────────────────────────────────────
@@ -278,6 +305,7 @@
    * Busca si el cursor está cerca de algún vértice existente para hacer Snap magnético.
    */
   function _findSnapPoint(e, rawPitch, rawYaw) {
+    _lastSnapMeta = null;
     if (!window.FerrariCamera) return [rawPitch, rawYaw];
     if (!window.allDrawnLines) window.allDrawnLines = [];
 
@@ -291,10 +319,12 @@
     let snapDistVertex = Infinity;
     let snapPitchVertex = null;
     let snapYawVertex = null;
+    let snapLotIdVertex = null;
 
     let snapDistEdge = Infinity;
     let snapPitchEdge = null;
     let snapYawEdge = null;
+    let snapLotIdEdge = null;
 
     for (const line of window.allDrawnLines) {
       if (!line.puntos) continue;
@@ -319,10 +349,12 @@
         const pxPt = window.FerrariCamera.camToPixel(cam, proj);
         const dist = Math.sqrt((pxPt.px - mx)**2 + (pxPt.py - my)**2);
         
-        if (dist < SNAP_RADIUS_PX && dist < snapDistVertex) {
+        const vertexRadius = isLote ? 8 : SNAP_RADIUS_PX;
+        if (dist < vertexRadius && dist < snapDistVertex) {
           snapDistVertex = dist;
           snapPitchVertex = pt[0];
           snapYawVertex = pt[1];
+          snapLotIdVertex = isLote ? line.id : null;
         }
       }
 
@@ -345,7 +377,8 @@
           const closest = getClosestOnSegment(mx, my, s1.px, s1.py, s2.px, s2.py);
           const dist = Math.sqrt((closest.x - mx)**2 + (closest.y - my)**2);
 
-          if (dist < SNAP_RADIUS_PX && dist < snapDistEdge) {
+          const edgeRadius = isLote ? 8 : SNAP_RADIUS_PX;
+          if (dist < edgeRadius && dist < snapDistEdge) {
             snapDistEdge = dist;
             const viewer = window.Ferrari && window.Ferrari.viewer;
             if (viewer) {
@@ -355,6 +388,7 @@
               });
               snapPitchEdge = res[0];
               snapYawEdge = res[1];
+              snapLotIdEdge = isLote ? line.id : null;
             }
           }
         }
@@ -368,6 +402,7 @@
         snapDistVertex = 0;
         snapPitchVertex = kmzSnap[0];
         snapYawVertex = kmzSnap[1];
+        snapLotIdVertex = null;
       }
     }
     
@@ -380,16 +415,20 @@
       if (snapDistVertex <= snapDistEdge + 5) {
         bestPitch = snapPitchVertex;
         bestYaw = snapYawVertex;
+        if (snapLotIdVertex) _lastSnapMeta = { lotId: snapLotIdVertex };
       } else {
         bestPitch = snapPitchEdge;
         bestYaw = snapYawEdge;
+        if (snapLotIdEdge) _lastSnapMeta = { lotId: snapLotIdEdge };
       }
     } else if (snapPitchVertex !== null) {
       bestPitch = snapPitchVertex;
       bestYaw = snapYawVertex;
+      if (snapLotIdVertex) _lastSnapMeta = { lotId: snapLotIdVertex };
     } else if (snapPitchEdge !== null) {
       bestPitch = snapPitchEdge;
       bestYaw = snapYawEdge;
+      if (snapLotIdEdge) _lastSnapMeta = { lotId: snapLotIdEdge };
     }
 
     return [bestPitch, bestYaw];
@@ -398,15 +437,16 @@
   /**
    * Divide o anexa un Lote Libre cuando una polilínea une dos puntos del borde.
    */
-  function _splitExistingFreeLot(points) {
+  function _splitExistingFreeLot(points, preferredLotId) {
     const math = window.FerrariMathScale;
     if (!math || points.length < 3) return null;
 
     const startGround = _lotPointToGround(points[0]);
     const middleGround = _lotPointToGround(points[Math.floor(points.length / 2)]);
-    const endGround = _lotPointToGround(points[2]);
+    const endGround = _lotPointToGround(points[points.length - 1]);
     const candidates = (window.allDrawnLines || []).filter(line =>
-      line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3
+      line.tipo === 'lote-libre' && line.puntos && line.puntos.length >= 3 &&
+      (!preferredLotId || line.id === preferredLotId)
     );
     let best = null;
 
@@ -697,6 +737,8 @@
     isActive,
     getActiveTool,
     bindEvents,
+    undoLastPoint,
+    cancelDrawing: _cancelDrawing,
     splitExistingFreeLot: _splitExistingFreeLot
   };
 

@@ -189,6 +189,10 @@
     const btnClearAll  = document.getElementById('action-clear-all');
 
     btnUndo && btnUndo.addEventListener('click', function() {
+      if (window.FerrariDrawLote && window.FerrariDrawLote.isActive()) {
+        window.FerrariDrawLote.undoLastPoint();
+        return;
+      }
       if (window.FerrariOverlay.hasActiveDrawing()) {
         window.FerrariOverlay.removeLastPoint();
       }
@@ -209,6 +213,10 @@
     }, false);
 
     btnCancel && btnCancel.addEventListener('click', function() {
+      if (window.FerrariDrawLote && window.FerrariDrawLote.isActive()) {
+        window.FerrariDrawLote.cancelDrawing();
+        return;
+      }
       window.FerrariOverlay.clearOverlay();
       window.FerrariOverlay.startDrawing([]);
       window.FerrariHUD && window.FerrariHUD.hideDraw();
