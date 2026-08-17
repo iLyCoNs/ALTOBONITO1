@@ -330,6 +330,124 @@
           break;
         }
       }
+
+      // Una arista larga puede equivaler a varias aristas cortas de los lotes
+      // vecinos. Clasificar por clave completa no detecta ese caso. Medimos
+      // solapes colineales, dejamos los tramos cortos como costura y retiramos
+      // del borde largo únicamente la porción que ya está compartida.
+      const coverageByEdge = new Map();
+      const groundCache = new Map();
+      const edgeGround = function (index) {
+        if (groundCache.has(index)) return groundCache.get(index);
+        const edge = edgesArray[index];
+        const a = ground(edge.p1);
+        const b = ground(edge.p2);
+        const value = { a: a, b: b, dx: b.x - a.x, dz: b.z - a.z };
+        value.len = Math.hypot(value.dx, value.dz);
+        groundCache.set(index, value);
+        return value;
+      };
+      const addCoverage = function (index, startM, endM, lengthM) {
+        if (endM <= startM || lengthM <= 1e-6) return;
+        if (!coverageByEdge.has(index)) coverageByEdge.set(index, []);
+        coverageByEdge.get(index).push([
+          Math.max(0, Math.min(1, startM / lengthM)),
+          Math.max(0, Math.min(1, endM / lengthM))
+        ]);
+      };
+      const COLLINEAR_TOLERANCE_M = 2.5;
+      const MIN_PARALLEL_COS = Math.cos(10 * Math.PI / 180);
+
+      for (let i = 0; i < edgesArray.length; i++) {
+        if (edgesArray[i].hiddenApproxDuplicate || edgeCounts[edgesArray[i].key] > 1) continue;
+        const ownerI = edgeOwners[edgesArray[i].key] && edgeOwners[edgesArray[i].key][0];
+        const gi = edgeGround(i);
+        if (!ownerI || gi.len < 0.5) continue;
+
+        for (let j = i + 1; j < edgesArray.length; j++) {
+          if (edgesArray[j].hiddenApproxDuplicate || edgeCounts[edgesArray[j].key] > 1) continue;
+          const ownerJ = edgeOwners[edgesArray[j].key] && edgeOwners[edgesArray[j].key][0];
+          const gj = edgeGround(j);
+          if (!ownerJ || ownerI.lineId === ownerJ.lineId || gj.len < 0.5) continue;
+
+          const cosine = Math.abs((gi.dx * gj.dx + gi.dz * gj.dz) / (gi.len * gj.len));
+          if (cosine < MIN_PARALLEL_COS) continue;
+
+          const longIndex = gi.len >= gj.len ? i : j;
+          const shortIndex = longIndex === i ? j : i;
+          const gl = longIndex === i ? gi : gj;
+          const gs = shortIndex === i ? gi : gj;
+          const ux = gl.dx / gl.len;
+          const uz = gl.dz / gl.len;
+          const perpendicular = function (point) {
+            return Math.abs((point.x - gl.a.x) * uz - (point.z - gl.a.z) * ux);
+          };
+          if (Math.max(perpendicular(gs.a), perpendicular(gs.b)) > COLLINEAR_TOLERANCE_M) continue;
+
+          const project = function (point) {
+            return (point.x - gl.a.x) * ux + (point.z - gl.a.z) * uz;
+          };
+          const s0 = project(gs.a);
+          const s1 = project(gs.b);
+          const overlapStart = Math.max(0, Math.min(s0, s1));
+          const overlapEnd = Math.min(gl.len, Math.max(s0, s1));
+          const overlap = overlapEnd - overlapStart;
+          if (overlap <= 0 || overlap / gs.len < 0.9) continue;
+
+          edgesArray[shortIndex].approxShared = true;
+          addCoverage(longIndex, overlapStart, overlapEnd, gl.len);
+        }
+      }
+
+      const derivedEdges = [];
+      coverageByEdge.forEach(function (intervals, index) {
+        const edge = edgesArray[index];
+        if (!edge || edge.hiddenApproxDuplicate || edge.approxShared || edgeCounts[edge.key] > 1) return;
+        intervals.sort(function (a, b) { return a[0] - b[0]; });
+        const merged = [];
+        intervals.forEach(function (interval) {
+          const last = merged[merged.length - 1];
+          if (!last || interval[0] > last[1] + 0.002) merged.push(interval.slice());
+          else last[1] = Math.max(last[1], interval[1]);
+        });
+
+        const sourceGround = edgeGround(index);
+        const sphereAt = function (t) {
+          const sphere = math.groundToPitchYaw(
+            sourceGround.a.x + sourceGround.dx * t,
+            sourceGround.a.z + sourceGround.dz * t,
+            120
+          );
+          return [sphere.pitch, sphere.yaw];
+        };
+        let cursor = 0;
+        let piece = 0;
+        merged.forEach(function (interval) {
+          if (interval[0] - cursor > 0.002) {
+            derivedEdges.push({
+              p1: sphereAt(cursor),
+              p2: sphereAt(interval[0]),
+              key: edge.key + '#libre-' + (piece++),
+              derivedOwners: edgeOwners[edge.key]
+            });
+          }
+          cursor = Math.max(cursor, interval[1]);
+        });
+        if (1 - cursor > 0.002) {
+          derivedEdges.push({
+            p1: sphereAt(cursor),
+            p2: sphereAt(1),
+            key: edge.key + '#libre-' + (piece++),
+            derivedOwners: edgeOwners[edge.key]
+          });
+        }
+        edge.hiddenApproxDuplicate = true;
+      });
+      derivedEdges.forEach(function (edge) {
+        edgeCounts[edge.key] = 1;
+        edgeOwners[edge.key] = edge.derivedOwners || [];
+        edgesArray.push(edge);
+      });
     }
 
     _edgeCacheArray = [];
@@ -1054,6 +1172,8 @@
     calculateStreetPolygon: _createStreetPolygon,
     setHoveredLote,
     getLogicalLoteMembers: _logicalLoteMembers,
+    rebuildEdgeCache: _rebuildEdgeCache,
+    getClassifiedEdges: function () { return _edgeCacheArray.slice(); },
     bindHoverTracking
   };
 
