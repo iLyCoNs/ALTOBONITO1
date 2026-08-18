@@ -995,14 +995,21 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 5",
+    "titulo": "01",
     "createdAt": 1786849958228,
     "id": "70ffb853-4efb-45d9-8eb6-1d00f09bb932",
     "_pinCentroid": [
       -61.06603052025071,
       -36.61736389044982
     ],
-    "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df"
+    "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df",
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "7.200",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
@@ -1065,14 +1072,18 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 6",
+    "titulo": "01",
     "createdAt": 1786849986973,
     "id": "369ab011-c303-40c2-b20b-4c5dc7b9ef53",
     "_pinCentroid": [
       -63.376420008045145,
       -24.98367540388153
     ],
-    "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df"
+    "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df",
+    "dimensiones": "7.200",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
