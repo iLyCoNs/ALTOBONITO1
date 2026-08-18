@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016588376,
+  "updatedAt": 1787016621264,
   "lotes": [
     {
       "tipo": "calle",
@@ -2949,7 +2949,10 @@
         -54.51381991909707,
         153.219378960838
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -54.356566806110216,
+        149.86425727899478
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
@@ -2977,14 +2980,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 49",
-      "dimensiones": "335",
-      "hasSmartPin": false,
+      "titulo": "50",
+      "dimensiones": "6.578",
+      "hasSmartPin": true,
       "createdAt": 1787009599670,
       "_pinCentroid": [
         -51.07412927528524,
         153.71897791348468
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "cec44678-4318-496e-b65f-766ce444f4cc",
