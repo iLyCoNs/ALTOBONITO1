@@ -3225,13 +3225,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 51",
+    "titulo": "33",
     "createdAt": 1787009812784,
     "id": "431212ff-a0b4-498f-954d-c1568f8ea2c4",
     "_pinCentroid": [
       -50.46204906935315,
       167.78053576821486
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "5.039",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "7cf73061-2c9b-4ab3-962a-177f64856164",
