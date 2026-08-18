@@ -2528,14 +2528,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 36",
-    "dimensiones": "335",
-    "hasSmartPin": false,
+    "titulo": "43",
+    "dimensiones": "5.000",
+    "hasSmartPin": true,
     "createdAt": 1787008809188,
     "_pinCentroid": [
       -39.6029608999025,
       142.56312781069929
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "9ae81d5e-47a9-43b5-b799-f723cdda6511",
