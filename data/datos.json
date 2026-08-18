@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015729626,
+  "updatedAt": 1787015762866,
   "lotes": [
     {
       "tipo": "calle",
@@ -1993,14 +1993,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 21",
-      "dimensiones": "329",
-      "hasSmartPin": false,
+      "titulo": "20",
+      "dimensiones": "5.162",
+      "hasSmartPin": true,
       "createdAt": 1786854533763,
       "_pinCentroid": [
         -69.61024398082255,
         146.32345114833146
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "104429fe-0596-485e-9f8f-63bc86225d5d",
