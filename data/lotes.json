@@ -2199,7 +2199,10 @@
       -172.39852678334876
     ],
     "hasSmartPin": true,
-    "pinPosition": null,
+    "pinPosition": [
+      -68.11300870284173,
+      -175.77987992856293
+    ],
     "pinPos": null,
     "dimensiones": "5.314",
     "valorUF": null,
@@ -2232,14 +2235,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 29",
-    "dimensiones": "337",
-    "hasSmartPin": false,
+    "titulo": "26",
+    "dimensiones": "5.058",
+    "hasSmartPin": true,
     "createdAt": 1786855244489,
     "_pinCentroid": [
       -66.4832217812769,
       -158.1525936807758
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "a40f365c-f168-4e56-84f3-1bbbee835051",
