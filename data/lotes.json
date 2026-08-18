@@ -1177,13 +1177,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 8",
+    "titulo": "09",
     "createdAt": 1786851637408,
     "id": "75d764fe-9d3b-4db8-9f68-76310211c38a",
     "_pinCentroid": [
       -83.76577212151172,
       25.867244735861327
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "6.122",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "a7dd7381-6fa4-4a48-b8c6-e001abf7b7c9",
@@ -1454,7 +1461,10 @@
       -75.5082350527367,
       70.18312600943591
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -72.68871009896574,
+      67.44648037896495
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
