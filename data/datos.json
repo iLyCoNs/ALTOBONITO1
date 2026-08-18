@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016854490,
+  "updatedAt": 1787016888274,
   "lotes": [
     {
       "tipo": "calle",
@@ -2709,14 +2709,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 40",
-      "dimensiones": "418",
-      "hasSmartPin": false,
+      "titulo": "39",
+      "dimensiones": "6.432",
+      "hasSmartPin": true,
       "createdAt": 1787009031485,
       "_pinCentroid": [
         -42.36812940581322,
         169.38614717786464
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "24e78f02-e1fd-48d0-bae2-9f25d99257a8",
@@ -2768,7 +2773,10 @@
         -41.87723904713986,
         176.5209007360269
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -42.4547125156247,
+        176.4716352265484
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
