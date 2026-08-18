@@ -1736,14 +1736,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 31",
-    "dimensiones": "309",
-    "hasSmartPin": false,
+    "titulo": "48",
+    "dimensiones": "5.422",
+    "hasSmartPin": true,
     "createdAt": 1787008571577,
     "_pinCentroid": [
       -54.90400071551141,
       133.49193235562032
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "ef55e55a-1ca6-455f-b11a-b1b29a109207",
@@ -1791,7 +1796,10 @@
       -52.42133341575565,
       138.62709227871764
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -51.036008381209655,
+      135.06902458904537
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
