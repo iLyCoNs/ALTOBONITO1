@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016783601,
+  "updatedAt": 1787016800737,
   "lotes": [
     {
       "tipo": "calle",
@@ -3349,14 +3349,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 54",
-      "dimensiones": "321",
-      "hasSmartPin": false,
+      "titulo": "36",
+      "dimensiones": "5.000",
+      "hasSmartPin": true,
       "createdAt": 1787009984281,
       "_pinCentroid": [
         -48.21088796674321,
         -169.21863538785323
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     }
   ],
   "geo": {
