@@ -1818,14 +1818,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 33",
-    "dimensiones": "295",
-    "hasSmartPin": false,
+    "titulo": "46",
+    "dimensiones": "5.149",
+    "hasSmartPin": true,
     "createdAt": 1787008666467,
     "_pinCentroid": [
       -48.31166375836375,
       138.91978785775734
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "17a1ad5f-d867-4f47-bc5a-6e724bd279b1",
