@@ -2050,8 +2050,8 @@
       143.9136231922712
     ],
     "pinPosition": [
-      -65.52352725448962,
-      153.50939690168155
+      -64.80988450480118,
+      147.64040611644418
     ],
     "pinPos": null,
     "valorUF": null,
@@ -2151,13 +2151,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 24",
+    "titulo": "24",
     "createdAt": 1786855055553,
     "id": "39b52d26-f5a7-4509-ab97-3369abb8d3be",
     "_pinCentroid": [
       -68.85334028337003,
       167.31033322343407
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "6.003",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
