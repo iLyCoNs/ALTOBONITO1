@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015847867,
+  "updatedAt": 1787015871547,
   "lotes": [
     {
       "tipo": "calle",
@@ -2194,13 +2194,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 28",
+      "titulo": "25",
       "createdAt": 1786855222893,
       "id": "aaad7fbe-9e59-4626-89e4-ccc1db8821d5",
       "_pinCentroid": [
         -68.9209298157193,
         -172.39852678334876
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.314",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "99401c0d-41a5-44fa-9cf5-d989403630cc",
