@@ -227,6 +227,16 @@
     } else {
       window.FerrariState.updateLine(_currentLoteId, updates);
     }
+
+    // El Smart Pin es un overlay HTML independiente del SVG: refrescarlo en
+    // este mismo instante para que "Lote..." cambie a "06" al guardar.
+    if (window.FerrariSmartPins) {
+      window.FerrariSmartPins.markDirty();
+      window.FerrariSmartPins.update();
+    }
+    if (window.FerrariRAF && window.FerrariRAF.markDataDirty) {
+      window.FerrariRAF.markDataDirty();
+    }
     window.FerrariCamera.markDirty(); // Forzar update visual del pin y lote
     
     if (window.FerrariUI && window.FerrariUI.showToast) {

@@ -98,6 +98,11 @@
     const estado = lote.estado || 'disponible';
     const titulo = lote.titulo || '';
 
+    // Guardar la versión mostrada. Sin esto, un pin recién creado no tenía
+    // referencia fiable para detectar inmediatamente un cambio de nombre.
+    el.dataset.estado = estado;
+    el.dataset.titulo = titulo;
+
     // Clases de estado
     el.className = 'sph-pin sph-' + estado;
 
