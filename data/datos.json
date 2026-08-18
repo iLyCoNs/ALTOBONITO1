@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016392823,
+  "updatedAt": 1787016426535,
   "lotes": [
     {
       "tipo": "calle",
@@ -1786,14 +1786,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 32",
-      "dimensiones": "358",
-      "hasSmartPin": false,
+      "titulo": "47",
+      "dimensiones": "5.089",
+      "hasSmartPin": true,
       "createdAt": 1787008650451,
       "_pinCentroid": [
         -52.42133341575565,
         138.62709227871764
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "24ecfd27-af7b-4d6c-9577-920edf629fb1",
@@ -1829,7 +1834,10 @@
         -48.31166375836375,
         138.91978785775734
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -47.8590101004116,
+        137.20863274588942
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
