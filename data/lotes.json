@@ -2757,14 +2757,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 41",
-    "dimensiones": "396",
-    "hasSmartPin": false,
+    "titulo": "38",
+    "dimensiones": "6.502",
+    "hasSmartPin": true,
     "createdAt": 1787009045151,
     "_pinCentroid": [
       -41.87723904713986,
       176.5209007360269
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "0229dfa3-27df-487a-a97c-0e0891bed0ed",
@@ -2804,7 +2809,10 @@
       -41.1837458768956,
       -176.1820934246277
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -42.11381837620116,
+      -176.23474055625854
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
