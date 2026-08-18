@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016108725,
+  "updatedAt": 1787016135388,
   "lotes": [
     {
       "tipo": "calle",
@@ -3036,14 +3036,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 46",
-      "dimensiones": "362",
-      "hasSmartPin": false,
+      "titulo": "30",
+      "dimensiones": "5.216",
+      "hasSmartPin": true,
       "createdAt": 1787009467726,
       "_pinCentroid": [
         -58.18662029165315,
         175.5310704972828
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "tipo": "lote-libre",
@@ -3078,7 +3083,10 @@
         -171.6017414179441
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -57.200553751874295,
+        -173.0848815338142
+      ],
       "pinPos": null,
       "dimensiones": "5.034",
       "valorUF": null,
