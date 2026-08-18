@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015342143,
+  "updatedAt": 1787015355223,
   "lotes": [
     {
       "tipo": "calle",
@@ -1284,7 +1284,10 @@
         -74.78742957869531,
         -84.00736718625323
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -75.53120317222181,
+        -86.80538848881766
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
