@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016550943,
+  "updatedAt": 1787016588376,
   "lotes": [
     {
       "tipo": "calle",
@@ -2941,14 +2941,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 44",
-      "dimensiones": "291",
-      "hasSmartPin": false,
+      "titulo": "49",
+      "dimensiones": "5.136",
+      "hasSmartPin": true,
       "createdAt": 1787009399470,
       "_pinCentroid": [
         -54.51381991909707,
         153.219378960838
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "7ef1d556-badc-472e-b444-0201c63c25a5",
