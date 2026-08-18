@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015555801,
+  "updatedAt": 1787015586393,
   "lotes": [
     {
       "tipo": "calle",
@@ -1894,7 +1894,10 @@
         96.97315485237466
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -81.45264033684859,
+        113.30877175911776
+      ],
       "pinPos": null,
       "dimensiones": "5.100",
       "valorUF": null,
@@ -1927,14 +1930,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 20",
-      "dimensiones": "377",
-      "hasSmartPin": false,
+      "titulo": "19",
+      "dimensiones": "5.050",
+      "hasSmartPin": true,
       "createdAt": 1786854518456,
       "_pinCentroid": [
         -75.44115467855286,
         139.76881939216008
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "dfb76c60-e8f4-48f4-bead-c60137b53f7b",
