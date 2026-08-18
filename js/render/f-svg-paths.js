@@ -332,10 +332,11 @@
       }
 
       // Una arista larga puede equivaler a varias aristas cortas de los lotes
-      // vecinos. Clasificar por clave completa no detecta ese caso. Medimos
-      // solapes colineales, dejamos los tramos cortos como costura y retiramos
-      // del borde largo únicamente la porción que ya está compartida.
+      // vecinos, o dos aristas pueden compartir solo su tramo central porque
+      // sus puntas terminan en lugares distintos. Clasificar por clave completa
+      // no detecta esos casos: recortamos ambas aristas en el solape real.
       const coverageByEdge = new Map();
+      const sharedDerivedByKey = new Map();
       const groundCache = new Map();
       const edgeGround = function (index) {
         if (groundCache.has(index)) return groundCache.get(index);
@@ -356,16 +357,28 @@
         ]);
       };
       const COLLINEAR_TOLERANCE_M = 2.5;
-      const MIN_PARALLEL_COS = Math.cos(10 * Math.PI / 180);
+      const MIN_PARALLEL_COS = Math.cos(12 * Math.PI / 180);
+      const MIN_SHARED_OVERLAP_M = 0.75;
+      const MIN_SHARED_OVERLAP_RATIO = 0.18;
+
+      const sharedSegmentKey = function (a, b) {
+        const precision = 20; // 5 cm: evita duplicados sin unir costuras vecinas.
+        const pointKey = function (point) {
+          return Math.round(point.x * precision) + ',' + Math.round(point.z * precision);
+        };
+        const ka = pointKey(a);
+        const kb = pointKey(b);
+        return ka < kb ? ka + '|' + kb : kb + '|' + ka;
+      };
 
       for (let i = 0; i < edgesArray.length; i++) {
-        if (edgesArray[i].hiddenApproxDuplicate || edgeCounts[edgesArray[i].key] > 1) continue;
+        if (edgesArray[i].hiddenApproxDuplicate || edgesArray[i].approxShared || edgeCounts[edgesArray[i].key] > 1) continue;
         const ownerI = edgeOwners[edgesArray[i].key] && edgeOwners[edgesArray[i].key][0];
         const gi = edgeGround(i);
         if (!ownerI || gi.len < 0.5) continue;
 
         for (let j = i + 1; j < edgesArray.length; j++) {
-          if (edgesArray[j].hiddenApproxDuplicate || edgeCounts[edgesArray[j].key] > 1) continue;
+          if (edgesArray[j].hiddenApproxDuplicate || edgesArray[j].approxShared || edgeCounts[edgesArray[j].key] > 1) continue;
           const ownerJ = edgeOwners[edgesArray[j].key] && edgeOwners[edgesArray[j].key][0];
           const gj = edgeGround(j);
           if (!ownerJ || ownerI.lineId === ownerJ.lineId || gj.len < 0.5) continue;
@@ -392,10 +405,59 @@
           const overlapStart = Math.max(0, Math.min(s0, s1));
           const overlapEnd = Math.min(gl.len, Math.max(s0, s1));
           const overlap = overlapEnd - overlapStart;
-          if (overlap <= 0 || overlap / gs.len < 0.9) continue;
+          if (overlap < MIN_SHARED_OVERLAP_M || overlap / gs.len < MIN_SHARED_OVERLAP_RATIO) continue;
 
-          edgesArray[shortIndex].approxShared = true;
+          const longStart = {
+            x: gl.a.x + ux * overlapStart,
+            z: gl.a.z + uz * overlapStart
+          };
+          const longEnd = {
+            x: gl.a.x + ux * overlapEnd,
+            z: gl.a.z + uz * overlapEnd
+          };
+          const sux = gs.dx / gs.len;
+          const suz = gs.dz / gs.len;
+          const projectShort = function (point) {
+            return (point.x - gs.a.x) * sux + (point.z - gs.a.z) * suz;
+          };
+          const shortM0 = projectShort(longStart);
+          const shortM1 = projectShort(longEnd);
+          const shortStart = Math.max(0, Math.min(shortM0, shortM1));
+          const shortEnd = Math.min(gs.len, Math.max(shortM0, shortM1));
+          if (shortEnd - shortStart < MIN_SHARED_OVERLAP_M) continue;
+
+          const shortGroundStart = {
+            x: gs.a.x + sux * shortStart,
+            z: gs.a.z + suz * shortStart
+          };
+          const shortGroundEnd = {
+            x: gs.a.x + sux * shortEnd,
+            z: gs.a.z + suz * shortEnd
+          };
+          const sameDirection = ux * sux + uz * suz >= 0;
+          const sharedStart = {
+            x: (longStart.x + (sameDirection ? shortGroundStart.x : shortGroundEnd.x)) / 2,
+            z: (longStart.z + (sameDirection ? shortGroundStart.z : shortGroundEnd.z)) / 2
+          };
+          const sharedEnd = {
+            x: (longEnd.x + (sameDirection ? shortGroundEnd.x : shortGroundStart.x)) / 2,
+            z: (longEnd.z + (sameDirection ? shortGroundEnd.z : shortGroundStart.z)) / 2
+          };
+          const sharedKey = sharedSegmentKey(sharedStart, sharedEnd);
+          if (!sharedDerivedByKey.has(sharedKey)) {
+            const sphereStart = math.groundToPitchYaw(sharedStart.x, sharedStart.z, 120);
+            const sphereEnd = math.groundToPitchYaw(sharedEnd.x, sharedEnd.z, 120);
+            sharedDerivedByKey.set(sharedKey, {
+              p1: [sphereStart.pitch, sphereStart.yaw],
+              p2: [sphereEnd.pitch, sphereEnd.yaw],
+              key: 'solape#' + sharedKey,
+              forceShared: true,
+              derivedOwners: [ownerI, ownerJ]
+            });
+          }
+
           addCoverage(longIndex, overlapStart, overlapEnd, gl.len);
+          addCoverage(shortIndex, shortStart, shortEnd, gs.len);
         }
       }
 
@@ -443,7 +505,7 @@
         }
         edge.hiddenApproxDuplicate = true;
       });
-      derivedEdges.forEach(function (edge) {
+      Array.from(sharedDerivedByKey.values()).concat(derivedEdges).forEach(function (edge) {
         edgeCounts[edge.key] = 1;
         edgeOwners[edge.key] = edge.derivedOwners || [];
         edgesArray.push(edge);
@@ -461,7 +523,7 @@
       _edgeCacheArray.push({
         p1: e.p1,
         p2: e.p2,
-        shared: edgeCounts[e.key] > 1 || !!e.approxShared,
+        shared: edgeCounts[e.key] > 1 || !!e.approxShared || !!e.forceShared,
         divisionShared: !!divisionShared,
         dash: Number(owners[0] && owners[0].dash) || 9,
         gap: Number(owners[0] && owners[0].gap) || 22
