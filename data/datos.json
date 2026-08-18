@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016955194,
+  "updatedAt": 1787016982834,
   "lotes": [
     {
       "tipo": "calle",
@@ -2566,14 +2566,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 37",
-      "dimensiones": "237",
-      "hasSmartPin": false,
+      "titulo": "42",
+      "dimensiones": "5.437",
+      "hasSmartPin": true,
       "createdAt": 1787008823063,
       "_pinCentroid": [
         -40.91389263948562,
         145.4735667098123
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "tipo": "lote-libre",
@@ -2628,7 +2633,10 @@
         152.20195995473028
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -42.00411535402297,
+        151.126449415682
+      ],
       "pinPos": null,
       "dimensiones": "5.874",
       "valorUF": null,
