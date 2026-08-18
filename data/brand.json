@@ -10,7 +10,7 @@
   "font": "montserrat",
   "dockStyle": "graphite",
   "mobileSolid": true,
-  "hideLoteFill": false,
+  "hideLoteFill": true,
   "loteFillOnHoverOnly": false,
   "loteHoverColor": "neon-green",
   "contact": {
@@ -26,5 +26,5 @@
     "waAlertsPhone": "",
     "waAlertsKey": ""
   },
-  "updatedAt": 1786570631149
+  "updatedAt": 1787012251241
 }
