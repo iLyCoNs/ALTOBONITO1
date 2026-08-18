@@ -802,13 +802,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 1",
+    "titulo": "03",
     "createdAt": 1786845641503,
     "id": "37bcd9e1-f75d-470c-8b3d-b20e058c7c00",
     "_pinCentroid": [
       -72.71906505707855,
       -58.46968010971381
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "6.000",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "e39e7a1f-ec37-45de-bb3e-1c76c66aefd3",
