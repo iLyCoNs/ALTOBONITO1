@@ -1395,7 +1395,10 @@
       -73.28277228109427,
       47.778055528820296
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -72.75242033780407,
+      43.47536624164655
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
@@ -1443,14 +1446,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 14",
-    "dimensiones": "372",
-    "hasSmartPin": false,
+    "titulo": "08",
+    "dimensiones": "5.186",
+    "hasSmartPin": true,
     "createdAt": 1786853658827,
     "_pinCentroid": [
       -75.5082350527367,
       70.18312600943591
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "6a017210-b976-4296-85bd-b3288f4032ce",
