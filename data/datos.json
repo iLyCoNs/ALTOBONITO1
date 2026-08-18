@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016916818,
+  "updatedAt": 1787016955194,
   "lotes": [
     {
       "tipo": "calle",
@@ -2620,13 +2620,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 38",
+      "titulo": "41",
       "createdAt": 1787008976723,
       "id": "e4dbbdd2-35bf-48f2-8aad-b14e11771ee5",
       "_pinCentroid": [
         -40.73015726832769,
         152.20195995473028
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.874",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "b4f699f3-ec0b-4f0f-9c92-e33a98128683",
@@ -2666,7 +2673,10 @@
         -43.05494976589223,
         160.40060537907777
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -43.512018912476115,
+        159.18668420938673
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
