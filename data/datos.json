@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015482280,
+  "updatedAt": 1787015505545,
   "lotes": [
     {
       "tipo": "calle",
@@ -2258,14 +2258,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 30",
-      "dimensiones": "437",
-      "hasSmartPin": false,
+      "titulo": "14",
+      "dimensiones": "5.269",
+      "hasSmartPin": true,
       "createdAt": 1786855464523,
       "_pinCentroid": [
         -79.0021600408285,
         -147.83310592228804
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "tipo": "calle",
