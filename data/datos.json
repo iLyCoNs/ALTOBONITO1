@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016135388,
+  "updatedAt": 1787016152629,
   "lotes": [
     {
       "tipo": "calle",
@@ -3006,13 +3006,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 45",
+      "titulo": "31",
       "createdAt": 1787009445398,
       "id": "4ccd5a23-9a45-45ac-9821-c47b89556be0",
       "_pinCentroid": [
         -57.16737670614605,
         164.39775571524635
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.091",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "decf930a-2dbc-4576-a61b-6d8d4a2f68bb",
