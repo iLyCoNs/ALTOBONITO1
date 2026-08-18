@@ -3067,13 +3067,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 47",
+    "titulo": "29",
     "createdAt": 1787009474672,
     "id": "eeaa0b10-b9e1-4b36-b3e4-1b71b98f2d21",
     "_pinCentroid": [
       -57.64444880039597,
       -171.6017414179441
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "5.034",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "c8e37dc0-5136-470a-b9f0-30489765eadc",
