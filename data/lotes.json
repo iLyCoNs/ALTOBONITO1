@@ -2243,7 +2243,10 @@
       -66.4832217812769,
       -158.1525936807758
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -66.09534941693838,
+      -161.06561979528706
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
@@ -2271,14 +2274,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 30",
-    "dimensiones": "377",
-    "hasSmartPin": false,
+    "titulo": "27",
+    "dimensiones": "5.123",
+    "hasSmartPin": true,
     "createdAt": 1786855258000,
     "_pinCentroid": [
       -62.80661677303145,
       -149.79659714792803
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
