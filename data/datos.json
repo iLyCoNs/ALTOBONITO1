@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016899238,
+  "updatedAt": 1787016916818,
   "lotes": [
     {
       "tipo": "calle",
@@ -2659,7 +2659,7 @@
       ],
       "estado": "disponible",
       "titulo": "40",
-      "dimensiones": "366",
+      "dimensiones": "5.896",
       "hasSmartPin": true,
       "createdAt": 1787008995587,
       "_pinCentroid": [
