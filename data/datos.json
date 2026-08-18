@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015533825,
+  "updatedAt": 1787015555801,
   "lotes": [
     {
       "tipo": "calle",
@@ -1886,13 +1886,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 19",
+      "titulo": "16",
       "createdAt": 1786854431283,
       "id": "33fa72ca-17ae-40e5-9d00-f0692b5c681c",
       "_pinCentroid": [
         -80.46613207130314,
         96.97315485237466
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.100",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "8de231b2-41c9-4034-a28e-053a11bd2037",
