@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016152629,
+  "updatedAt": 1787016182053,
   "lotes": [
     {
       "tipo": "calle",
@@ -2860,13 +2860,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 43",
+      "titulo": "32",
       "createdAt": 1787009241268,
       "id": "9111bd5d-0ff4-4ddc-acc6-65b7c714aa79",
       "_pinCentroid": [
         -58.45415660022924,
         145.66775559961673
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.090",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "d26f566a-f1fc-4246-a97c-132532af8f11",
@@ -3014,7 +3021,10 @@
         164.39775571524635
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -58.27887942081341,
+        163.75499803090196
+      ],
       "pinPos": null,
       "dimensiones": "5.091",
       "valorUF": null,
