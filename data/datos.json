@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015654898,
+  "updatedAt": 1787015706458,
   "lotes": [
     {
       "tipo": "calle",
@@ -1603,14 +1603,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 17",
-      "dimensiones": "405",
-      "hasSmartPin": false,
+      "titulo": "21",
+      "dimensiones": "5.299",
+      "hasSmartPin": true,
       "createdAt": 1786854080983,
       "_pinCentroid": [
         -63.678015684399504,
         119.41976020623244
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "838844b6-9ec8-4804-8a17-3ef5a82d7fe8",
