@@ -3097,14 +3097,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 48",
-    "dimensiones": "301",
-    "hasSmartPin": false,
+    "titulo": "28",
+    "dimensiones": "5.109",
+    "hasSmartPin": true,
     "createdAt": 1787009487147,
     "_pinCentroid": [
       -55.15024139508282,
       -163.33386535025096
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
