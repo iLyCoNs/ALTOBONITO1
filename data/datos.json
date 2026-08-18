@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016767849,
+  "updatedAt": 1787016783601,
   "lotes": [
     {
       "tipo": "calle",
@@ -3312,13 +3312,20 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 53",
+      "titulo": "35",
       "createdAt": 1787009970810,
       "id": "9267ca3e-cc53-4d87-9972-8f69f29aa6ba",
       "_pinCentroid": [
         -49.290529611100794,
         -175.55027200922711
-      ]
+      ],
+      "hasSmartPin": true,
+      "pinPosition": null,
+      "pinPos": null,
+      "dimensiones": "5.000",
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "da8d55ca-dbb9-451c-96cc-7e22090f2990",
