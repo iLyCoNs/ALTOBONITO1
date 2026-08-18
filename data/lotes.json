@@ -1524,14 +1524,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 15",
-    "dimensiones": "397",
-    "hasSmartPin": false,
+    "titulo": "17",
+    "dimensiones": "5.152",
+    "hasSmartPin": true,
     "createdAt": 1786854036487,
     "_pinCentroid": [
       -71.39973051043783,
       91.35768582374546
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "d8b603e5-4517-4940-84bc-9a196cb9fd6a",
