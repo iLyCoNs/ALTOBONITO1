@@ -2498,7 +2498,10 @@
       138.95532861190068
     ],
     "hasSmartPin": true,
-    "pinPosition": null,
+    "pinPosition": [
+      -37.751826357647666,
+      138.4555478121122
+    ],
     "pinPos": null,
     "dimensiones": "7.832",
     "valorUF": null,
@@ -3416,7 +3419,10 @@
       -48.21088796674321,
       -169.21863538785323
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -48.92881033027665,
+      -162.8807881282592
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
