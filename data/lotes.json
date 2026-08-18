@@ -3017,14 +3017,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 50",
-    "dimensiones": "468",
-    "hasSmartPin": false,
+    "titulo": "51",
+    "dimensiones": "6.612",
+    "hasSmartPin": true,
     "createdAt": 1787009609714,
     "_pinCentroid": [
       -47.64593480498189,
       154.10583034642426
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
