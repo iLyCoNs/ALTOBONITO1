@@ -3270,14 +3270,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 52",
-    "dimensiones": "412",
-    "hasSmartPin": false,
+    "titulo": "34",
+    "dimensiones": "5.001",
+    "hasSmartPin": true,
     "createdAt": 1787009952754,
     "_pinCentroid": [
       -50.11771912466559,
       176.97733507743584
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
