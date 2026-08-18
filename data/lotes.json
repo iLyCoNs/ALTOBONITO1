@@ -2796,14 +2796,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 42",
-    "dimensiones": "390",
-    "hasSmartPin": false,
+    "titulo": "37",
+    "dimensiones": "6.503",
+    "hasSmartPin": true,
     "createdAt": 1787009067395,
     "_pinCentroid": [
       -41.1837458768956,
       -176.1820934246277
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "calle",
