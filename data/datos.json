@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015586393,
+  "updatedAt": 1787015626041,
   "lotes": [
     {
       "tipo": "calle",
@@ -814,8 +814,8 @@
       ],
       "hasSmartPin": true,
       "pinPosition": [
-        -73.31487911403003,
-        -60.77604420016752
+        -71.07234312978464,
+        -41.678563536163836
       ],
       "pinPos": null,
       "dimensiones": "6.000",
@@ -1562,14 +1562,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 16",
-      "dimensiones": "332",
-      "hasSmartPin": false,
+      "titulo": "18",
+      "dimensiones": "5.000",
+      "hasSmartPin": true,
       "createdAt": 1786854053335,
       "_pinCentroid": [
         -67.88349163478443,
         108.0979020182169
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "07c9d25f-010d-4436-8190-7e8d2d0b79cd",
@@ -1938,7 +1943,10 @@
         -75.44115467855286,
         139.76881939216008
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -75.592907813111,
+        135.24818960264565
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
