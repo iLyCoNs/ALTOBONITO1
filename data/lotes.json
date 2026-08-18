@@ -2225,13 +2225,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 29",
+    "titulo": "15",
     "createdAt": 1786855420897,
     "id": "39a77659-988f-4462-8383-04e821a16670",
     "_pinCentroid": [
       -81.8626708992722,
       175.86651947634329
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "6.215",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "1b8e6471-37a4-4f31-ad2d-d011eaecdeb3",
