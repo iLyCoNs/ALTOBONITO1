@@ -1300,7 +1300,10 @@
       0.9623920291991499
     ],
     "hasSmartPin": true,
-    "pinPosition": null,
+    "pinPosition": [
+      -71.18053304904234,
+      3.0299638549485977
+    ],
     "pinPos": null,
     "dimensiones": "5.705",
     "valorUF": null,
@@ -1337,14 +1340,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 12",
-    "dimensiones": "550",
-    "hasSmartPin": false,
+    "titulo": "06",
+    "dimensiones": "5.105",
+    "hasSmartPin": true,
     "createdAt": 1786852473010,
     "_pinCentroid": [
       -72.62467399170083,
       25.8887966279515
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "8c7be588-4b4e-41c1-aab6-2cef55e35068",
