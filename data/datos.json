@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015706458,
+  "updatedAt": 1787015729626,
   "lotes": [
     {
       "tipo": "calle",
@@ -1691,14 +1691,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 18",
-      "dimensiones": "329",
-      "hasSmartPin": false,
+      "titulo": "22",
+      "dimensiones": "5.265",
+      "hasSmartPin": true,
       "createdAt": 1786854263876,
       "_pinCentroid": [
         -58.99360464196528,
         127.78590817024931
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "4253fccd-062a-4219-b6ff-17f38c3da749",
