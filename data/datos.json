@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016888274,
+  "updatedAt": 1787016899238,
   "lotes": [
     {
       "tipo": "calle",
@@ -2658,14 +2658,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 39",
+      "titulo": "40",
       "dimensiones": "366",
-      "hasSmartPin": false,
+      "hasSmartPin": true,
       "createdAt": 1787008995587,
       "_pinCentroid": [
         -43.05494976589223,
         160.40060537907777
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "83a2c343-837f-4436-a03c-f7e3d89befaa",
@@ -2717,7 +2722,10 @@
         -42.36812940581322,
         169.38614717786464
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -43.38192112844002,
+        168.93659815519956
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
