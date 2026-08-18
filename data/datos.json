@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015310272,
+  "updatedAt": 1787015342143,
   "lotes": [
     {
       "tipo": "calle",
@@ -1233,7 +1233,10 @@
         -80.47528912057376,
         -42.96965549929968
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -82.25623371670244,
+        -51.39304820952352
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
@@ -1273,14 +1276,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 10",
-      "dimensiones": "290",
-      "hasSmartPin": false,
+      "titulo": "11",
+      "dimensiones": "5.005",
+      "hasSmartPin": true,
       "createdAt": 1786851747058,
       "_pinCentroid": [
         -74.78742957869531,
         -84.00736718625323
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "tipo": "lote-libre",
