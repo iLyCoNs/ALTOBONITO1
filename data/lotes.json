@@ -1222,14 +1222,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 9",
-    "dimensiones": "340",
-    "hasSmartPin": false,
+    "titulo": "10",
+    "dimensiones": "5.006",
+    "hasSmartPin": true,
     "createdAt": 1786851727861,
     "_pinCentroid": [
       -80.47528912057376,
       -42.96965549929968
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "966362fa-9535-43da-8d61-806e73e70d5d",
