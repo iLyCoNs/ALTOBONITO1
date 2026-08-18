@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787016182053,
+  "updatedAt": 1787016368767,
   "lotes": [
     {
       "tipo": "calle",
@@ -1852,14 +1852,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 34",
-      "dimensiones": "262",
-      "hasSmartPin": false,
+      "titulo": "45",
+      "dimensiones": "5.000",
+      "hasSmartPin": true,
       "createdAt": 1787008679591,
       "_pinCentroid": [
         -44.82910816168073,
         139.0843628715444
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "tipo": "lote-libre",
@@ -2868,7 +2873,10 @@
         145.66775559961673
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -58.3862637899841,
+        150.65845003792936
+      ],
       "pinPos": null,
       "dimensiones": "5.090",
       "valorUF": null,
