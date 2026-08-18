@@ -1003,7 +1003,7 @@
       -36.61736389044982
     ],
     "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df",
-    "hasSmartPin": true,
+    "hasSmartPin": false,
     "pinPosition": null,
     "pinPos": null,
     "dimensiones": "7.200",
