@@ -2490,13 +2490,20 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 35",
+    "titulo": "44",
     "createdAt": 1787008796162,
     "id": "a3e4c293-889f-4aaa-a036-57b05c7fde68",
     "_pinCentroid": [
       -35.774404956729136,
       138.95532861190068
-    ]
+    ],
+    "hasSmartPin": true,
+    "pinPosition": null,
+    "pinPos": null,
+    "dimensiones": "7.832",
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "id": "6e40218d-88fe-4cf8-9dba-fa2522905774",
@@ -2536,7 +2543,10 @@
       -39.6029608999025,
       142.56312781069929
     ],
-    "pinPosition": null,
+    "pinPosition": [
+      -39.7706257317294,
+      141.74155516503944
+    ],
     "pinPos": null,
     "valorUF": null,
     "hashtags": [],
