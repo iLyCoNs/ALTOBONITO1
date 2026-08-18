@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787014384393,
+  "updatedAt": 1787015199247,
   "lotes": [
     {
       "tipo": "calle",
@@ -1351,7 +1351,10 @@
         -72.62467399170083,
         25.8887966279515
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -72.4021312205705,
+        23.402277284528424
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
@@ -1387,14 +1390,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 13",
-      "dimensiones": "317",
-      "hasSmartPin": false,
+      "titulo": "07",
+      "dimensiones": "5.186",
+      "hasSmartPin": true,
       "createdAt": 1786852497924,
       "_pinCentroid": [
         -73.28277228109427,
         47.778055528820296
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "5ac32b28-f2ad-4602-a95a-78603e95bf13",
