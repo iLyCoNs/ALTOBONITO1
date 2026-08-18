@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015458024,
+  "updatedAt": 1787015482280,
   "lotes": [
     {
       "tipo": "calle",
@@ -2029,14 +2029,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 26",
-      "dimensiones": "401",
-      "hasSmartPin": false,
+      "titulo": "13",
+      "dimensiones": "5.030",
+      "hasSmartPin": true,
       "createdAt": 1786855177635,
       "_pinCentroid": [
         -74.54983618258251,
         -131.5112813249674
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "f79bc4e3-1b23-439c-a02d-fab0d26ec6cd",
