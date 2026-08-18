@@ -20,7 +20,7 @@
 
     _active = true;
     document.getElementById('panorama-container').classList.add('pin-active');
-    window.FerrariUI && window.FerrariUI.showToast('Pin: clic en el interior de un lote libre para añadir un Smart Pin.', 'info');
+    window.FerrariUI && window.FerrariUI.showToast('Pin: primer clic = centro automático · otro clic en el lote = reubicarlo.', 'info');
     console.log('[Ferrari/AddPin] Activado');
   }
 
@@ -74,7 +74,7 @@
     // Ahora el click principal se maneja desde el SVG nativo en f-svg-sync.js
     // Mantenemos este onClick como fallback por si acaso, pero ampliamos el threshold
     if (bestId && bestDist <= 60) {
-      injectPin(bestId);
+      injectPin(bestId, coords);
     } else {
       window.FerrariUI && window.FerrariUI.showToast('Haz clic dentro o en el borde de un lote libre.', 'info');
     }
@@ -82,18 +82,25 @@
 
   // ─── LÓGICA PRINCIPAL ──────────────────────────────────────────────
 
-  function injectPin(id) {
+  function injectPin(id, position) {
     if (!_active) return;
-    
+
     const line = window.FerrariState.getLine(id);
-    if (line && !line.hasSmartPin) {
-      // Pin anclado al centroide: sin pinPosition/pinPos manual
-      window.FerrariState.updateLine(id, {
+    if (line) {
+      const wasPinned = !!line.hasSmartPin;
+      const validPosition = Array.isArray(position) && position.length >= 2 &&
+        Number.isFinite(Number(position[0])) && Number.isFinite(Number(position[1]));
+      const updates = {
         hasSmartPin: true,
-        estado: 'disponible',
-        pinPosition: null,
+        estado: line.estado || 'disponible',
+        // La primera creación conserva el centro automático. Solo un lote que
+        // ya tenía pin acepta una posición manual con el segundo clic.
+        pinPosition: wasPinned && validPosition
+          ? [Number(position[0]), Number(position[1])]
+          : (line.pinPosition || null),
         pinPos: null
-      });
+      };
+      window.FerrariState.updateLine(id, updates);
       
       // Forzar recreación del SVG eliminando el nodo viejo del caché
       if (window.DOMCache && window.DOMCache.paths) {
@@ -102,13 +109,19 @@
         window.DOMCache.paths.delete(id);
       }
       if (window.FerrariSVGSync) window.FerrariSVGSync.syncSVGElements();
+      if (window.FerrariSmartPins) window.FerrariSmartPins.markDirty();
 
       window.FerrariCamera.markDirty();
-    }
-    
-    // Desactivamos la herramienta de pin y abrimos el panel
-    if (window.FerrariUI && window.FerrariUI.openLotePanel) {
-      window.FerrariUI.openLotePanel(id);
+
+      if (window.FerrariUI && window.FerrariUI.showToast) {
+        window.FerrariUI.showToast(wasPinned && validPosition ? 'Smart Pin reubicado' : 'Smart Pin centrado automáticamente', 'success');
+      }
+
+      // Al crear se abre la ficha comercial. Al reubicar no se interrumpe el
+      // trabajo, para poder ajustar varios pins consecutivamente.
+      if (!wasPinned && window.FerrariUI && window.FerrariUI.openLotePanel) {
+        window.FerrariUI.openLotePanel(id);
+      }
     }
   }
 

@@ -3,7 +3,8 @@
  *
  * REGLAS FERRARI:
  * - Arrastre libre por defecto (vértices traseros no se “pegan” a la calle).
- * - Shift: snap magnético a bordes de calle / vértices.
+ * - Los vértices de lote se ajustan al borde visible del asfalto.
+ * - Shift amplía el radio de snap magnético.
  * - Sin Shift: solo snap suave a vértices de OTROS lotes (fusión), radio chico.
  * - Edición múltiple: mover un vértice compartido mueve todos a la vez.
  * - Performance: no forzar rebuild de polígonos de calle al editar un lote.
@@ -35,7 +36,8 @@
   const SNAP_GRAB = 25;           // radio para agarrar un handle
   const SNAP_VERTEX_FREE = 10;    // fusión lote↔lote sin Shift
   const SNAP_VERTEX_SHIFT = 22;   // con Shift (incluye calles)
-  const SNAP_EDGE_SHIFT = 14;     // borde de calle solo con Shift
+  const SNAP_EDGE_AUTO = 22;      // borde visible de calle para lotes
+  const SNAP_EDGE_SHIFT = 32;     // Shift amplía la zona de captura
 
   function _isCalle(line) {
     return line && (line.tipo === 'calle' || line.tipo === 'calle-curva-arq2');
@@ -286,9 +288,11 @@
       }
     }
 
-    // Bordes de calle: SOLO con Shift
-    if (_shiftSnap) {
-      const edgeR2 = SNAP_EDGE_SHIFT * SNAP_EDGE_SHIFT;
+    // Bordes reales del asfalto: los lotes se apoyan directamente sobre el
+    // contorno renderizado; Shift solo amplía la zona de captura.
+    if (editingOnlyLotes) {
+      const edgeRadius = _shiftSnap ? SNAP_EDGE_SHIFT : SNAP_EDGE_AUTO;
+      const edgeR2 = edgeRadius * edgeRadius;
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         if (!_isCalle(line) || !line._streetPolygon || line._streetPolygon.length < 2) continue;
@@ -346,9 +350,7 @@
     for (let i = 0; i < _grabbedVertices.length; i++) {
       const g = _grabbedVertices[i];
       g.line.puntos[g.pointIdx] = [targetPitch, targetYaw];
-      // Invalidar pin cacheado en el lote (se recalcula en paths)
-      if (g.line.pinPosition) g.line.pinPosition = null;
-      if (g.line.pinPos) g.line.pinPos = null;
+      // El centro automático se recalcula; una posición manual se conserva.
       g.line._pinCentroid = null;
       _markStreetDirty(g.line);
     }
@@ -444,9 +446,9 @@
     }
 
     if (window.FerrariUI && window.FerrariUI.showToast) {
-      window.FerrariUI.showToast('Edición: arrastre libre · Shift = pegar a calle', 'info');
+      window.FerrariUI.showToast('Edición: los vértices se ajustan al borde del asfalto · Shift amplía el imán', 'info');
     } else if (window.FerrariToast) {
-      window.FerrariToast.show('Edición: arrastre libre · Shift = pegar a calle', 'info');
+      window.FerrariToast.show('Edición: los vértices se ajustan al borde del asfalto · Shift amplía el imán', 'info');
     }
   }
 

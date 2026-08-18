@@ -96,7 +96,12 @@
       g.addEventListener('click', (e) => {
         if (window.FerrariAddPin && window.FerrariAddPin.isActive()) {
           e.stopPropagation();
-          window.FerrariAddPin.injectPin(line.id);
+          let coords = null;
+          try {
+            const viewer = window.Ferrari && window.Ferrari.viewer;
+            if (viewer) coords = viewer.mouseEventToCoords(e);
+          } catch (err) { /* usar centro automático como fallback */ }
+          window.FerrariAddPin.injectPin(line.id, coords);
         }
       });
 

@@ -235,12 +235,6 @@
   }
 
   function _applyLotes(data) {
-    data.forEach(l => {
-      if (l && typeof l === 'object') {
-        delete l.pinPosition;
-        delete l.pinPos;
-      }
-    });
     window.FerrariState.replaceAll(data);
     _rebuildStreetNetwork();
     window.FerrariCamera.markDirty();

@@ -888,18 +888,25 @@
         ? line._pinCentroid
         : null;
       if (!repPt && line.puntos && line.puntos.length > 0) {
-        let sx = 0, sy = 0, sz = 0;
-        for (let i = 0; i < line.puntos.length; i++) {
-          const pr = line.puntos[i][0] * Math.PI / 180;
-          const yr = line.puntos[i][1] * Math.PI / 180;
-          sx += Math.cos(pr) * Math.sin(yr);
-          sy += Math.sin(pr);
-          sz += Math.cos(pr) * Math.cos(yr);
+        const geometric = isClosed && window.FerrariMathScale && window.FerrariMathScale.computeLoteCentroid
+          ? window.FerrariMathScale.computeLoteCentroid(line.puntos, 120)
+          : null;
+        if (geometric) {
+          repPt = [geometric.pitch, geometric.yaw];
+        } else {
+          let sx = 0, sy = 0, sz = 0;
+          for (let i = 0; i < line.puntos.length; i++) {
+            const pr = line.puntos[i][0] * Math.PI / 180;
+            const yr = line.puntos[i][1] * Math.PI / 180;
+            sx += Math.cos(pr) * Math.sin(yr);
+            sy += Math.sin(pr);
+            sz += Math.cos(pr) * Math.cos(yr);
+          }
+          const len = Math.sqrt(sx * sx + sy * sy + sz * sz) || 1;
+          const centerPitch = Math.asin(Math.max(-1, Math.min(1, sy / len))) * 180 / Math.PI;
+          const centerYaw   = Math.atan2(sx / len, sz / len) * 180 / Math.PI;
+          repPt = [centerPitch, centerYaw];
         }
-        const len = Math.sqrt(sx * sx + sy * sy + sz * sz) || 1;
-        const centerPitch = Math.asin(Math.max(-1, Math.min(1, sy / len))) * 180 / Math.PI;
-        const centerYaw   = Math.atan2(sx / len, sz / len) * 180 / Math.PI;
-        repPt = [centerPitch, centerYaw];
         line._pinCentroid = repPt;
       }
       let skipHeavy = false;

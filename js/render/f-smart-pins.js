@@ -187,27 +187,41 @@
       const line = lineById[id];
       if (!line) return;
 
-      // Usar centroide cacheado del lote (lo calcula f-svg-paths)
-      let centroid = line._pinCentroid;
+      // Una posición manual siempre prevalece. Si no existe, usar el centro
+      // geométrico del lote como colocación automática inicial.
+      let centroid = null;
+      const manual = line.pinPosition || line.pinPos;
+      if (Array.isArray(manual) && manual.length >= 2 &&
+          Number.isFinite(Number(manual[0])) && Number.isFinite(Number(manual[1]))) {
+        centroid = [Number(manual[0]), Number(manual[1])];
+      }
+      if (!centroid) centroid = line._pinCentroid;
       if (!centroid) {
-        // Fallback: media aritmética esférica (igual que f-svg-paths)
         if (!line.puntos || line.puntos.length < 3) {
           el.style.display = 'none';
           return;
         }
-        let sx = 0, sy = 0, sz = 0;
-        for (let i = 0; i < line.puntos.length; i++) {
-          const pr = line.puntos[i][0] * Math.PI / 180;
-          const yr = line.puntos[i][1] * Math.PI / 180;
-          sx += Math.cos(pr) * Math.sin(yr);
-          sy += Math.sin(pr);
-          sz += Math.cos(pr) * Math.cos(yr);
+        const math = window.FerrariMathScale;
+        const geometric = math && math.computeLoteCentroid
+          ? math.computeLoteCentroid(line.puntos, 120)
+          : null;
+        if (geometric) {
+          centroid = [geometric.pitch, geometric.yaw];
+        } else {
+          let sx = 0, sy = 0, sz = 0;
+          for (let i = 0; i < line.puntos.length; i++) {
+            const pr = line.puntos[i][0] * Math.PI / 180;
+            const yr = line.puntos[i][1] * Math.PI / 180;
+            sx += Math.cos(pr) * Math.sin(yr);
+            sy += Math.sin(pr);
+            sz += Math.cos(pr) * Math.cos(yr);
+          }
+          const len = Math.sqrt(sx * sx + sy * sy + sz * sz) || 1;
+          centroid = [
+            Math.asin(Math.max(-1, Math.min(1, sy / len))) * 180 / Math.PI,
+            Math.atan2(sx / len, sz / len) * 180 / Math.PI
+          ];
         }
-        const len = Math.sqrt(sx * sx + sy * sy + sz * sz) || 1;
-        centroid = [
-          Math.asin(Math.max(-1, Math.min(1, sy / len))) * 180 / Math.PI,
-          Math.atan2(sx / len, sz / len) * 180 / Math.PI
-        ];
         line._pinCentroid = centroid;
       }
 
