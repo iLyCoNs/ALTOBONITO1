@@ -2057,14 +2057,19 @@
       ]
     ],
     "estado": "disponible",
-    "titulo": "Lote 27",
-    "dimensiones": "391",
-    "hasSmartPin": false,
+    "titulo": "12",
+    "dimensiones": "5.032",
+    "hasSmartPin": true,
     "createdAt": 1786855188824,
     "_pinCentroid": [
       -69.97627630102045,
       -123.54514334458962
-    ]
+    ],
+    "pinPosition": null,
+    "pinPos": null,
+    "valorUF": null,
+    "hashtags": [],
+    "caracteristicas": ""
   },
   {
     "tipo": "lote-libre",
