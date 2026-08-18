@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787015762866,
+  "updatedAt": 1787015793154,
   "lotes": [
     {
       "tipo": "calle",
@@ -2001,7 +2001,10 @@
         -69.61024398082255,
         146.32345114833146
       ],
-      "pinPosition": null,
+      "pinPosition": [
+        -70.337940272616,
+        144.42455560325732
+      ],
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
@@ -2041,14 +2044,19 @@
         ]
       ],
       "estado": "disponible",
-      "titulo": "Lote 22",
-      "dimensiones": "341",
-      "hasSmartPin": false,
+      "titulo": "23",
+      "dimensiones": "5.162",
+      "hasSmartPin": true,
       "createdAt": 1786854554967,
       "_pinCentroid": [
         -62.906622057058605,
         143.9136231922712
-      ]
+      ],
+      "pinPosition": null,
+      "pinPos": null,
+      "valorUF": null,
+      "hashtags": [],
+      "caracteristicas": ""
     },
     {
       "id": "9a3db683-a2cc-4e62-aae3-07d2be092f0c",
