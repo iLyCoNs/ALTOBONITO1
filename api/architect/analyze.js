@@ -3,6 +3,7 @@
 
 const MAX_BODY = 14 * 1024 * 1024;
 const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
+const FALLBACK_MODEL = 'meta/llama-3.2-11b-vision-instruct';
 
 function json(res, status, payload) {
   res.setHeader('access-control-allow-origin', '*');
@@ -17,6 +18,15 @@ function imageDataUri(value) {
     throw new Error('La imagen debe ser un data URI JPEG, PNG o WebP de máximo 14 MB.');
   }
   return value;
+}
+
+function selectedModel() {
+  const requested = String(process.env.ARCHITECT_VISION_MODEL || '').trim();
+  // muse-glimmer-30b no figura como endpoint visual disponible en NVIDIA.
+  // Conservamos la variable para modelos compatibles y usamos un VLM Meta
+  // publicado por NVIDIA cuando se dejó el nombre solicitado originalmente.
+  const fallback = !requested || /^meta\/muse-glimmer-30b$/i.test(requested);
+  return { model: fallback ? FALLBACK_MODEL : requested, requested, fallback };
 }
 
 function prompt(instruction) {
@@ -45,9 +55,10 @@ module.exports = async function architectVision(req, res) {
     return res.status(204).end();
   }
   const apiKey = String(process.env.NVIDIA_API_KEY || '').trim();
-  const model = process.env.ARCHITECT_VISION_MODEL || 'meta/muse-glimmer-30b';
+  const modelInfo = selectedModel();
+  const model = modelInfo.model;
   if (req.method === 'GET') {
-    return json(res, 200, { ok: true, configured: !!apiKey, model });
+    return json(res, 200, { ok: true, configured: !!apiKey, model, requestedModel: modelInfo.requested || null, fallback: modelInfo.fallback });
   }
   if (req.method !== 'POST') {
     res.setHeader('allow', 'GET, POST');
@@ -80,8 +91,11 @@ module.exports = async function architectVision(req, res) {
     });
     const result = await upstream.json().catch(() => ({}));
     if (!upstream.ok) {
-      const detail = result && result.error && (result.error.message || result.error.type);
-      return json(res, upstream.status, { error: 'NVIDIA respondió ' + upstream.status + (detail ? ': ' + detail : '.') });
+      const errorObject = result && result.error;
+      const detail = typeof errorObject === 'string' ? errorObject : (errorObject && (errorObject.message || errorObject.detail || errorObject.type || errorObject.code));
+      const extra = result && (result.detail || result.message || result.title);
+      const reason = detail || extra;
+      return json(res, upstream.status, { error: 'NVIDIA respondió ' + upstream.status + (reason ? ': ' + String(reason).slice(0, 500) : '.') });
     }
     const content = result && result.choices && result.choices[0] && result.choices[0].message && result.choices[0].message.content;
     if (typeof content !== 'string' || !content.trim()) return json(res, 502, { error: 'La IA no devolvió un análisis.' });

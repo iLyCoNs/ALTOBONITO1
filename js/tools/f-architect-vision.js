@@ -128,7 +128,7 @@
       if (!body.configured) {
         return _status('Vercel responde correctamente, pero falta NVIDIA_API_KEY en sus variables de entorno. Agrégala y vuelve a desplegar el proyecto.');
       }
-      _status('Conexión lista. Vercel y la clave NVIDIA están configurados. Modelo: ' + (body.model || 'meta/muse-glimmer-30b') + '.');
+      _status('Conexión lista. Vercel y la clave NVIDIA están configurados. Modelo: ' + (body.model || 'meta/llama-3.2-11b-vision-instruct') + (body.fallback ? ' (modelo visual compatible seleccionado automáticamente).' : '.') );
     } catch (error) {
       _status('No se pudo conectar: ' + (error.message || error));
     }
