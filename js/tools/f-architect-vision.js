@@ -8,11 +8,27 @@
   let _lastResult = null;
   let _selectedImage = null;
   let _selectedName = '';
-  const ENDPOINT = window.ARCHITECT_VISION_ENDPOINT ||
-    (window.KPK_CONFIG && window.KPK_CONFIG.architectVisionEndpoint) ||
-    ((location.protocol === 'http:' || location.protocol === 'https:') && location.hostname !== 'localhost'
-      ? '/api/architect/analyze'
-      : 'http://localhost:8787/api/architect/analyze');
+  const DEFAULT_ENDPOINT = ((location.protocol === 'http:' || location.protocol === 'https:') && location.hostname !== 'localhost'
+    ? '/api/architect/analyze'
+    : 'http://localhost:8787/api/architect/analyze');
+
+  function _normalizeEndpoint(value) {
+    let endpoint = String(value || '').trim().replace(/\/+$/, '');
+    if (!endpoint) return DEFAULT_ENDPOINT;
+    if (/\/api\/architect\/analyze(?:\?.*)?$/i.test(endpoint)) return endpoint;
+    return endpoint + '/api/architect/analyze';
+  }
+
+  function _endpoint() {
+    let saved = '';
+    try { saved = localStorage.getItem('kpk_architect_vision_endpoint') || ''; } catch (error) {}
+    return _normalizeEndpoint(saved || window.ARCHITECT_VISION_ENDPOINT ||
+      (window.KPK_CONFIG && window.KPK_CONFIG.architectVisionEndpoint) || DEFAULT_ENDPOINT);
+  }
+
+  function _needsVercelAddress() {
+    return /\.github\.io$/i.test(location.hostname) && /^\//.test(_endpoint());
+  }
 
   function _toast(message, type) {
     if (window.FerrariUI && window.FerrariUI.showToast) window.FerrariUI.showToast(message, type || 'info');
@@ -39,12 +55,15 @@
       '<div data-role="preview-wrap" hidden style="margin-bottom:12px;border-radius:13px;overflow:hidden;background:#050b14"><img data-role="preview" alt="Vista seleccionada" style="display:block;width:100%;max-height:190px;object-fit:contain"></div>' +
       '<div style="padding:11px 12px;margin-bottom:12px;border-radius:12px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);font-size:12px"><strong style="color:#fff">Cómo funciona:</strong> 1) eliges la imagen · 2) la IA devuelve puntos normalizados · 3) revisas el conteo · 4) confirmas y se crean geometrías editables.<br><span style="display:block;margin-top:6px;color:#ffd88a">Para que encaje exactamente, la foto debe corresponder al mismo encuadre visible de la panorámica 360.</span></div>' +
       '<label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;color:rgba(255,255,255,.78);font-size:12px"><input data-role="include-existing" type="checkbox" checked> considerar las líneas ya dibujadas como referencia</label>' +
+      '<div style="padding:11px 12px;margin-bottom:12px;border:1px solid rgba(114,214,255,.28);border-radius:12px;background:rgba(0,157,255,.07)"><label for="architect-vision-endpoint" style="display:block;margin-bottom:7px;color:#dff8ff;font-size:12px;font-weight:750">Servidor de análisis en Vercel</label><div style="display:flex;gap:7px"><input id="architect-vision-endpoint" data-role="endpoint" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://tu-proyecto.vercel.app" style="min-width:0;flex:1;padding:10px;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:rgba(0,0,0,.22);color:#fff;outline:none"><button data-action="save-endpoint" type="button" style="padding:9px 12px;border:1px solid rgba(114,214,255,.55);border-radius:9px;background:rgba(0,157,255,.16);color:#e8faff;font-weight:700;cursor:pointer">Guardar y probar</button></div><small style="display:block;margin-top:7px;color:rgba(255,255,255,.58);line-height:1.35">Si abriste la página desde GitHub, pega aquí la dirección completa de tu proyecto Vercel. No pegues la clave NVIDIA.</small></div>' +
       '<button data-action="analyze" style="width:100%;padding:13px 14px;border:0;border-radius:12px;background:linear-gradient(135deg,#00c6ff,#0072ff);color:#fff;font-weight:750;cursor:pointer">Analizar vista 360 actual</button>' +
       '<div data-role="status" style="margin-top:13px;color:rgba(255,255,255,.8);white-space:pre-wrap"></div>' +
       '<div data-role="details" hidden style="margin-top:10px;padding:10px;border-radius:11px;background:rgba(0,0,0,.2);font-size:12px;color:rgba(255,255,255,.72)"></div>' +
       '<button data-action="apply" hidden style="width:100%;margin-top:13px;padding:13px 14px;border:1px solid rgba(118,255,213,.7);border-radius:12px;background:rgba(28,180,130,.22);color:#d8fff3;font-weight:750;cursor:pointer">Confirmar y dibujar geometría</button>';
     document.body.appendChild(_backdrop);
     document.body.appendChild(_panel);
+    const endpointInput = _panel.querySelector('[data-role="endpoint"]');
+    if (endpointInput) endpointInput.value = /^https?:/i.test(_endpoint()) ? _endpoint().replace(/\/api\/architect\/analyze$/i, '') : '';
     _panel.querySelector('[data-role="file"]').addEventListener('change', function (event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
@@ -78,6 +97,7 @@
         _panel.querySelector('[data-action="analyze"]').textContent = 'Analizar vista 360 actual';
         _status('Se usará la vista 360 que está visible detrás de este menú.');
       }
+      if (action === 'save-endpoint') saveAndTestEndpoint();
       if (action === 'analyze') analyzeCurrentView();
       if (action === 'apply') applyResult();
     });
@@ -87,6 +107,39 @@
   function _status(text) {
     const el = _panel && _panel.querySelector('[data-role="status"]');
     if (el) el.textContent = text || '';
+  }
+
+  async function saveAndTestEndpoint() {
+    const input = _panel && _panel.querySelector('[data-role="endpoint"]');
+    const value = input ? String(input.value || '').trim() : '';
+    if (!/^https:\/\//i.test(value) && !/^http:\/\/localhost(?::\d+)?/i.test(value)) {
+      return _status('Escribe una dirección válida, por ejemplo: https://tu-proyecto.vercel.app');
+    }
+    const endpoint = _normalizeEndpoint(value);
+    try { localStorage.setItem('kpk_architect_vision_endpoint', endpoint); } catch (error) {}
+    if (input) input.value = endpoint.replace(/\/api\/architect\/analyze$/i, '');
+    _status('Comprobando la conexión con Vercel…');
+    try {
+      const response = await fetch(endpoint, { method: 'GET', cache: 'no-store' });
+      const raw = await response.text();
+      let body = {};
+      try { body = raw ? JSON.parse(raw) : {}; } catch (error) {}
+      if (!response.ok) throw new Error(_responseError(response.status, body, endpoint));
+      if (!body.configured) {
+        return _status('Vercel responde correctamente, pero falta NVIDIA_API_KEY en sus variables de entorno. Agrégala y vuelve a desplegar el proyecto.');
+      }
+      _status('Conexión lista. Vercel y la clave NVIDIA están configurados. Modelo: ' + (body.model || 'meta/muse-glimmer-30b') + '.');
+    } catch (error) {
+      _status('No se pudo conectar: ' + (error.message || error));
+    }
+  }
+
+  function _responseError(status, body, endpoint) {
+    const detail = body && body.error ? String(body.error) : '';
+    if (status === 404) return 'La función de análisis no existe en ' + endpoint + '. Despliega en Vercel la versión más reciente del proyecto.';
+    if (/NVIDIA_API_KEY/i.test(detail)) return 'Falta NVIDIA_API_KEY en Vercel. Agrégala en Project Settings → Environment Variables y vuelve a desplegar.';
+    if (status === 401 || status === 403) return 'NVIDIA rechazó la clave configurada en Vercel. Revisa NVIDIA_API_KEY y vuelve a desplegar.';
+    return (detail || ('El servidor respondió con error ' + status)) + ' · ' + endpoint;
   }
 
   function _compressImage(dataUrl) {
@@ -154,17 +207,29 @@
     if (_panel) _panel.querySelector('[data-role="details"]').hidden = true;
     _status('Enviando ' + (_selectedImage ? 'la foto seleccionada' : 'la vista 360 visible') + ' al proxy seguro…');
     try {
+      const endpoint = _endpoint();
+      if (_needsVercelAddress()) {
+        throw new Error('Esta página está abierta desde GitHub Pages. Escribe arriba la dirección completa de tu proyecto Vercel y pulsa “Guardar y probar”.');
+      }
       const includeExisting = !!(_panel && _panel.querySelector('[data-role="include-existing"]:checked'));
       const image = _selectedImage || canvas.toDataURL('image/jpeg', 0.86);
       const instruction = includeExisting
         ? 'Usa las líneas visibles de la imagen y considera que las geometrías existentes pueden ser referencias, no las dupliques innecesariamente.'
         : 'Ignora cualquier dibujo superpuesto y lee únicamente la fotografía de fondo.';
-      const response = await fetch(ENDPOINT, {
-        method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ image, instruction })
-      });
-      const body = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(body.error || 'El proxy no pudo completar el análisis.');
+      let response;
+      try {
+        response = await fetch(endpoint, {
+          method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ image, instruction })
+        });
+      } catch (error) {
+        throw new Error('No se pudo conectar con ' + endpoint + '. Comprueba la dirección y que el proyecto esté desplegado en Vercel.');
+      }
+      const raw = await response.text();
+      let body = {};
+      try { body = raw ? JSON.parse(raw) : {}; } catch (error) {}
+      if (!response.ok) throw new Error(_responseError(response.status, body, endpoint));
+      if (!body.content) throw new Error('Vercel respondió, pero no entregó un análisis válido.');
       _lastResult = _normalizeResult(_parseJSON(body.content));
       const counts = _lastResult.elements.reduce((acc, item) => { acc[item.type]++; return acc; }, { street: 0, lot: 0, division: 0 });
       _status('Detectados: ' + counts.street + ' calles · ' + counts.lot + ' lotes · ' + counts.division + ' divisiones.\nRevisa el encuadre y aplica solo si la lectura coincide.');
@@ -238,7 +303,9 @@
     _active = true;
     _ensurePanel().style.display = '';
     if (_backdrop) _backdrop.style.display = '';
-    _status('Elige una foto desde tu PC o usa la vista 360 actual.');
+    _status(_needsVercelAddress()
+      ? 'Antes de analizar: pega arriba la dirección de tu proyecto Vercel y pulsa “Guardar y probar”.'
+      : 'Elige una foto desde tu PC o usa la vista 360 actual.');
   }
   function deactivate() {
     _active = false;
@@ -248,5 +315,5 @@
   function isActive() { return _active; }
   function bindEvents() {}
 
-  window.FerrariArchitectVision = { activate, deactivate, isActive, bindEvents, analyzeCurrentView, applyResult };
+  window.FerrariArchitectVision = { activate, deactivate, isActive, bindEvents, analyzeCurrentView, applyResult, saveAndTestEndpoint };
 })();

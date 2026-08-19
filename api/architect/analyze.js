@@ -5,6 +5,9 @@ const MAX_BODY = 14 * 1024 * 1024;
 const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
 
 function json(res, status, payload) {
+  res.setHeader('access-control-allow-origin', '*');
+  res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
+  res.setHeader('access-control-allow-headers', 'content-type');
   res.status(status).setHeader('cache-control', 'no-store').json(payload);
 }
 
@@ -34,17 +37,27 @@ function prompt(instruction) {
 }
 
 module.exports = async function architectVision(req, res) {
+  if (req.method === 'OPTIONS') {
+    res.setHeader('access-control-allow-origin', '*');
+    res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
+    res.setHeader('access-control-allow-headers', 'content-type');
+    res.setHeader('cache-control', 'no-store');
+    return res.status(204).end();
+  }
+  const apiKey = String(process.env.NVIDIA_API_KEY || '').trim();
+  const model = process.env.ARCHITECT_VISION_MODEL || 'meta/muse-glimmer-30b';
+  if (req.method === 'GET') {
+    return json(res, 200, { ok: true, configured: !!apiKey, model });
+  }
   if (req.method !== 'POST') {
-    res.setHeader('allow', 'POST');
+    res.setHeader('allow', 'GET, POST');
     return json(res, 405, { error: 'Método no permitido.' });
   }
   try {
-    const apiKey = String(process.env.NVIDIA_API_KEY || '').trim();
     if (!apiKey) return json(res, 500, { error: 'Falta configurar NVIDIA_API_KEY en Vercel.' });
 
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
     const image = imageDataUri(body.image);
-    const model = process.env.ARCHITECT_VISION_MODEL || 'meta/muse-glimmer-30b';
     const upstream = await fetch(NVIDIA_URL, {
       method: 'POST',
       headers: {
