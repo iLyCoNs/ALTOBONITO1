@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787102846606,
+  "updatedAt": 1787102862718,
   "lotes": [
     {
       "tipo": "calle",
@@ -813,7 +813,10 @@
         -58.46968010971381
       ],
       "hasSmartPin": true,
-      "pinPosition": null,
+      "pinPosition": [
+        -73.43975928311235,
+        -60.074564372735594
+      ],
       "pinPos": null,
       "dimensiones": "6.000",
       "valorUF": null,
