@@ -4,6 +4,7 @@
   "description": "Pannellum is a lightweight, free, and open source panorama viewer for the web. Built using HTML5, CSS3, JavaScript, and WebGL, it is plug-in free. It can be deployed easily as a single file, just 21kB gzipped, and then embedded into pages as an `<iframe>`. A configuration utility is included to generate the required code for embedding. An API is included for more advanced integrations.",
   "main": "config.js",
   "scripts": {
+    "architect-vision": "node server/architect-vision-proxy.js",
     "tts": "node tools/tts-proxy.js",
     "voice": "node tools/tts-proxy.js",
     "tourism-videos": "node tools/find-tourism-videos.js",

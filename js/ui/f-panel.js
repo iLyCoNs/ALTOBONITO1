@@ -78,6 +78,7 @@
     registerTool(window.FerrariEdit);
     if (window.FerrariLinkLotes) registerTool(window.FerrariLinkLotes);
     registerTool(window.FerrariAddPin);
+    if (window.FerrariArchitectVision) registerTool(window.FerrariArchitectVision);
     registerTool(window.FerrariGeoTools);
     if (window.FerrariKmzCalco) {
       registerTool(window.FerrariKmzCalco);
@@ -95,6 +96,7 @@
     window.FerrariEdit.bindEvents();
     if (window.FerrariLinkLotes && window.FerrariLinkLotes.bindEvents) window.FerrariLinkLotes.bindEvents();
     window.FerrariAddPin.bindEvents();
+    if (window.FerrariArchitectVision && window.FerrariArchitectVision.bindEvents) window.FerrariArchitectVision.bindEvents();
     window.FerrariGeoTools.bindEvents();
     if (window.FerrariKmzCalco && window.FerrariKmzCalco.bindEvents) {
       window.FerrariKmzCalco.bindEvents();
@@ -130,6 +132,7 @@
     _bindToolButton('tool-link-lotes',    () => _activateTool('anexar-lotes'));
     _bindToolButton('tool-eraser',        () => _activateTool('eraser'));
     _bindToolButton('tool-smart-pin',     () => _activateTool('smart-pin'));
+    _bindToolButton('tool-architect-vision', () => _activateTool('architect-vision'));
     _bindToolButton('tool-geo-north',     () => _activateTool('geo-north'));
     _bindToolButton('tool-geo-origin',    () => _activateTool('geo-origin'));
     _bindToolButton('tool-geo-horizonte', () => _activateTool('geo-horizonte'));
@@ -307,6 +310,9 @@
         break;
       case 'smart-pin':
         window.FerrariAddPin.activate();
+        break;
+      case 'architect-vision':
+        if (window.FerrariArchitectVision) window.FerrariArchitectVision.activate();
         break;
       case 'geo-north':
         window.FerrariGeoTools.activate('north');
