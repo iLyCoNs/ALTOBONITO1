@@ -810,7 +810,10 @@
       -58.46968010971381
     ],
     "hasSmartPin": true,
-    "pinPosition": null,
+    "pinPosition": [
+      -73.43975928311235,
+      -60.074564372735594
+    ],
     "pinPos": null,
     "dimensiones": "6.000",
     "valorUF": null,
