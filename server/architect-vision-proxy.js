@@ -6,9 +6,20 @@
 'use strict';
 
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = Number(process.env.ARCHITECT_VISION_PORT || 8787);
-const API_KEY = String(process.env.NVIDIA_API_KEY || '').trim();
+function readLocalEnv(name) {
+  try {
+    const file = path.join(__dirname, '.env');
+    const text = fs.readFileSync(file, 'utf8');
+    const line = text.split(/\r?\n/).find(item => item.trim().startsWith(name + '='));
+    if (!line) return '';
+    return line.slice(line.indexOf('=') + 1).trim().replace(/^["']|["']$/g, '');
+  } catch (err) { return ''; }
+}
+const API_KEY = String(process.env.NVIDIA_API_KEY || readLocalEnv('NVIDIA_API_KEY') || '').trim();
 const MODEL = process.env.ARCHITECT_VISION_MODEL || 'meta/muse-glimmer-30b';
 const NVIDIA_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const MAX_BODY = 14 * 1024 * 1024;

@@ -5,6 +5,7 @@
 
 # ── Configuración con API Keys (NUNCA subir al repo) ────────
 config.local.js
+server/.env
 
 # ── Dependencias ────────────────────────────────────────────
 node_modules/

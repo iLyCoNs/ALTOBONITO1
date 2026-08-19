@@ -7,6 +7,7 @@
   window.KPK_CONFIG = {
     configVersion: 14,
     plan: 'basic',
+    architectVisionEndpoint: '/api/architect/analyze',
 
     // ─── ALERTAS DE WHATSAPP (CallMeBot) ───
     whatsappAlerts: {

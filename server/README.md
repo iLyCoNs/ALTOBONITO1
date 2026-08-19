@@ -1,15 +1,31 @@
 # Proxy de lectura visual del modo Arquitecto
 
-La clave de NVIDIA no se guarda en el frontend ni en el repositorio. Inicia el
-proxy con una variable de entorno:
+La clave de NVIDIA no se guarda en el frontend ni en el repositorio. Puedes
+crear el archivo local `server/.env` (está excluido por `.gitignore`) con este
+contenido:
+
+```text
+NVIDIA_API_KEY=PEGA_AQUI_LA_CLAVE_NUEVA
+```
+
+Luego inicia el proxy normalmente:
 
 ```powershell
-$env:NVIDIA_API_KEY = 'PON_AQUI_LA_CLAVE_NUEVA'
 npm run architect-vision
 ```
 
-El proxy queda en `http://localhost:8787`. La interfaz usa ese endpoint por
-defecto; para un despliegue remoto se puede definir antes de cargar la app:
+También se acepta la variable de entorno `NVIDIA_API_KEY`, que tiene prioridad
+sobre el archivo local.
+
+El proxy queda en `http://localhost:8787`. Para producción, la función
+equivalente está en `api/architect/analyze.js` y Vercel la publica como
+`/api/architect/analyze`.
+
+En Vercel configura el secreto `NVIDIA_API_KEY` en Project Settings → Environment
+Variables. También puedes configurar `ARCHITECT_VISION_MODEL` si necesitas otro
+modelo compatible. La interfaz usa el endpoint de Vercel automáticamente.
+
+Para un endpoint remoto distinto, se puede definir antes de cargar la app:
 
 ```html
 <script>window.ARCHITECT_VISION_ENDPOINT='https://tu-dominio/api/architect/analyze'</script>

@@ -8,7 +8,11 @@
   let _lastResult = null;
   let _selectedImage = null;
   let _selectedName = '';
-  const ENDPOINT = window.ARCHITECT_VISION_ENDPOINT || 'http://localhost:8787/api/architect/analyze';
+  const ENDPOINT = window.ARCHITECT_VISION_ENDPOINT ||
+    (window.KPK_CONFIG && window.KPK_CONFIG.architectVisionEndpoint) ||
+    ((location.protocol === 'http:' || location.protocol === 'https:') && location.hostname !== 'localhost'
+      ? '/api/architect/analyze'
+      : 'http://localhost:8787/api/architect/analyze');
 
   function _toast(message, type) {
     if (window.FerrariUI && window.FerrariUI.showToast) window.FerrariUI.showToast(message, type || 'info');
@@ -47,15 +51,20 @@
       if (file.size > 12 * 1024 * 1024) return _status('La foto supera 12 MB. Elige una imagen más liviana.');
       const reader = new FileReader();
       reader.onload = function () {
-        _selectedImage = String(reader.result || '');
-        _selectedName = file.name;
-        const previewWrap = _panel.querySelector('[data-role="preview-wrap"]');
-        const preview = _panel.querySelector('[data-role="preview"]');
-        preview.src = _selectedImage;
-        previewWrap.hidden = false;
-        _panel.querySelector('[data-action="analyze"]').textContent = 'Analizar foto seleccionada';
-        _status('Foto lista: ' + _selectedName + '. Iniciando lectura…');
-        analyzeCurrentView();
+        _status('Preparando ' + file.name + '…');
+        _compressImage(String(reader.result || '')).then(function (compressed) {
+          _selectedImage = compressed;
+          _selectedName = file.name;
+          const previewWrap = _panel.querySelector('[data-role="preview-wrap"]');
+          const preview = _panel.querySelector('[data-role="preview"]');
+          preview.src = _selectedImage;
+          previewWrap.hidden = false;
+          _panel.querySelector('[data-action="analyze"]').textContent = 'Analizar foto seleccionada';
+          _status('Foto lista: ' + _selectedName + '. Iniciando lectura…');
+          analyzeCurrentView();
+        }).catch(function (error) {
+          _status(error.message || 'No se pudo preparar la imagen.');
+        });
       };
       reader.readAsDataURL(file);
     });
@@ -78,6 +87,26 @@
   function _status(text) {
     const el = _panel && _panel.querySelector('[data-role="status"]');
     if (el) el.textContent = text || '';
+  }
+
+  function _compressImage(dataUrl) {
+    return new Promise(function (resolve, reject) {
+      const image = new Image();
+      image.onload = function () {
+        const maxSide = 2200;
+        const width = image.naturalWidth || image.width;
+        const height = image.naturalHeight || image.height;
+        const scale = Math.min(1, maxSide / Math.max(width, height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      image.onerror = function () { reject(new Error('No se pudo preparar la imagen.')); };
+      image.src = dataUrl;
+    });
   }
 
   function _getCanvas() {
