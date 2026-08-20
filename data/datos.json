@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787102862718,
+  "updatedAt": 1787193477937,
   "lotes": [
     {
       "tipo": "calle",
@@ -1471,7 +1471,7 @@
           64.45256969974432
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "08",
       "dimensiones": "5.186",
       "hasSmartPin": true,
@@ -5000,7 +5000,7 @@
         "scale": 1,
         "lockYaw": false,
         "createdAt": 1786566894704,
-        "routeDistM": 5317.5,
+        "routeDistM": 5318.6,
         "routeSec": 564.1,
         "routeSource": "osrm",
         "routeManual": false
