@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787102862718,
+  "updatedAt": 1787193614561,
   "lotes": [
     {
       "tipo": "calle",
@@ -1471,7 +1471,7 @@
           64.45256969974432
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "08",
       "dimensiones": "5.186",
       "hasSmartPin": true,
@@ -1934,7 +1934,7 @@
           83.28784285077626
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "16",
       "createdAt": 1786854431283,
       "id": "33fa72ca-17ae-40e5-9d00-f0692b5c681c",
@@ -1978,7 +1978,7 @@
           112.21972584126271
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "19",
       "dimensiones": "5.050",
       "hasSmartPin": true,
@@ -2021,7 +2021,7 @@
           126.68652279291643
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "20",
       "dimensiones": "5.162",
       "hasSmartPin": true,
@@ -2072,7 +2072,7 @@
           134.27894850405804
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "23",
       "dimensiones": "5.162",
       "hasSmartPin": true,
@@ -2111,7 +2111,7 @@
           -157.35062448963959
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "13",
       "dimensiones": "5.030",
       "hasSmartPin": true,
@@ -2147,7 +2147,7 @@
           -144.96021539015663
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "12",
       "dimensiones": "5.032",
       "hasSmartPin": true,
@@ -2182,7 +2182,7 @@
           159.36420963867343
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "24",
       "createdAt": 1786855055553,
       "id": "39b52d26-f5a7-4509-ab97-3369abb8d3be",
@@ -2340,7 +2340,7 @@
           157.16906526555022
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "15",
       "createdAt": 1786855420897,
       "id": "39a77659-988f-4462-8383-04e821a16670",
@@ -2377,7 +2377,7 @@
           -177.15567964101677
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "14",
       "dimensiones": "5.269",
       "hasSmartPin": true,
@@ -2540,7 +2540,7 @@
           138.21906009877776
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "43",
       "dimensiones": "5.000",
       "hasSmartPin": true,
@@ -2953,7 +2953,7 @@
           140.81675907487596
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "32",
       "createdAt": 1787009241268,
       "id": "9111bd5d-0ff4-4ddc-acc6-65b7c714aa79",
@@ -5000,7 +5000,7 @@
         "scale": 1,
         "lockYaw": false,
         "createdAt": 1786566894704,
-        "routeDistM": 5317.5,
+        "routeDistM": 5318.6,
         "routeSec": 564.1,
         "routeSource": "osrm",
         "routeManual": false
