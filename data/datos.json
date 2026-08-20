@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787193494920,
+  "updatedAt": 1787193504705,
   "lotes": [
     {
       "tipo": "calle",
@@ -2340,7 +2340,7 @@
           157.16906526555022
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "15",
       "createdAt": 1786855420897,
       "id": "39a77659-988f-4462-8383-04e821a16670",
