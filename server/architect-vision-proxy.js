@@ -1,13 +1,19 @@
 /*
- * Proxy local para la lectura visual del modo Arquitecto.
+ * Proxy local para el modo Arquitecto (visión IA + scraper de masterplans).
  * La clave NVIDIA vive únicamente en NVIDIA_API_KEY (nunca en el navegador).
  * Uso: NVIDIA_API_KEY="..." node server/architect-vision-proxy.js
+ *
+ * Rutas:
+ *   POST /api/architect/analyze   → lectura visual IA (NVIDIA)
+ *   POST /api/architect/scrape    → extrae un tour Krpano externo (JSON)
+ *   GET  /api/architect/asset     → proxy de imágenes/PDF del tour fuente
  */
 'use strict';
 
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { scrapeKrpano, assertPublicHttpUrl } = require('../api/architect/krpano-lib.js');
 
 const PORT = Number(process.env.ARCHITECT_VISION_PORT || 8787);
 function readLocalEnv(name) {
@@ -118,11 +124,57 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'access-control-allow-origin': '*',
-      'access-control-allow-methods': 'POST, OPTIONS',
+      'access-control-allow-methods': 'GET, POST, OPTIONS',
       'access-control-allow-headers': 'content-type'
     });
     return res.end();
   }
+
+  // ── Scraper de masterplans Krpano ────────────────────────────────
+  if (req.url.split('?')[0] === '/api/architect/scrape') {
+    if (req.method === 'GET') return send(res, 200, { ok: true, endpoint: 'scrape' });
+    if (req.method !== 'POST') return send(res, 405, { error: 'Método no permitido.' });
+    try {
+      const body = await readJson(req);
+      const url = String(body.url || '').trim();
+      if (!url) return send(res, 400, { error: 'Falta la dirección del tour (campo "url").' });
+      const result = await scrapeKrpano(url, 'http://localhost:' + PORT);
+      return send(res, 200, result);
+    } catch (err) {
+      return send(res, 400, { error: err && err.message ? err.message : 'No se pudo extraer el tour.' });
+    }
+  }
+
+  // ── Proxy de assets (imágenes/PDF) ───────────────────────────────
+  if (req.url.split('?')[0] === '/api/architect/asset' && req.method === 'GET') {
+    const params = new URL(req.url, 'http://localhost').searchParams;
+    let target;
+    try { target = assertPublicHttpUrl(params.get('url')); }
+    catch (err) { return send(res, 400, { error: err.message }); }
+    try {
+      const upstream = await fetch(target.toString(), {
+        headers: { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' },
+        signal: AbortSignal.timeout(20000),
+        redirect: 'follow'
+      });
+      if (!upstream.ok) return send(res, 502, { error: 'El origen respondió ' + upstream.status + '.' });
+      const type = String(upstream.headers.get('content-type') || '').split(';')[0].trim();
+      if (!/^(image\/|application\/pdf)/i.test(type)) {
+        return send(res, 415, { error: 'Tipo no permitido: ' + (type || 'desconocido') + '.' });
+      }
+      const buf = Buffer.from(await upstream.arrayBuffer());
+      if (buf.length > 25 * 1024 * 1024) return send(res, 413, { error: 'El archivo supera 25 MB.' });
+      res.writeHead(200, {
+        'content-type': type,
+        'cache-control': 'public, max-age=86400',
+        'access-control-allow-origin': '*'
+      });
+      return res.end(buf);
+    } catch (err) {
+      return send(res, 502, { error: 'No se pudo descargar el archivo: ' + (err && err.message ? err.message : 'error de red') });
+    }
+  }
+
   if (req.method !== 'POST' || req.url !== '/api/architect/analyze') {
     return send(res, 404, { error: 'Ruta no encontrada.' });
   }

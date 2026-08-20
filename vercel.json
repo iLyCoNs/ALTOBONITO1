@@ -3,6 +3,14 @@
     "api/architect/analyze.js": {
       "maxDuration": 60,
       "memory": 1024
+    },
+    "api/architect/scrape.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "api/architect/asset.js": {
+      "maxDuration": 30,
+      "memory": 1024
     }
   }
 }

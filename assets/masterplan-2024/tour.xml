@@ -1,0 +1,172 @@
+﻿<krpano version="1.18" title="Alto Bonito" onstart="startup();">
+
+	<include url="skin/vtourskin.xml" />
+    <include url="skin/ficha.xml" />
+	<include url="../krpano/plugins/googleanalytics.xml"/>
+	<!-- set skin settings: bingmaps? gyro? thumbnails? tooltips? -->
+
+	<skin_settings maps="false"
+
+	               maps_type="bing"
+
+	               maps_bing_api_key="AmXDRiAM5ED440pwl7k_0HXnImYqnONyVr0tmWTjHB9G--LChVRT-m2N-NO6z7UX"
+
+	               maps_zoombuttons="true"
+
+	               gyro="true"
+
+	               title="true"
+
+	               thumbs="true"
+
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+
+	               thumbs_opened="false"
+
+	               thumbs_text="true"
+
+	               thumbs_dragging="true"
+
+	               thumbs_onhoverscrolling="false"
+
+	               thumbs_scrollbuttons="false"
+
+	               thumbs_scrollindicator="false"
+
+	               thumbs_loop="false"
+
+	               tooltips_thumbs="false"
+
+	               tooltips_hotspots="false"
+
+	               tooltips_mapspots="false"
+
+	               loadscene_flags="MERGE"
+
+	               loadscene_blend="BLEND(0.5)"
+
+	               controlbar_offset="20"
+
+	               />
+
+
+
+	<!-- set optional skin logo url -->
+
+	
+	<style name="hs" scale.desktop="0.56" scale.mobile="1" onhover="showtext(Ver ficha);" zorder="50" handcursor="true"/>
+
+	<style name="h3" capture="false" scale="0.8" zorder="50" handcursor="true" onhover="showtext(Ver ficha);" edge="bottom" align="bottom" alpha="1"/>
+
+	 <style name="hs4" scale.desktop="0.53" scale.mobile="0.8" zorder="50" handcursor="false"  edge="bottomleft" align="bottom" alpha="1"/>
+
+	 <style name="hs5" scale="0.4" zorder="50" handcursor="false"  edge="bottomright" align="bottom" alpha="1"/>
+
+
+	<textstyle name="default"
+
+	           font="Helvetica" fontsize.no-mobile="13" fontsize.mobile="13" bold="false"
+
+	           background="true" backgroundcolor="0x000000" backgroundalpha="0.5"
+
+	           border="true" borderwidth="2" bordercolor="0xFFFFFF" roundedge="1"
+
+	           textcolor="0xFFFFFF"
+
+	           padding="6 10"
+
+	           textalign="center"
+
+	           yoffset.no-touch="-5"
+
+	           yoffset.touch="-40"
+
+	           />
+
+	<action name="startup">
+		if(startscene === null, copy(startscene,scene[0].name));
+		loadscene(get(startscene), null, MERGE);
+	</action>
+
+	
+	<scene name="scene_industrial1-p_ok" title="Masterplan 360º" onstart="" thumburl="panos/industrial1-p_ok.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-55.884" vlookat="35.035" fovtype="MFOV" fov="105.000" maxpixelzoom="2.0" fovmin="70" fovmax="130" limitview="auto" />
+
+		<preview url="panos/industrial1-p_ok.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/industrial1-p_ok.tiles/pano_%s.jpg" />
+			<mobile>
+				<cube url="panos/industrial1-p_ok.tiles/mobile_%s.jpg" />
+			</mobile>
+		</image>
+
+		<!-- place your scene hotspots here -->
+	<hotspot name="act1" style="hs4" url="skin/spots/hitos/1.png" ath="137.120" atv="0.549"/>
+    <hotspot name="act2" style="hs4" url="skin/spots/hitos/2.png" ath="9.039" atv="1.106"/>
+    <hotspot name="act3" style="hs4" url="skin/spots/hitos/3.png" ath="1.814" atv="0.813"/>
+    <hotspot name="act4" style="hs4" url="skin/spots/hitos/4.png" ath="154.448" atv="-0.048"/>
+    <hotspot name="act5" style="hs4" url="skin/spots/hitos/5.png" ath="31.052" atv="0.862"/>
+    <hotspot name="act6" style="hs4" url="skin/spots/hitos/6.png" ath="13.223" atv="7.343"/>
+    <hotspot name="act7" style="hs4" url="skin/spots/hitos/7.png" ath="-126.684" atv="1.061"/>
+    <hotspot name="act8" style="hs4" url="skin/spots/hitos/8.png" ath="-92.592" atv="2.777"/>
+    <hotspot name="act9" style="hs4" url="skin/spots/ruta5.png" ath="-55.894" atv="30.238"/>
+   
+    
+	<hotspot name="ficha1" style="hs" onclick="mostrar_ficha(ficha1,foto1);" url="skin/spots/1.png"  ath="-65.812" atv="33.309"/>
+	<hotspot name="ficha2" style="hs" onclick="mostrar_ficha(ficha2,foto1);" url="skin/spots/2.png"  ath="-68.901" atv="37.493"/>
+	<hotspot name="ficha3" style="hs" onclick="mostrar_ficha(ficha3,foto1);" url="skin/spots/3.png"  ath="-73.109" atv="41.934"/>
+	<hotspot name="ficha4" style="hs" onclick="mostrar_ficha(ficha4,foto1);" url="skin/spots/4.png"  ath="-55.386" atv="39.280"/>
+	<hotspot name="ficha5" style="hs" onclick="mostrar_ficha(ficha5,foto1);" url="skin/spots/5.png"  ath="-47.275" atv="41.024"/>
+	<hotspot name="ficha6" style="hs" onclick="mostrar_ficha(ficha6,foto1);" url="skin/spots/6.png"  ath="-39.908" atv="44.575"/>
+	<hotspot name="ficha7" style="hs" onclick="mostrar_ficha(ficha7,foto1);" url="skin/spots/7.png"  ath="-32.615" atv="47.998"/>
+	<hotspot name="ficha8" style="hs" onclick="mostrar_ficha(ficha8,foto1);" url="skin/spots/8.png"  ath="-23.159" atv="52.244"/>
+	<hotspot name="ficha9" style="hs" onclick="mostrar_ficha(ficha9,foto7);" url="skin/spots/9.png"  ath="-54.010" atv="51.343"/>
+	<hotspot name="ficha10" style="hs" onclick="mostrar_ficha(ficha10,foto7);" url="skin/spots/10.png"  ath="-65.736" atv="49.666"/>
+	<hotspot name="ficha11" style="hs" onclick="mostrar_ficha(ficha11,foto7);" url="skin/spots/11.png"  ath="-80.563" atv="47.112"/>
+	<hotspot name="ficha12" style="hs" onclick="mostrar_ficha(ficha12,foto7);" url="skin/spots/12.png"  ath="-101.155" atv="51.749"/>
+	<hotspot name="ficha13" style="hs" onclick="mostrar_ficha(ficha13,foto7);" url="skin/spots/13.png"  ath="-94.937" atv="56.022"/>
+	<hotspot name="ficha14" style="hs" onclick="mostrar_ficha(ficha14,foto7);" url="skin/spots/14.png"  ath="-85.013" atv="60.768"/>
+	<hotspot name="ficha15" style="hs" onclick="mostrar_ficha(ficha15,foto8);" url="skin/spots/15.png"  ath="-70.713" atv="65.246"/>
+	<hotspot name="ficha16" style="hs" onclick="mostrar_ficha(ficha16,foto8);" url="skin/spots/16.png"  ath="-43.236" atv="61.551"/>
+	<hotspot name="ficha17" style="hs" onclick="mostrar_ficha(ficha17,foto8);" url="skin/spots/17.png"  ath="-14.177" atv="58.123"/>
+	<hotspot name="ficha18" style="hs" onclick="mostrar_ficha(ficha18,foto8);" url="skin/spots/18.png"  ath="0.457" atv="63.932"/>
+	<hotspot name="ficha19" style="hs" onclick="mostrar_ficha(ficha19,foto8);" url="skin/spots/19.png"  ath="-38.030" atv="71.169"/>
+	<hotspot name="ficha20" style="hs" onclick="mostrar_ficha(ficha20,foto8);" url="skin/spots/20.png"  ath="-27.229" atv="81.403"/>
+	<hotspot name="ficha21" style="hs" onclick="mostrar_ficha(ficha21,foto8);" url="skin/spots/21.png"  ath="23.475" atv="68.051"/>
+	<hotspot name="ficha22" style="hs" onclick="mostrar_ficha(ficha22,foto8);" url="skin/spots/22.png"  ath="51.051" atv="67.959"/>
+	<hotspot name="ficha23" style="hs" onclick="mostrar_ficha(ficha23,foto8);" url="skin/spots/23.png"  ath="56.511" atv="86.895"/>
+	<hotspot name="ficha24" style="hs" onclick="mostrar_ficha(ficha24,foto9);" url="skin/spots/24.png"  ath="-110.776" atv="79.795"/>
+	<hotspot name="ficha25" style="hs" onclick="mostrar_ficha(ficha25,foto9);" url="skin/spots/25.png"  ath="-121.876" atv="70.198"/>
+	<hotspot name="ficha26" style="hs" onclick="mostrar_ficha(ficha26,foto9);" url="skin/spots/26.png"  ath="-124.092" atv="62.964"/>
+	<hotspot name="ficha27" style="hs" onclick="mostrar_ficha(ficha27,foto9);" url="skin/spots/27.png"  ath="-126.605" atv="56.027"/>
+	<hotspot name="ficha28" style="hs" onclick="mostrar_ficha(ficha28,foto9);" url="skin/spots/28.png"  ath="-156.233" atv="54.885"/>
+	<hotspot name="ficha29" style="hs" onclick="mostrar_ficha(ficha29,foto9);" url="skin/spots/29.png"  ath="-163.785" atv="61.882"/>
+	<hotspot name="ficha30" style="hs" onclick="mostrar_ficha(ficha30,foto9);" url="skin/spots/30.png"  ath="-176.997" atv="68.218"/>
+	<hotspot name="ficha31" style="hs" onclick="mostrar_ficha(ficha31,foto9);" url="skin/spots/31.png"  ath="158.365" atv="73.799"/>
+	<hotspot name="ficha32" style="hs" onclick="mostrar_ficha(ficha32,foto9);" url="skin/spots/32.png"  ath="115.889" atv="75.965"/>
+	<hotspot name="ficha33" style="hs" onclick="mostrar_ficha(ficha33,foto9);" url="skin/spots/33.png"  ath="152.682" atv="59.735"/>
+	<hotspot name="ficha34" style="hs" onclick="mostrar_ficha(ficha34,foto9);" url="skin/spots/34.png"  ath="168.118" atv="56.372"/>
+	<hotspot name="ficha35" style="hs" onclick="mostrar_ficha(ficha35,foto9);" url="skin/spots/35.png"  ath="178.046" atv="52.707"/>
+	<hotspot name="ficha36" style="hs" onclick="mostrar_ficha(ficha36,foto8);" url="skin/spots/36.png"  ath="-174.097" atv="49.254"/>
+	<hotspot name="ficha37" style="hs" onclick="mostrar_ficha(ficha37,foto8);" url="skin/spots/37.png"  ath="169.313" atv="42.665"/>
+	<hotspot name="ficha38" style="hs" onclick="mostrar_ficha(ficha38,foto8);" url="skin/spots/38.png"  ath="159.584" atv="45.318"/>
+	<hotspot name="ficha39" style="hs" onclick="mostrar_ficha(ficha39,foto8);" url="skin/spots/39.png"  ath="148.701" atv="47.692"/>
+	<hotspot name="ficha40" style="hs" onclick="mostrar_ficha(ficha40,foto8);" url="skin/spots/40.png"  ath="131.766" atv="49.399"/>
+	<hotspot name="ficha41" style="hs" onclick="mostrar_ficha(ficha41,foto8);" url="skin/spots/41.png"  ath="115.840" atv="47.235"/>
+	<hotspot name="ficha42" style="hs" onclick="mostrar_ficha(ficha42,foto8);" url="skin/spots/42.png"  ath="106.777" atv="43.042"/>
+	<hotspot name="ficha43" style="hs" onclick="mostrar_ficha(ficha43,foto8);" url="skin/spots/43.png"  ath="101.140" atv="40.952"/>
+	<hotspot name="ficha44" style="hs" onclick="mostrar_ficha(ficha44,foto8);" url="skin/spots/44.png"  ath="95.994" atv="38.956"/>
+	<hotspot name="ficha45" style="hs" onclick="mostrar_ficha(ficha45,foto8);" url="skin/spots/45.png"  ath="94.445" atv="48.862"/>
+	<hotspot name="ficha46" style="hs" onclick="mostrar_ficha(ficha46,foto8);" url="skin/spots/46.png"  ath="90.140" atv="53.104"/>
+	<hotspot name="ficha47" style="hs" onclick="mostrar_ficha(ficha47,foto8);" url="skin/spots/47.png"  ath="82.239" atv="57.624"/>
+	<hotspot name="ficha48" style="hs" onclick="mostrar_ficha(ficha48,foto8);" url="skin/spots/48.png"  ath="67.669" atv="62.449"/>
+	<hotspot name="ficha49" style="hs" onclick="mostrar_ficha(ficha49,foto8);" url="skin/spots/49.png"  ath="120.085" atv="68.468"/>
+	<hotspot name="ficha50" style="hs" onclick="mostrar_ficha(ficha50,foto8);" url="skin/spots/50.png"  ath="123.026" atv="61.311"/>
+	<hotspot name="ficha51" style="hs" onclick="mostrar_ficha(ficha51,foto7);" url="skin/spots/51.png"  ath="124.674" atv="55.993"/>
+	
+	</scene>
+
+
+</krpano>

@@ -56,6 +56,20 @@
       '<div style="padding:11px 12px;margin-bottom:12px;border-radius:12px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);font-size:12px"><strong style="color:#fff">Cómo funciona:</strong> 1) eliges la imagen · 2) la IA devuelve puntos normalizados · 3) revisas el conteo · 4) confirmas y se crean geometrías editables.<br><span style="display:block;margin-top:6px;color:#ffd88a">Para que encaje exactamente, la foto debe corresponder al mismo encuadre visible de la panorámica 360.</span></div>' +
       '<label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;color:rgba(255,255,255,.78);font-size:12px"><input data-role="include-existing" type="checkbox" checked> considerar las líneas ya dibujadas como referencia</label>' +
       '<div style="padding:11px 12px;margin-bottom:12px;border:1px solid rgba(114,214,255,.28);border-radius:12px;background:rgba(0,157,255,.07)"><label for="architect-vision-endpoint" style="display:block;margin-bottom:7px;color:#dff8ff;font-size:12px;font-weight:750">Servidor de análisis en Vercel</label><div style="display:flex;gap:7px"><input id="architect-vision-endpoint" data-role="endpoint" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://tu-proyecto.vercel.app" style="min-width:0;flex:1;padding:10px;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:rgba(0,0,0,.22);color:#fff;outline:none"><button data-action="save-endpoint" type="button" style="padding:9px 12px;border:1px solid rgba(114,214,255,.55);border-radius:9px;background:rgba(0,157,255,.16);color:#e8faff;font-weight:700;cursor:pointer">Guardar y probar</button></div><small style="display:block;margin-top:7px;color:rgba(255,255,255,.58);line-height:1.35">Si abriste la página desde GitHub, pega aquí la dirección completa de tu proyecto Vercel. No pegues la clave NVIDIA.</small></div>' +
+      '<div data-role="import-box" style="margin-bottom:12px;padding:12px;border:1px solid rgba(255,207,92,.35);border-radius:12px;background:rgba(255,193,60,.07)">' +
+        '<label style="display:block;margin-bottom:7px;color:#ffe3a3;font-size:12px;font-weight:750">🗺 Importar masterplan externo (Krpano)</label>' +
+        '<div style="display:flex;gap:7px"><input data-role="import-url" type="url" inputmode="url" spellcheck="false" placeholder="https://otro-tour.com/proyecto/" style="min-width:0;flex:1;padding:9px;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:rgba(0,0,0,.22);color:#fff;outline:none"><button data-action="import-extract" type="button" style="padding:9px 12px;border:1px solid rgba(255,207,92,.55);border-radius:9px;background:rgba(255,193,60,.16);color:#ffedb8;font-weight:700;cursor:pointer;white-space:nowrap">Extraer</button></div>' +
+        '<small style="display:block;margin-top:6px;color:rgba(255,255,255,.55);line-height:1.35">Pega la dirección de un tour Krpano (la carpeta del tour o su tour.xml). Se extraen lotes, hitos y fichas catastrales con coordenadas angulares exactas.</small>' +
+        '<div data-role="import-status" style="margin-top:8px;color:rgba(255,255,255,.78);font-size:12px;white-space:pre-wrap"></div>' +
+        '<div data-role="import-controls" hidden>' +
+          '<div data-role="import-summary" style="margin-bottom:9px;padding:8px 10px;border-radius:9px;background:rgba(0,0,0,.2);color:#ffe3a3;font-size:12px"></div>' +
+          '<div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><span style="width:34px;color:rgba(255,255,255,.7);font-size:11px">Yaw</span><input data-role="mp-yaw" type="range" min="-180" max="180" step="0.1" value="0" style="flex:1;accent-color:#ffcf5c"><output data-role="mp-yaw-val" style="width:52px;text-align:right;color:#ffd97a;font-size:11px">0.0°</output></div>' +
+          '<div style="display:flex;align-items:center;gap:7px;margin-bottom:9px"><span style="width:34px;color:rgba(255,255,255,.7);font-size:11px">Pitch</span><input data-role="mp-pitch" type="range" min="-90" max="90" step="0.1" value="0" style="flex:1;accent-color:#ffcf5c"><output data-role="mp-pitch-val" style="width:52px;text-align:right;color:#ffd97a;font-size:11px">0.0°</output></div>' +
+          '<div style="display:flex;align-items:center;gap:7px;margin-bottom:10px"><label style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.78);font-size:12px;cursor:pointer"><input data-role="mp-ghost" type="checkbox" checked> mostrar sobre el 360</label><span style="flex:1"></span><button data-action="mp-plano" type="button" style="padding:5px 9px;border:1px solid rgba(255,255,255,.25);border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font-size:11px;cursor:pointer">Ver plano PDF</button></div>' +
+          '<small style="display:block;color:rgba(255,255,255,.5);line-height:1.4;margin-bottom:9px">Los puntos ámbar son los lotes del masterplan externo; los cian son hitos. Ajusta Yaw/Pitch hasta alinearlos con el terreno (calibración entre vuelos) y haz click en un punto para ver su ficha.</small>' +
+          '<button data-action="mp-discard" type="button" style="width:100%;padding:9px;border:1px solid rgba(255,107,107,.5);border-radius:9px;background:rgba(255,80,80,.12);color:#ffc9c9;font-size:12px;font-weight:700;cursor:pointer">Descartar importación</button>' +
+        '</div>' +
+      '</div>' +
       '<button data-action="analyze" style="width:100%;padding:13px 14px;border:0;border-radius:12px;background:linear-gradient(135deg,#00c6ff,#0072ff);color:#fff;font-weight:750;cursor:pointer">Analizar vista 360 actual</button>' +
       '<div data-role="status" style="margin-top:13px;color:rgba(255,255,255,.8);white-space:pre-wrap"></div>' +
       '<div data-role="details" hidden style="margin-top:10px;padding:10px;border-radius:11px;background:rgba(0,0,0,.2);font-size:12px;color:rgba(255,255,255,.72)"></div>' +
@@ -100,7 +114,11 @@
       if (action === 'save-endpoint') saveAndTestEndpoint();
       if (action === 'analyze') analyzeCurrentView();
       if (action === 'apply') applyResult();
+      if (action === 'import-extract') _mpExtract();
+      if (action === 'mp-discard') _mpDiscard();
+      if (action === 'mp-plano' && _mp && _mp.planoUrl) window.open(_mp.planoUrl, '_blank');
     });
+    _mpBindControls();
     return _panel;
   }
 
@@ -298,11 +316,309 @@
     _toast('Geometría IA incorporada para revisión.', 'success');
   }
 
+  // ═══ MASTERPLAN EXTERNO (scraper Krpano + ghost overlay) ═════════════
+  // El navegador no puede leer tour.xml de otro dominio (sin CORS), por eso
+  // la extracción se delega al endpoint seguro /api/architect/scrape
+  // (Vercel Function o proxy local). El resultado se guarda en localStorage
+  // y se dibuja como capa fantasma calibrable sobre el 360 propio.
+
+  const AMP_LS_KEY = 'kpk_architect_masterplan_import';
+  let _mp = null;            // { source, sceneTitle, planoUrl, lotes, hitos, offset, ghostVisible }
+  let _mpLayer = null;
+  let _mpMarkers = [];
+  let _mpRaf = 0;
+  let _mpPopup = null;
+  let _mpStyleInjected = false;
+  let _mpPopupBound = false;
+
+  function _mpStatus(text) {
+    const el = _panel && _panel.querySelector('[data-role="import-status"]');
+    if (el) el.textContent = text || '';
+  }
+
+  function _mpSave() {
+    if (!_mp) { try { localStorage.removeItem(AMP_LS_KEY); } catch (error) {} return; }
+    try { localStorage.setItem(AMP_LS_KEY, JSON.stringify(_mp)); } catch (error) {}
+  }
+
+  function _mpRestore() {
+    if (_mp) return;
+    try {
+      const raw = localStorage.getItem(AMP_LS_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data && Array.isArray(data.lotes) && data.lotes.length) {
+        _mp = {
+          source: data.source || '',
+          sceneTitle: data.sceneTitle || '',
+          planoUrl: data.planoUrl || null,
+          lotes: data.lotes,
+          hitos: Array.isArray(data.hitos) ? data.hitos : [],
+          offset: { yaw: Number(data.offset && data.offset.yaw) || 0, pitch: Number(data.offset && data.offset.pitch) || 0 },
+          ghostVisible: data.ghostVisible !== false
+        };
+      }
+    } catch (error) {}
+    if (_mp) {
+      _mpShowControls();
+      if (_mp.ghostVisible) _mpSetGhost(true);
+    }
+  }
+
+  function _mpBase() {
+    return _endpoint().replace(/\/api\/architect\/analyze$/i, '');
+  }
+
+  async function _mpExtract() {
+    const input = _panel && _panel.querySelector('[data-role="import-url"]');
+    const url = input ? String(input.value || '').trim() : '';
+    if (!/^https?:\/\//i.test(url)) return _mpStatus('Escribe la dirección del tour Krpano, por ejemplo: https://lanube360.com/altobonito/');
+    if (_needsVercelAddress()) {
+      return _mpStatus('Esta página está en GitHub Pages: configura primero el servidor de análisis (caja azul de arriba) para poder extraer tours.');
+    }
+    const button = _panel.querySelector('[data-action="import-extract"]');
+    if (button) { button.disabled = true; button.textContent = 'Extrayendo…'; }
+    _mpStatus('Descargando tour.xml, fichas y geometría del masterplan…');
+    try {
+      const response = await fetch(_mpBase() + '/api/architect/scrape', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body && body.error ? body.error : 'El servidor respondió ' + response.status + '.');
+      if (!body.lotes || !body.lotes.length) throw new Error('El tour no contiene hotspots de lotes/fichas.');
+      _mp = {
+        source: body.source || url,
+        sceneTitle: body.scene && body.scene.title ? body.scene.title : '',
+        planoUrl: body.scene && body.scene.planoUrl && body.scene.planoUrl.direct ? body.scene.planoUrl.direct : null,
+        lotes: body.lotes,
+        hitos: body.hitos || [],
+        offset: { yaw: 0, pitch: 0 },
+        ghostVisible: true
+      };
+      _mpSave();
+      _mpShowControls();
+      _mpSetGhost(true);
+      const conDatos = _mp.lotes.filter(function (l) { return l.rolSII || l.superficieM2 != null; }).length;
+      _mpStatus('✓ Masterplan extraído: ' + _mp.lotes.length + ' lotes · ' + _mp.hitos.length + ' hitos · ' + conDatos + ' con ficha catastral.');
+    } catch (error) {
+      _mpStatus('No se pudo extraer: ' + (error.message || error));
+    } finally {
+      if (button) { button.disabled = false; button.textContent = 'Extraer'; }
+    }
+  }
+
+  function _mpShowControls() {
+    if (!_panel || !_mp) return;
+    const controls = _panel.querySelector('[data-role="import-controls"]');
+    const summary = _panel.querySelector('[data-role="import-summary"]');
+    const yaw = _panel.querySelector('[data-role="mp-yaw"]');
+    const pitch = _panel.querySelector('[data-role="mp-pitch"]');
+    const ghost = _panel.querySelector('[data-role="mp-ghost"]');
+    if (!controls) return;
+    summary.textContent = (_mp.sceneTitle || 'Masterplan') + ' — ' + _mp.lotes.length + ' lotes · ' + _mp.hitos.length + ' hitos';
+    yaw.value = String(_mp.offset.yaw);
+    pitch.value = String(_mp.offset.pitch);
+    _panel.querySelector('[data-role="mp-yaw-val"]').textContent = _mp.offset.yaw.toFixed(1) + '°';
+    _panel.querySelector('[data-role="mp-pitch-val"]').textContent = _mp.offset.pitch.toFixed(1) + '°';
+    ghost.checked = !!_mp.ghostVisible;
+    controls.hidden = false;
+  }
+
+  function _mpInjectStyles() {
+    if (_mpStyleInjected) return;
+    _mpStyleInjected = true;
+    const style = document.createElement('style');
+    style.textContent = [
+      '#amp-ghost-layer{position:absolute;inset:0;pointer-events:none;z-index:22;overflow:hidden}',
+      '.amp-mark{position:absolute;top:0;left:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:1.5px dashed #ffcf5c;background:rgba(24,18,4,.6);color:#ffd97a;font:700 10px/23px system-ui,sans-serif;text-align:center;pointer-events:auto;cursor:pointer;will-change:transform;box-shadow:0 0 0 1px rgba(0,0,0,.4);user-select:none;-webkit-tap-highlight-color:transparent}',
+      '.amp-mark--hito{border-color:#5cffe7;color:#9ffcf0;background:rgba(4,22,20,.6);font-size:9px}',
+      '.amp-mark--hito::after{content:"◆"}',
+      '#amp-popup{position:fixed;z-index:2147483002;width:min(300px,calc(100vw - 24px));padding:14px 16px;border:1px solid rgba(255,207,92,.45);border-radius:14px;background:linear-gradient(150deg,rgba(30,24,6,.97),rgba(14,10,2,.97));box-shadow:0 18px 60px rgba(0,0,0,.55);color:#ffedb8;font:500 12px/1.5 system-ui,sans-serif}',
+      '#amp-popup h4{margin:0 0 8px;font-size:14px;color:#fff}',
+      '#amp-popup .row{display:flex;justify-content:space-between;gap:12px;padding:2px 0}',
+      '#amp-popup .row span:first-child{color:rgba(255,237,184,.6)}',
+      '#amp-popup .coords{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,207,92,.3);color:rgba(255,237,184,.75);font-size:11px}',
+      '#amp-popup .close{position:absolute;top:8px;right:10px;border:0;background:none;color:rgba(255,237,184,.6);font-size:16px;cursor:pointer}'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  function _mpEnsureLayer() {
+    if (_mpLayer) return _mpLayer;
+    _mpInjectStyles();
+    _mpLayer = document.createElement('div');
+    _mpLayer.id = 'amp-ghost-layer';
+    _mpLayer.setAttribute('aria-hidden', 'true');
+    const host = document.getElementById('panorama-container') || document.body;
+    host.appendChild(_mpLayer);
+    return _mpLayer;
+  }
+
+  function _mpBuildMarkers() {
+    const layer = _mpEnsureLayer();
+    while (layer.firstChild) layer.removeChild(layer.firstChild);
+    _mpMarkers = [];
+    if (!_mp) return;
+    _mp.lotes.forEach(function (lote) {
+      const el = document.createElement('div');
+      el.className = 'amp-mark';
+      el.textContent = lote.numero != null ? String(lote.numero) : '·';
+      const marker = { el, yaw: lote.yaw, pitch: lote.pitch, data: lote, kind: 'lote', pt: [lote.pitch, lote.yaw], cam: { x: 0, y: 0, z: 0 } };
+      el.addEventListener('click', function (event) {
+        event.stopPropagation();
+        _mpShowPopup(marker, event.clientX, event.clientY);
+      });
+      layer.appendChild(el);
+      _mpMarkers.push(marker);
+    });
+    _mp.hitos.forEach(function (hito) {
+      const el = document.createElement('div');
+      el.className = 'amp-mark amp-mark--hito';
+      const marker = { el, yaw: hito.yaw, pitch: hito.pitch, data: hito, kind: 'hito', pt: [hito.pitch, hito.yaw], cam: { x: 0, y: 0, z: 0 } };
+      el.addEventListener('click', function (event) {
+        event.stopPropagation();
+        _mpShowPopup(marker, event.clientX, event.clientY);
+      });
+      layer.appendChild(el);
+      _mpMarkers.push(marker);
+    });
+  }
+
+  function _mpTick() {
+    if (!_mp || !_mp.ghostVisible) { _mpRaf = 0; return; }
+    const FCam = window.FerrariCamera;
+    if (FCam && FCam.getProjectionParams && FCam.getCamFastInto) {
+      const proj = FCam.getProjectionParams();
+      const offY = _mp.offset.yaw;
+      const offP = _mp.offset.pitch;
+      for (let i = 0; i < _mpMarkers.length; i++) {
+        const mk = _mpMarkers[i];
+        mk.pt[0] = mk.pitch + offP;
+        mk.pt[1] = mk.yaw + offY;
+        const cam = FCam.getCamFastInto(mk.pt, mk.cam);
+        if (cam.z <= 0.0001) {
+          if (mk.el.style.display !== 'none') mk.el.style.display = 'none';
+          continue;
+        }
+        const pp = FCam.camToPixel(cam, proj);
+        if (pp.px < -40 || pp.py < -40 || pp.px > proj.w + 40 || pp.py > proj.h + 40) {
+          if (mk.el.style.display !== 'none') mk.el.style.display = 'none';
+          continue;
+        }
+        if (mk.el.style.display !== '') mk.el.style.display = '';
+        mk.el.style.transform = 'translate(' + pp.px.toFixed(1) + 'px,' + pp.py.toFixed(1) + 'px)';
+      }
+    }
+    _mpRaf = requestAnimationFrame(_mpTick);
+  }
+
+  function _mpSetGhost(visible) {
+    if (!_mp) return;
+    _mp.ghostVisible = !!visible;
+    _mpSave();
+    if (visible) {
+      _mpBuildMarkers();
+      if (!_mpRaf) _mpRaf = requestAnimationFrame(_mpTick);
+    } else {
+      if (_mpRaf) { cancelAnimationFrame(_mpRaf); _mpRaf = 0; }
+      if (_mpLayer) { while (_mpLayer.firstChild) _mpLayer.removeChild(_mpLayer.firstChild); }
+      _mpMarkers = [];
+      _mpHidePopup();
+    }
+  }
+
+  function _mpFmt(value, suffix) {
+    return value == null ? '—' : String(value).replace('.', ',') + (suffix || '');
+  }
+
+  function _mpShowPopup(marker, clientX, clientY) {
+    const d = marker.data || {};
+    if (!_mpPopup) {
+      _mpPopup = document.createElement('div');
+      _mpPopup.id = 'amp-popup';
+      _mpPopup.addEventListener('click', function (event) { event.stopPropagation(); });
+      document.body.appendChild(_mpPopup);
+    }
+    const rows = [];
+    if (marker.kind === 'lote') {
+      if (d.estado) rows.push(['Estado', d.estado]);
+      if (d.rolSII) rows.push(['Rol SII', d.rolSII]);
+      if (d.superficieM2 != null) rows.push(['Superficie', _mpFmt(d.superficieM2, ' m²')]);
+      if (d.servidumbreTransitoM2 != null) rows.push(['Serv. tránsito', _mpFmt(d.servidumbreTransitoM2, ' m²')]);
+      if (d.anchoServTransitoM != null) rows.push(['Ancho serv. tr.', _mpFmt(d.anchoServTransitoM, ' m')]);
+      if (d.servidumbreElectricaM2 != null) rows.push(['Serv. eléctrica', _mpFmt(d.servidumbreElectricaM2, ' m²')]);
+      if (d.anchoServElectricaM != null) rows.push(['Ancho serv. elec.', _mpFmt(d.anchoServElectricaM, ' m')]);
+    } else {
+      rows.push(['Tipo', 'Hito de referencia']);
+    }
+    const yaw = ((marker.yaw + (_mp ? _mp.offset.yaw : 0) + 540) % 360) - 180;
+    const pitch = marker.pitch + (_mp ? _mp.offset.pitch : 0);
+    _mpPopup.innerHTML =
+      '<button class="close" aria-label="Cerrar">×</button>' +
+      '<h4>' + _escapeHtml(d.titulo || (marker.kind === 'lote' ? 'Lote ' + (d.numero || '') : 'Hito')) + '</h4>' +
+      rows.map(function (row) { return '<div class="row"><span>' + _escapeHtml(row[0]) + '</span><span>' + _escapeHtml(row[1]) + '</span></div>'; }).join('') +
+      '<div class="coords">P: ' + pitch.toFixed(3) + '° · Y: ' + yaw.toFixed(3) + '°<br><small style="opacity:.7">coordenada con offset aplicado — usable como referencia exacta</small></div>';
+    _mpPopup.style.display = 'block';
+    const rect = _mpPopup.getBoundingClientRect();
+    const x = Math.min(Math.max(8, clientX + 14), window.innerWidth - rect.width - 8);
+    const y = Math.min(Math.max(8, clientY - 14), window.innerHeight - rect.height - 8);
+    _mpPopup.style.left = x + 'px';
+    _mpPopup.style.top = y + 'px';
+    _mpBindPopupClose();
+  }
+
+  function _mpHidePopup() {
+    if (_mpPopup) _mpPopup.style.display = 'none';
+  }
+
+  function _mpBindPopupClose() {
+    if (_mpPopupBound) return;
+    _mpPopupBound = true;
+    setTimeout(function () {
+      document.addEventListener('pointerdown', function (event) {
+        if (_mpPopup && _mpPopup.style.display === 'block' && !_mpPopup.contains(event.target)) _mpHidePopup();
+      }, true);
+      document.addEventListener('keydown', function (event) { if (event.key === 'Escape') _mpHidePopup(); });
+    }, 0);
+  }
+
+  function _mpDiscard() {
+    _mpSetGhost(false);
+    _mp = null;
+    _mpSave();
+    const controls = _panel && _panel.querySelector('[data-role="import-controls"]');
+    if (controls) controls.hidden = true;
+    _mpStatus('Importación descartada.');
+  }
+
+  function _mpBindControls() {
+    if (!_panel) return;
+    const yaw = _panel.querySelector('[data-role="mp-yaw"]');
+    const pitch = _panel.querySelector('[data-role="mp-pitch"]');
+    const ghost = _panel.querySelector('[data-role="mp-ghost"]');
+    if (yaw) yaw.addEventListener('input', function () {
+      if (!_mp) return;
+      _mp.offset.yaw = parseFloat(yaw.value) || 0;
+      _panel.querySelector('[data-role="mp-yaw-val"]').textContent = _mp.offset.yaw.toFixed(1) + '°';
+      _mpSave();
+    });
+    if (pitch) pitch.addEventListener('input', function () {
+      if (!_mp) return;
+      _mp.offset.pitch = parseFloat(pitch.value) || 0;
+      _panel.querySelector('[data-role="mp-pitch-val"]').textContent = _mp.offset.pitch.toFixed(1) + '°';
+      _mpSave();
+    });
+    if (ghost) ghost.addEventListener('change', function () { _mpSetGhost(ghost.checked); });
+  }
+
   function activate() {
     if (window.FerrariTools) window.FerrariTools.deactivateAllTools();
     _active = true;
     _ensurePanel().style.display = '';
     if (_backdrop) _backdrop.style.display = '';
+    _mpRestore();
     _status(_needsVercelAddress()
       ? 'Antes de analizar: pega arriba la dirección de tu proyecto Vercel y pulsa “Guardar y probar”.'
       : 'Elige una foto desde tu PC o usa la vista 360 actual.');
