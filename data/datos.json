@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787193477937,
+  "updatedAt": 1787193485640,
   "lotes": [
     {
       "tipo": "calle",
@@ -2147,7 +2147,7 @@
           -144.96021539015663
         ]
       ],
-      "estado": "disponible",
+      "estado": "vendido",
       "titulo": "12",
       "dimensiones": "5.032",
       "hasSmartPin": true,
