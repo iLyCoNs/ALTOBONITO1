@@ -185,7 +185,10 @@
     0 -1px 0 rgba(0, 0, 0, 0.14) inset;
 }
 
-/* Cards = mismo glass exacto que #kpk-weather-widget */
+/* Cards POI/ruta: sólido ligero sin blur (perf).
+   blur(32px)×N cards sobre el canvas WebGL que se repinta cada frame
+   obliga al compositor a re-desenfocar cada card en cada frame → lag
+   al panear hacia clusters de POIs. El glass queda solo en horizonte. */
 .fgp-card {
   position: absolute;
   left: 0;
@@ -202,9 +205,7 @@
   width: max-content;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  background: rgba(18, 22, 30, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.22);
   box-shadow:
     0 8px 28px rgba(0, 0, 0, 0.28),
@@ -236,6 +237,11 @@
 
 .f-geo-pin[data-tipo="horizonte"] .fgp-card {
   max-width: none;
+  /* Horizonte conserva el glass premium: solo 2-4 cards en pantalla,
+     el costo de compositor es acotado. */
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
 }
 
 /* ═══════════════════════════════════════════════════════════

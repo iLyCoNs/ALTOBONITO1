@@ -101,11 +101,11 @@
       window.FerrariSmartPins.update();
     }
 
-    // 5. Actualizar HUD coords cada 10 frames (no necesita 60fps)
-    if (_frameCount % 10 === 0) {
-      if (window.FerrariHUD && window.FerrariHUD.updateCoords) {
-        window.FerrariHUD.updateCoords();
-      }
+    // 5. Actualizar HUD coords cada frame.
+    //    updateCoords solo escribe textContent si el valor visible cambió,
+    //    así el costo con cámara quieta es 3 comparaciones de string.
+    if (window.FerrariHUD && window.FerrariHUD.updateCoords) {
+      window.FerrariHUD.updateCoords();
     }
   }
 

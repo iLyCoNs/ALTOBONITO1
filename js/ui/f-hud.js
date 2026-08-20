@@ -63,20 +63,28 @@
     }
   }
 
-  // ─── COORDS — Llamado cada 10 frames desde rAF ───────────────────
+  // ─── COORDS — Llamado cada frame desde rAF ────────────────────────
+  // Solo escribe textContent si el string visible cambió: el HUD dejas
+  // de ir "atrasado" (lag) respecto a la cámara y con la vista quieta
+  // el costo es solo comparar 3 strings.
+
+  let _lastPStr = null;
+  let _lastYStr = null;
+  let _lastHStr = null;
 
   function updateCoords() {
     if (!window.FerrariCamera || !window.FerrariCamera.getClampedView) return;
 
     // Mostrar el pitch que realmente usa WebGL/SVG (clampeado), no el crudo del drag
     const view = window.FerrariCamera.getClampedView();
-    const p = view.pitch;
-    const y = view.yaw;
-    const h = view.hfov;
 
-    if (_elPitch) _elPitch.textContent = `P: ${p.toFixed(1)}°`;
-    if (_elYaw)   _elYaw.textContent   = `Y: ${y.toFixed(1)}°`;
-    if (_elHfov)  _elHfov.textContent  = `HFOV: ${h.toFixed(0)}°`;
+    const pStr = `P: ${view.pitch.toFixed(1)}°`;
+    const yStr = `Y: ${view.yaw.toFixed(1)}°`;
+    const hStr = `HFOV: ${view.hfov.toFixed(0)}°`;
+
+    if (_elPitch && pStr !== _lastPStr) { _elPitch.textContent = pStr; _lastPStr = pStr; }
+    if (_elYaw   && yStr !== _lastYStr) { _elYaw.textContent   = yStr; _lastYStr = yStr; }
+    if (_elHfov  && hStr !== _lastHStr) { _elHfov.textContent  = hStr; _lastHStr = hStr; }
   }
 
   // ─── DRAW INFO ────────────────────────────────────────────────────

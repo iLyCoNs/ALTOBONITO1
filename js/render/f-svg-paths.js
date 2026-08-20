@@ -561,6 +561,14 @@
         const pt1 = FCam.camToPixel(cam1, proj);
         const pt2 = FCam.camToPixel(cam2, proj);
         if (!pt1.visible || !pt2.visible) continue;
+        // Trivial reject (Cohen–Sutherland): arista enteramente fuera de la
+        // banda viewport+64px en un mismo lado → no puede cruzar pantalla.
+        // Al mirar hacia el cluster de lotes desde P≈-22°, cientos de aristas
+        // proyectan decenas de miles de px bajo el borde inferior (la gnomónica
+        // diverge hacia el nadir): sus dashes se teselan a lo largo de TODO el
+        // largo del segmento aunque estén recortados fuera de pantalla.
+        if ((pt1.px < -64 && pt2.px < -64) || (pt1.px > proj.w + 64 && pt2.px > proj.w + 64) ||
+            (pt1.py < -64 && pt2.py < -64) || (pt1.py > proj.h + 64 && pt2.py > proj.h + 64)) continue;
         const lineStr = 'M ' + pt1.px.toFixed(2) + ' ' + pt1.py.toFixed(2) + ' L ' + pt2.px.toFixed(2) + ' ' + pt2.py.toFixed(2);
 
         if (e.divisionShared) {
@@ -648,6 +656,8 @@
             const pt1 = FCam.camToPixel(cam1, proj);
             const pt2 = FCam.camToPixel(cam2, proj);
             if (!pt1.visible || !pt2.visible) continue;
+            if ((pt1.px < -64 && pt2.px < -64) || (pt1.px > proj.w + 64 && pt2.px > proj.w + 64) ||
+                (pt1.py < -64 && pt2.py < -64) || (pt1.py > proj.h + 64 && pt2.py > proj.h + 64)) continue;
             parts.push('M ' + pt1.px.toFixed(2) + ' ' + pt1.py.toFixed(2) + ' L ' + pt2.px.toFixed(2) + ' ' + pt2.py.toFixed(2));
           }
         }
