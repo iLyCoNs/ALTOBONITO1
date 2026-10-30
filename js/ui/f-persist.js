@@ -78,7 +78,7 @@
   function _repoMeta() {
     return {
       OWNER: localStorage.getItem('ferrari_github_owner') || 'iLyCoNs',
-      REPO: localStorage.getItem('ferrari_github_repo') || 'alercepatagon360',
+      REPO: localStorage.getItem('ferrari_github_repo') || 'ALTOBONITO1',
       BRANCH: localStorage.getItem('ferrari_github_branch') || 'main'
     };
   }
@@ -317,24 +317,36 @@
   }
 
   async function _fetchRepoJson(OWNER, REPO, BRANCH, path, token) {
-    if (token) {
-      const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?t=${Date.now()}`;
-      const r = await fetch(url, {
-        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
-      });
-      if (!r.ok) return null;
-      const meta = await r.json();
-      return JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\n/g, '')))));
-    }
-    // Misma origen (Pages / local)
+    // 1. Mismo origen (Pages / local / Vercel) - siempre fuente de verdad directa
     try {
       const local = await fetch(`${path}?t=${Date.now()}`, { cache: 'no-store' });
-      if (local.ok) return await local.json();
+      if (local.ok) {
+        return await local.json();
+      }
     } catch (e) {}
-    const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}?t=${Date.now()}`;
-    const r = await fetch(rawUrl);
-    if (!r.ok) return null;
-    return await r.json();
+
+    // 2. Si token remoto y repo configurado
+    if (token) {
+      try {
+        const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?t=${Date.now()}`;
+        const r = await fetch(url, {
+          headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+        });
+        if (r.ok) {
+          const meta = await r.json();
+          return JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\n/g, '')))));
+        }
+      } catch (e) {}
+    }
+
+    // 3. Fallback raw URL de GitHub
+    try {
+      const rawUrl = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}?t=${Date.now()}`;
+      const r = await fetch(rawUrl);
+      if (r.ok) return await r.json();
+    } catch (e) {}
+
+    return null;
   }
 
   /**

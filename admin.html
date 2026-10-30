@@ -1040,7 +1040,7 @@
         </div>
         <div class="form-group">
           <label>Repositorio GitHub</label>
-          <input type="text" id="li-repo" placeholder="Ej: alercepatagon360" autocomplete="off" spellcheck="false">
+          <input type="text" id="li-repo" placeholder="Ej: ALTOBONITO1" autocomplete="off" spellcheck="false">
         </div>
         <div class="form-group">
           <label>Token (PAT)</label>
@@ -1449,6 +1449,14 @@
               <label>Nombre / ID del Lote</label>
               <input type="text" id="f-titulo" placeholder="Ej: Lote 01 — Sector Norte" oninput="liveUpdate()">
             </div>
+            <div class="efield">
+              <label>Pre-Rol SII</label>
+              <input type="text" id="f-prerol" placeholder="Ej: 07002-00072" oninput="liveUpdate()">
+            </div>
+            <div class="efield">
+              <label>Valor UF / m²</label>
+              <input type="number" step="0.01" id="f-ufm2" placeholder="Ej: 1.2" min="0" oninput="onUfM2Input()">
+            </div>
             <div class="efield full">
               <label>Estado Comercial</label>
               <div class="estado-sel">
@@ -1460,11 +1468,11 @@
             </div>
             <div class="efield">
               <label>Superficie (m²)</label>
-              <input type="text" id="f-dim" placeholder="Ej: 5000" oninput="liveUpdate()">
+              <input type="text" id="f-dim" placeholder="Ej: 5000" oninput="onDimInput()">
             </div>
             <div class="efield">
-              <label>Valor en UF</label>
-              <input type="number" id="f-uf" placeholder="Ej: 1500" min="0" oninput="liveUpdate()">
+              <label>Valor Total en UF</label>
+              <input type="number" step="0.01" id="f-uf" placeholder="Ej: 1500" min="0" oninput="liveUpdate()">
             </div>
             <div class="efield full" style="grid-column: span 2;">
               <label>Hashtags y Características (#Etiquetas)</label>
@@ -1520,9 +1528,13 @@
             <div class="ppill disponible" id="p-pill">Disponible</div>
             <div class="ptitle" id="p-title">Selecciona un lote</div>
             <div class="prows">
+              <div class="prow"><span class="plabel">Pre-Rol SII</span><span class="pval" id="p-prerol">—</span></div>
+              <div class="pdiv"></div>
               <div class="prow"><span class="plabel">Superficie</span><span class="pval" id="p-area">— m²</span></div>
               <div class="pdiv"></div>
-              <div class="prow"><span class="plabel">Valor UF</span><span class="pval" id="p-uf">— UF</span></div>
+              <div class="prow" id="p-row-ufm2"><span class="plabel">Valor UF / m²</span><span class="pval" id="p-ufm2">—</span></div>
+              <div class="pdiv" id="p-div-ufm2"></div>
+              <div class="prow"><span class="plabel">Valor Total UF</span><span class="pval" id="p-uf">— UF</span></div>
               <div class="prow"><span class="plabel">Valor CLP</span><span class="pval clp" id="p-clp">—</span></div>
             </div>
             <div class="pdiv" id="p-caracteristicas-div" style="display: none; height: 1px; background: rgba(255,255,255,0.06); margin: 10px 0;"></div>
@@ -1555,7 +1567,7 @@
 ══════════════════════════════════════ */
 const CFG = {
   GITHUB_OWNER: localStorage.getItem('ferrari_github_owner') || 'iLyCoNs',
-  GITHUB_REPO:  localStorage.getItem('ferrari_github_repo') || 'alercepatagon360',
+  GITHUB_REPO:  localStorage.getItem('ferrari_github_repo') || 'ALTOBONITO1',
   DATA_PATH:    'data/datos.json',
   BRAND_PATH:   'data/brand.json',
   LOGO_DIR:     'assets/brand/logos',
@@ -1823,8 +1835,12 @@ function selectLote(id) {
   const f = document.getElementById('ed-form');
   if (f) { f.hidden = false; f.style.display = 'flex'; }
   document.getElementById('f-titulo').value = l.titulo || '';
+  const prerolEl = document.getElementById('f-prerol');
+  if (prerolEl) prerolEl.value = l.preRol || l.rolSII || '';
+  const ufm2El = document.getElementById('f-ufm2');
+  if (ufm2El) ufm2El.value = l.ufM2 != null ? l.ufM2 : '';
   document.getElementById('f-dim').value    = l.dimensiones || '';
-  document.getElementById('f-uf').value     = l.valorUF || '';
+  document.getElementById('f-uf').value     = l.valorUF != null ? l.valorUF : '';
   const descEl = document.getElementById('f-caracteristicas');
   if (descEl) {
     const rawVal = l.hashtags ? (Array.isArray(l.hashtags) ? l.hashtags.join(', ') : l.hashtags) : (l.caracteristicas || '');
@@ -3049,6 +3065,26 @@ function _bindAdminNav() {
   setAdminSection('lotes');
 }
 
+
+function onUfM2Input() {
+  const ufm2 = parseFloat(document.getElementById('f-ufm2').value);
+  const rawDim = document.getElementById('f-dim').value;
+  const m2 = parseFloat(String(rawDim).replace(/\./g, '').replace(',', '.'));
+  if (!isNaN(ufm2) && ufm2 > 0 && !isNaN(m2) && m2 > 0) {
+    document.getElementById('f-uf').value = Math.round(m2 * ufm2 * 100) / 100;
+  }
+  liveUpdate();
+}
+
+function onDimInput() {
+  const ufm2 = parseFloat(document.getElementById('f-ufm2').value);
+  if (!isNaN(ufm2) && ufm2 > 0) {
+    onUfM2Input();
+  } else {
+    liveUpdate();
+  }
+}
+
 /* ══ LIVE UPDATE ══ */
 function liveUpdate() {
   const titulo = document.getElementById('f-titulo').value || 'Sin nombre';
@@ -3060,8 +3096,28 @@ function liveUpdate() {
   document.getElementById('p-pill').className = `ppill ${_estado}`;
   document.getElementById('p-pill').textContent = stLbl;
   document.getElementById('p-title').textContent = titulo;
+  const prerolVal = document.getElementById('f-prerol') ? document.getElementById('f-prerol').value : '';
+  const pPrerol = document.getElementById('p-prerol');
+  if (pPrerol) pPrerol.textContent = prerolVal || '—';
   document.getElementById('p-area').textContent  = area ? `${area} m²` : '— m²';
-  document.getElementById('p-uf').textContent    = !isNaN(uf)&&uf>0 ? `${uf.toLocaleString('es-CL')} UF` : '— UF';
+
+  const ufm2Val = document.getElementById('f-ufm2') ? parseFloat(document.getElementById('f-ufm2').value) : NaN;
+  const pUfM2 = document.getElementById('p-ufm2');
+  const pRowUfM2 = document.getElementById('p-row-ufm2');
+  const pDivUfM2 = document.getElementById('p-div-ufm2');
+  if (pUfM2) {
+    if (!isNaN(ufm2Val) && ufm2Val > 0) {
+      pUfM2.textContent = `${ufm2Val.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} UF/m²`;
+      if (pRowUfM2) pRowUfM2.style.display = 'flex';
+      if (pDivUfM2) pDivUfM2.style.display = 'block';
+    } else {
+      pUfM2.textContent = '—';
+      if (pRowUfM2) pRowUfM2.style.display = _estado === 'vendido' ? 'none' : 'flex';
+      if (pDivUfM2) pDivUfM2.style.display = _estado === 'vendido' ? 'none' : 'block';
+    }
+  }
+
+  document.getElementById('p-uf').textContent    = !isNaN(uf)&&uf>0 ? `${uf.toLocaleString('es-CL', { maximumFractionDigits: 2 })} UF` : (_estado === 'vendido' ? 'Vendido' : '— UF');
   document.getElementById('p-clp').textContent   = clpRaw ? '~ '+fmtCLP(clpRaw) : '—';
   document.getElementById('f-clp').textContent   = clpRaw ? '~ '+fmtCLP(clpRaw) : '—';
 
@@ -3091,6 +3147,10 @@ async function saveLote() {
   const l = _lotes.find(x => x.id === _cid);
   if (!l) return;
   l.titulo      = document.getElementById('f-titulo').value.trim();
+  const prerolEl = document.getElementById('f-prerol');
+  if (prerolEl) { l.preRol = prerolEl.value.trim(); l.rolSII = prerolEl.value.trim(); }
+  const ufm2El = document.getElementById('f-ufm2');
+  if (ufm2El) l.ufM2 = ufm2El.value !== '' ? parseFloat(ufm2El.value) : null;
   l.estado      = _estado;
   l.dimensiones = document.getElementById('f-dim').value.trim();
   l.valorUF     = document.getElementById('f-uf').value ? parseFloat(document.getElementById('f-uf').value) : null;

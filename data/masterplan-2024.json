@@ -90,12 +90,16 @@
       "titulo": "Lote · 1",
       "estado": "Disponible",
       "rolSII": "07002-00072",
-      "superficieM2": 7200.02,
+      "superficieM2": 6586.56,
       "servidumbreTransitoM2": 1142.21,
       "anchoServTransitoM": 15,
       "servidumbreElectricaM2": 2433.03,
       "anchoServElectricaM": 20,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00072",
+      "ufM2": 1.2,
+      "valorUF": 7903.87,
+      "dimensiones": "6.586,56"
     },
     {
       "id": "ficha2",
@@ -105,12 +109,16 @@
       "titulo": "Lote · 2",
       "estado": "Disponible",
       "rolSII": "07002-00073",
-      "superficieM2": 6655.18,
+      "superficieM2": 6355.55,
       "servidumbreTransitoM2": 319.476,
       "anchoServTransitoM": 15,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00073",
+      "ufM2": 1.2,
+      "valorUF": 7626.66,
+      "dimensiones": "6.355,55"
     },
     {
       "id": "ficha3",
@@ -120,12 +128,16 @@
       "titulo": "Lote · 3",
       "estado": "Disponible",
       "rolSII": "07002-00074",
-      "superficieM2": 6000.15,
+      "superficieM2": 5150.74,
       "servidumbreTransitoM2": 902.95,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00074",
+      "ufM2": 1.35,
+      "valorUF": 6953.5,
+      "dimensiones": "5.150,74"
     },
     {
       "id": "ficha4",
@@ -135,12 +147,16 @@
       "titulo": "Lote · 4",
       "estado": "Disponible",
       "rolSII": "07002-00075",
-      "superficieM2": 6000.74,
+      "superficieM2": 5423.43,
       "servidumbreTransitoM2": 1529.25,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": 1273.26,
       "anchoServElectricaM": 20,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00075",
+      "ufM2": 1.2,
+      "valorUF": 6508.12,
+      "dimensiones": "5.423,43"
     },
     {
       "id": "ficha5",
@@ -150,12 +166,16 @@
       "titulo": "Lote · 5",
       "estado": "Disponible",
       "rolSII": "07002-00076",
-      "superficieM2": 5705.55,
+      "superficieM2": 5703.25,
       "servidumbreTransitoM2": 927.512,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": 1359.17,
       "anchoServElectricaM": 20,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00076",
+      "ufM2": 1.35,
+      "valorUF": 7699.39,
+      "dimensiones": "5.703,25"
     },
     {
       "id": "ficha6",
@@ -165,12 +185,16 @@
       "titulo": "Lote · 6",
       "estado": "Disponible",
       "rolSII": "07002-00077",
-      "superficieM2": 5105.55,
+      "superficieM2": 5705.58,
       "servidumbreTransitoM2": 354.396,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": 34.54,
       "anchoServElectricaM": 4.79,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00077",
+      "ufM2": 1.35,
+      "valorUF": 7702.53,
+      "dimensiones": "5.705,58"
     },
     {
       "id": "ficha7",
@@ -185,7 +209,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00078",
+      "ufM2": 1.35,
+      "valorUF": 7001.8,
+      "dimensiones": "5.186,52"
     },
     {
       "id": "ficha8",
@@ -200,7 +228,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto1.jpg",
+      "preRol": "07002-00079",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.186,52"
     },
     {
       "id": "ficha9",
@@ -210,12 +242,16 @@
       "titulo": "Lote · 9",
       "estado": "Disponible",
       "rolSII": "07002-00080",
-      "superficieM2": 6122.39,
+      "superficieM2": 6079.57,
       "servidumbreTransitoM2": 1833.94,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00080",
+      "ufM2": 1.3,
+      "valorUF": 7903.44,
+      "dimensiones": "6.079,57"
     },
     {
       "id": "ficha10",
@@ -225,12 +261,16 @@
       "titulo": "Lote · 10",
       "estado": "Disponible",
       "rolSII": "07002-00081",
-      "superficieM2": 5006,
+      "superficieM2": 5002.12,
       "servidumbreTransitoM2": 910.727,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00081",
+      "ufM2": 1.35,
+      "valorUF": 6752.86,
+      "dimensiones": "5.002,12"
     },
     {
       "id": "ficha11",
@@ -240,12 +280,16 @@
       "titulo": "Lote · 11",
       "estado": "Disponible",
       "rolSII": "07002-00082",
-      "superficieM2": 5005,
+      "superficieM2": 5000.86,
       "servidumbreTransitoM2": 1441.85,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00082",
+      "ufM2": 1.1,
+      "valorUF": 5500.95,
+      "dimensiones": "5.000,86"
     },
     {
       "id": "ficha12",
@@ -255,12 +299,16 @@
       "titulo": "Lote · 12",
       "estado": "Disponible",
       "rolSII": "07002-00083",
-      "superficieM2": 5032,
+      "superficieM2": 5010.2,
       "servidumbreTransitoM2": 312.5,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00083",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.010,20"
     },
     {
       "id": "ficha13",
@@ -270,12 +318,16 @@
       "titulo": "Lote · 13",
       "estado": "Disponible",
       "rolSII": "07002-00084",
-      "superficieM2": 5030,
+      "superficieM2": 5122.14,
       "servidumbreTransitoM2": 311.06,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00084",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.122,14"
     },
     {
       "id": "ficha14",
@@ -285,12 +337,16 @@
       "titulo": "Lote · 14",
       "estado": "Disponible",
       "rolSII": "07002-00085",
-      "superficieM2": 5269.45,
+      "superficieM2": 7480.66,
       "servidumbreTransitoM2": 332.752,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00085",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "7.480,66"
     },
     {
       "id": "ficha15",
@@ -300,12 +356,16 @@
       "titulo": "Lote · 15",
       "estado": "Disponible",
       "rolSII": "07002-00086",
-      "superficieM2": 6215.49,
+      "superficieM2": 5646.42,
       "servidumbreTransitoM2": 364.54,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00086",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.646,42"
     },
     {
       "id": "ficha16",
@@ -315,12 +375,16 @@
       "titulo": "Lote · 16",
       "estado": "Disponible",
       "rolSII": "07002-00087",
-      "superficieM2": 5100.9,
+      "superficieM2": 5044.56,
       "servidumbreTransitoM2": 1050.18,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00087",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.044,56"
     },
     {
       "id": "ficha17",
@@ -330,12 +394,16 @@
       "titulo": "Lote · 17",
       "estado": "Disponible",
       "rolSII": "07002-00088",
-      "superficieM2": 5152.42,
+      "superficieM2": 5052.42,
       "servidumbreTransitoM2": 500,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00088",
+      "ufM2": 1.3,
+      "valorUF": 6568.15,
+      "dimensiones": "5.052,42"
     },
     {
       "id": "ficha18",
@@ -345,12 +413,16 @@
       "titulo": "Lote · 18",
       "estado": "Disponible",
       "rolSII": "07002-00089",
-      "superficieM2": 5000.99,
+      "superficieM2": 5004.38,
       "servidumbreTransitoM2": 408.06,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00089",
+      "ufM2": 1.3,
+      "valorUF": 6505.69,
+      "dimensiones": "5.004,38"
     },
     {
       "id": "ficha19",
@@ -360,12 +432,16 @@
       "titulo": "Lote · 19",
       "estado": "Disponible",
       "rolSII": "07002-00090",
-      "superficieM2": 5050.5,
+      "superficieM2": 5015.63,
       "servidumbreTransitoM2": 442.84,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00090",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.015,63"
     },
     {
       "id": "ficha20",
@@ -380,7 +456,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00091",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.162,71"
     },
     {
       "id": "ficha21",
@@ -390,12 +470,16 @@
       "titulo": "Lote · 21",
       "estado": "Disponible",
       "rolSII": "07002-00092",
-      "superficieM2": 5299.65,
+      "superficieM2": 5286.37,
       "servidumbreTransitoM2": 382.79,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00092",
+      "ufM2": 1.25,
+      "valorUF": 6607.96,
+      "dimensiones": "5.286,37"
     },
     {
       "id": "ficha22",
@@ -410,7 +494,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00093",
+      "ufM2": 1.25,
+      "valorUF": 6581.74,
+      "dimensiones": "5.265,39"
     },
     {
       "id": "ficha23",
@@ -425,7 +513,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00094",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.162,71"
     },
     {
       "id": "ficha24",
@@ -440,7 +532,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00095",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "6.003,66"
     },
     {
       "id": "ficha25",
@@ -455,7 +551,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00096",
+      "ufM2": 1.2,
+      "valorUF": 6377.33,
+      "dimensiones": "5.314,44"
     },
     {
       "id": "ficha26",
@@ -470,7 +570,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00097",
+      "ufM2": 1.15,
+      "valorUF": 5817.25,
+      "dimensiones": "5.058,48"
     },
     {
       "id": "ficha27",
@@ -480,12 +584,16 @@
       "titulo": "Lote · 27",
       "estado": "Disponible",
       "rolSII": "07002-00098",
-      "superficieM2": 5123.15,
+      "superficieM2": 5457.51,
       "servidumbreTransitoM2": 432.98,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00098",
+      "ufM2": 1.15,
+      "valorUF": 6276.14,
+      "dimensiones": "5.457,51"
     },
     {
       "id": "ficha28",
@@ -495,12 +603,16 @@
       "titulo": "Lote · 28",
       "estado": "Disponible",
       "rolSII": "07002-00099",
-      "superficieM2": 5109.16,
+      "superficieM2": 5103.44,
       "servidumbreTransitoM2": 468.35,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00099",
+      "ufM2": 1.15,
+      "valorUF": 5868.96,
+      "dimensiones": "5.103,44"
     },
     {
       "id": "ficha29",
@@ -515,7 +627,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00100",
+      "ufM2": 1.15,
+      "valorUF": 5790.01,
+      "dimensiones": "5.034,79"
     },
     {
       "id": "ficha30",
@@ -530,7 +646,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00101",
+      "ufM2": 1.2,
+      "valorUF": 6260.06,
+      "dimensiones": "5.216,72"
     },
     {
       "id": "ficha31",
@@ -545,7 +665,11 @@
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00102",
+      "ufM2": 1.2,
+      "valorUF": 6109.64,
+      "dimensiones": "5.091,37"
     },
     {
       "id": "ficha32",
@@ -555,12 +679,16 @@
       "titulo": "Lote · 32",
       "estado": "Disponible",
       "rolSII": "07002-00103",
-      "superficieM2": 5090.6,
+      "superficieM2": 5090.78,
       "servidumbreTransitoM2": 865.61,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00103",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.090,78"
     },
     {
       "id": "ficha33",
@@ -570,12 +698,16 @@
       "titulo": "Lote · 33",
       "estado": "Disponible",
       "rolSII": "07002-00104",
-      "superficieM2": 5039.36,
+      "superficieM2": 5027.95,
       "servidumbreTransitoM2": 369.31,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00104",
+      "ufM2": 1.1,
+      "valorUF": 5530.75,
+      "dimensiones": "5.027,95"
     },
     {
       "id": "ficha34",
@@ -585,12 +717,16 @@
       "titulo": "Lote · 34",
       "estado": "Disponible",
       "rolSII": "07002-00105",
-      "superficieM2": 5001.45,
+      "superficieM2": 5000.28,
       "servidumbreTransitoM2": 362.23,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00105",
+      "ufM2": 1.1,
+      "valorUF": 5500.31,
+      "dimensiones": "5.000,28"
     },
     {
       "id": "ficha35",
@@ -600,12 +736,16 @@
       "titulo": "Lote · 35",
       "estado": "Disponible",
       "rolSII": "07002-00106",
-      "superficieM2": 5000.7,
+      "superficieM2": 5000.23,
       "servidumbreTransitoM2": 384.59,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto9.jpg",
+      "preRol": "07002-00106",
+      "ufM2": 1.1,
+      "valorUF": 5500.25,
+      "dimensiones": "5.000,23"
     },
     {
       "id": "ficha36",
@@ -615,12 +755,16 @@
       "titulo": "Lote · 36",
       "estado": "Disponible",
       "rolSII": "07002-00107",
-      "superficieM2": 5000.92,
+      "superficieM2": 5002.97,
       "servidumbreTransitoM2": 405.26,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00107",
+      "ufM2": 1.1,
+      "valorUF": 5503.27,
+      "dimensiones": "5.002,97"
     },
     {
       "id": "ficha37",
@@ -630,12 +774,16 @@
       "titulo": "Lote · 37",
       "estado": "Disponible",
       "rolSII": "07002-00108",
-      "superficieM2": 6503.54,
+      "superficieM2": 6489.68,
       "servidumbreTransitoM2": 551.14,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00108",
+      "ufM2": 1.1,
+      "valorUF": 7138.65,
+      "dimensiones": "6.489,68"
     },
     {
       "id": "ficha38",
@@ -645,12 +793,16 @@
       "titulo": "Lote · 38",
       "estado": "Disponible",
       "rolSII": "07002-00109",
-      "superficieM2": 6502.88,
+      "superficieM2": 6503.91,
       "servidumbreTransitoM2": 425.69,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00109",
+      "ufM2": 1.1,
+      "valorUF": 7154.3,
+      "dimensiones": "6.503,91"
     },
     {
       "id": "ficha39",
@@ -660,12 +812,16 @@
       "titulo": "Lote · 39",
       "estado": "Disponible",
       "rolSII": "07002-00110",
-      "superficieM2": 6432.95,
+      "superficieM2": 6409.51,
       "servidumbreTransitoM2": 508.1,
       "anchoServTransitoM": 7.5,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00110",
+      "ufM2": 1.1,
+      "valorUF": 7050.46,
+      "dimensiones": "6.409,51"
     },
     {
       "id": "ficha40",
@@ -674,13 +830,17 @@
       "pitch": 49.399,
       "titulo": "Lote · 40",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5896.44,
+      "rolSII": "07002-00111",
+      "superficieM2": 5599.1,
       "servidumbreTransitoM2": 720.529,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00111",
+      "ufM2": 1.15,
+      "valorUF": 6438.97,
+      "dimensiones": "5.599,10"
     },
     {
       "id": "ficha41",
@@ -689,13 +849,17 @@
       "pitch": 47.235,
       "titulo": "Lote · 41",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5874.92,
+      "rolSII": "07002-00112",
+      "superficieM2": 5706.58,
       "servidumbreTransitoM2": 1424.292,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00112",
+      "ufM2": 1.2,
+      "valorUF": 6847.9,
+      "dimensiones": "5.706,58"
     },
     {
       "id": "ficha42",
@@ -704,13 +868,17 @@
       "pitch": 43.042,
       "titulo": "Lote · 42",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5437.98,
+      "rolSII": "07002-00113",
+      "superficieM2": 5373.45,
       "servidumbreTransitoM2": 1220.585,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00113",
+      "ufM2": 1.2,
+      "valorUF": 6448.14,
+      "dimensiones": "5.373,45"
     },
     {
       "id": "ficha43",
@@ -719,13 +887,17 @@
       "pitch": 40.952,
       "titulo": "Lote · 43",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5000,
+      "rolSII": "07002-00114",
+      "superficieM2": 5062.62,
       "servidumbreTransitoM2": 297.193,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00114",
+      "ufM2": null,
+      "valorUF": null,
+      "dimensiones": "5.062,62"
     },
     {
       "id": "ficha44",
@@ -734,13 +906,17 @@
       "pitch": 38.956,
       "titulo": "Lote · 44",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 7832.08,
+      "rolSII": "07002-00115",
+      "superficieM2": 8290.88,
       "servidumbreTransitoM2": 224.374,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00115",
+      "ufM2": 1,
+      "valorUF": 8290.88,
+      "dimensiones": "8.290,88"
     },
     {
       "id": "ficha45",
@@ -749,13 +925,17 @@
       "pitch": 48.862,
       "titulo": "Lote · 45",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5000,
+      "rolSII": "07002-00116",
+      "superficieM2": 5459.58,
       "servidumbreTransitoM2": 1232.142,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00116",
+      "ufM2": 1.2,
+      "valorUF": 6551.5,
+      "dimensiones": "5.459,58"
     },
     {
       "id": "ficha46",
@@ -764,13 +944,17 @@
       "pitch": 53.104,
       "titulo": "Lote · 46",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5149.87,
+      "rolSII": "07002-00117",
+      "superficieM2": 5000,
       "servidumbreTransitoM2": 378.372,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00117",
+      "ufM2": 1.2,
+      "valorUF": 6000,
+      "dimensiones": "5.000"
     },
     {
       "id": "ficha47",
@@ -779,13 +963,17 @@
       "pitch": 57.624,
       "titulo": "Lote · 47",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5086.98,
+      "rolSII": "07002-00118",
+      "superficieM2": 5000,
       "servidumbreTransitoM2": 392.018,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00118",
+      "ufM2": 1.2,
+      "valorUF": 6000,
+      "dimensiones": "5.000"
     },
     {
       "id": "ficha48",
@@ -794,13 +982,17 @@
       "pitch": 62.449,
       "titulo": "Lote · 48",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5422.66,
+      "rolSII": "07002-00119",
+      "superficieM2": 5002.89,
       "servidumbreTransitoM2": 188.218,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00119",
+      "ufM2": 1.2,
+      "valorUF": 6003.47,
+      "dimensiones": "5.002,89"
     },
     {
       "id": "ficha49",
@@ -809,13 +1001,17 @@
       "pitch": 68.468,
       "titulo": "Lote · 49",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 5136.02,
+      "rolSII": "07002-00120",
+      "superficieM2": 6016.83,
       "servidumbreTransitoM2": 572.42,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00120",
+      "ufM2": 1.25,
+      "valorUF": 7521.04,
+      "dimensiones": "6.016,83"
     },
     {
       "id": "ficha50",
@@ -824,13 +1020,17 @@
       "pitch": 61.311,
       "titulo": "Lote · 50",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 6578.03,
+      "rolSII": "07002-00121",
+      "superficieM2": 6212.12,
       "servidumbreTransitoM2": 377.955,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto8.jpg",
+      "preRol": "07002-00121",
+      "ufM2": 1.25,
+      "valorUF": 7765.15,
+      "dimensiones": "6.212,12"
     },
     {
       "id": "ficha51",
@@ -839,13 +1039,17 @@
       "pitch": 55.993,
       "titulo": "Lote · 51",
       "estado": "Disponible",
-      "rolSII": null,
-      "superficieM2": 6612.02,
+      "rolSII": "07002-00122",
+      "superficieM2": 6075.93,
       "servidumbreTransitoM2": 1491.071,
       "anchoServTransitoM": null,
       "servidumbreElectricaM2": null,
       "anchoServElectricaM": null,
-      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg"
+      "foto": "assets/masterplan-2024/img-lotes/foto7.jpg",
+      "preRol": "07002-00122",
+      "ufM2": 1.15,
+      "valorUF": 6987.32,
+      "dimensiones": "6.075,93"
     }
   ],
   "calibracion": null

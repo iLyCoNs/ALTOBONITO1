@@ -722,8 +722,8 @@
             <button type="button" class="kbd-item" data-lote-id="${l.id}" role="listitem">
               <span class="kbd-dot kbd-dot--${st}"></span>
               <span class="kbd-item-main">
-                <span class="kbd-item-title">${_esc(l.titulo || 'Lote')}</span>
-                <span class="kbd-item-sub">${_esc(_estadoLabel(st))} · ${area} · ${uf}</span>
+                <span class="kbd-item-title">${_esc(l.titulo ? (/^lote/i.test(l.titulo) ? l.titulo : `Lote ${l.titulo}`) : 'Lote')}</span>
+                <span class="kbd-item-sub">${_esc(_estadoLabel(st))}${l.preRol || l.rolSII ? ' · ' + (l.preRol || l.rolSII) : ''} · ${area} · ${uf}</span>
               </span>
               <span class="kbd-chevron">›</span>
             </button>

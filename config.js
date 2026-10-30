@@ -5,7 +5,7 @@
 
 (function() {
   window.KPK_CONFIG = {
-    configVersion: 14,
+    configVersion: 15,
     plan: 'basic',
     architectVisionEndpoint: '/api/architect/analyze',
 

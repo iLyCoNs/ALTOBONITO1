@@ -21,17 +21,26 @@
   <link rel="stylesheet" href="css/f-calendar.css?v=6">
   <link rel="stylesheet" href="css/f-draggable.css?v=2">
   <!-- Configuración predeterminada (API keys obfuscadas) — en el repositorio -->
-  <script src="config.js?v=8"></script>
+  <script src="config.js?v=15"></script>
   <!-- Configuración local (API keys de desarrollo) — gitignoreado -->
   <script src="config.local.js" onerror="window.KPK_CONFIG=window.KPK_CONFIG||null"></script>
   <script>
     (function() {
       var cfg = window.KPK_CONFIG;
       if (!cfg) return;
-      var currentVer = String(cfg.configVersion || '1');
-      localStorage.setItem('kpk_config_version', currentVer);
+      var currentVer = String(cfg.configVersion || '15');
+      var prevVer = localStorage.getItem('kpk_config_version');
+      if (prevVer !== currentVer) {
+        try {
+          localStorage.removeItem('ferrari360_lines');
+          localStorage.removeItem('ferrari360_datos');
+          localStorage.removeItem('ferrari360_geo');
+        } catch (e) {}
+        localStorage.setItem('kpk_config_version', currentVer);
+      }
     })();
   </script>
+
 
 </head>
 <body>
@@ -443,6 +452,11 @@
       </div>
 
       <div class="kpk-lote-field">
+        <label>Pre-Rol SII</label>
+        <input type="text" id="lote-input-prerol" placeholder="Ej: 07002-00072" autocomplete="off">
+      </div>
+
+      <div class="kpk-lote-field">
         <label>Estado Comercial</label>
         <select id="lote-input-estado">
           <option value="disponible">Disponible (Verde)</option>
@@ -458,8 +472,13 @@
       </div>
 
       <div class="kpk-lote-field">
-        <label>Valor UF</label>
-        <input type="number" id="lote-input-uf" placeholder="Ej: 1500" autocomplete="off">
+        <label>Valor UF / m²</label>
+        <input type="number" step="0.01" id="lote-input-ufm2" placeholder="Ej: 1.2" autocomplete="off">
+      </div>
+
+      <div class="kpk-lote-field">
+        <label>Valor Total UF</label>
+        <input type="number" step="0.01" id="lote-input-uf" placeholder="Ej: 1500" autocomplete="off">
       </div>
       
       <div class="kpk-lote-field">
@@ -493,16 +512,26 @@
 
       <div class="kpk-spectator-body">
         <div class="kpk-spec-row">
+          <span class="kpk-spec-label">Pre-Rol SII</span>
+          <span class="kpk-spec-val" id="spec-val-prerol">—</span>
+        </div>
+        <div class="kpk-spec-divider"></div>
+        <div class="kpk-spec-row">
           <span class="kpk-spec-label">Superficie</span>
           <span class="kpk-spec-val" id="spec-val-area">5000 m²</span>
         </div>
         <div class="kpk-spec-divider"></div>
+        <div class="kpk-spec-row" id="spec-row-ufm2">
+          <span class="kpk-spec-label">Valor UF / m²</span>
+          <span class="kpk-spec-val" id="spec-val-ufm2">—</span>
+        </div>
+        <div class="kpk-spec-divider" id="spec-div-ufm2"></div>
         <div class="kpk-spec-row">
-          <span class="kpk-spec-label">Valor UF</span>
+          <span class="kpk-spec-label">Valor Total UF</span>
           <span class="kpk-spec-val" id="spec-val-uf">1,500 UF</span>
         </div>
         <div class="kpk-spec-row">
-          <span class="kpk-spec-label">Valor CLP</span>
+          <span class="kpk-spec-label">Valor CLP Estimado</span>
           <span class="kpk-spec-val kpk-spec-val--clp" id="spec-val-clp">$57.000.000</span>
         </div>
         <div class="kpk-spec-divider"></div>
@@ -559,9 +588,11 @@
           </label>
           <input type="hidden" name="_subject" id="spec-f-subject" value="">
           <input type="hidden" name="lote" id="spec-f-lote" value="">
+          <input type="hidden" name="pre_rol" id="spec-f-prerol" value="">
           <input type="hidden" name="proyecto" id="spec-f-proyecto" value="">
           <input type="hidden" name="estado" id="spec-f-estado" value="">
           <input type="hidden" name="superficie" id="spec-f-superficie" value="">
+          <input type="hidden" name="uf_m2" id="spec-f-ufm2" value="">
           <input type="hidden" name="valor_uf" id="spec-f-uf" value="">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
@@ -614,10 +645,10 @@
   <script src="js/ui/f-panel.js?v=23"></script>
   <script src="js/ui/f-hud.js?v=20"></script>
   <script src="js/tools/f-street-network.js?v=16"></script>
-  <script src="js/ui/f-persist.js?v=16"></script>
-  <script src="js/ui/f-brand-dock.js?v=9"></script>
-  <script src="js/ui/f-buyer-dock.js?v=14"></script>
-  <script src="js/ui/f-lote-panel.js?v=18"></script>
+  <script src="js/ui/f-persist.js?v=20"></script>
+  <script src="js/ui/f-brand-dock.js?v=20"></script>
+  <script src="js/ui/f-buyer-dock.js?v=20"></script>
+  <script src="js/ui/f-lote-panel.js?v=20"></script>
   <script src="js/ui/f-gallery.js?v=12"></script>
   <script src="js/ui/f-compass.js?v=18"></script>
   <script src="js/ui/f-geo-editor.js?v=25"></script>

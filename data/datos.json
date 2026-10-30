@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1787193614561,
+  "updatedAt": 1793367158331,
   "lotes": [
     {
       "tipo": "calle",
@@ -818,10 +818,16 @@
         -60.074564372735594
       ],
       "pinPos": null,
-      "dimensiones": "6.000",
-      "valorUF": null,
+      "dimensiones": "5.150,74",
+      "valorUF": 6953.5,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00074",
+      "rolSII": "07002-00074",
+      "ufM2": 1.35,
+      "m2": 5150.74,
+      "superficieM2": 5150.74,
+      "colorSector": "azul"
     },
     {
       "id": "e39e7a1f-ec37-45de-bb3e-1c76c66aefd3",
@@ -874,7 +880,7 @@
       ],
       "estado": "disponible",
       "titulo": "02",
-      "dimensiones": "6.655",
+      "dimensiones": "6.355,55",
       "hasSmartPin": true,
       "createdAt": 1786849912280,
       "_pinCentroid": [
@@ -887,9 +893,15 @@
         -47.90914273484411
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7626.66,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00073",
+      "rolSII": "07002-00073",
+      "ufM2": 1.2,
+      "m2": 6355.55,
+      "superficieM2": 6355.55,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -955,10 +967,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "6.000",
-      "valorUF": null,
+      "dimensiones": "5.423,43",
+      "valorUF": 6508.12,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00075",
+      "rolSII": "07002-00075",
+      "ufM2": 1.2,
+      "m2": 5423.43,
+      "superficieM2": 5423.43,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -985,10 +1003,16 @@
         -24.429943616508233
       ],
       "loteGrupoId": "lote-grupo-7393d16e-4267-4881-993a-a6df385f97ba",
-      "dimensiones": "6.655",
-      "valorUF": null,
+      "dimensiones": "6.355,55",
+      "valorUF": 7626.66,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00073",
+      "rolSII": "07002-00073",
+      "ufM2": 1.2,
+      "m2": 6355.55,
+      "superficieM2": 6355.55,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -1038,10 +1062,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "7.200",
-      "valorUF": null,
+      "dimensiones": "6.586,56",
+      "valorUF": 7903.87,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00072",
+      "rolSII": "07002-00072",
+      "ufM2": 1.2,
+      "m2": 6586.56,
+      "superficieM2": 6586.56,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -1112,10 +1142,16 @@
         -24.98367540388153
       ],
       "loteGrupoId": "lote-grupo-a8454d52-9e18-459a-8962-03be402e02df",
-      "dimensiones": "7.200",
-      "valorUF": null,
+      "dimensiones": "6.586,56",
+      "valorUF": 7903.87,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00072",
+      "rolSII": "07002-00072",
+      "ufM2": 1.2,
+      "m2": 6586.56,
+      "superficieM2": 6586.56,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -1150,10 +1186,16 @@
         -30.5995906864442
       ],
       "loteGrupoId": "lote-grupo-8a225f04-01a4-4bf7-800c-86ed7b6d7d44",
-      "dimensiones": "6.000",
-      "valorUF": null,
+      "dimensiones": "5.423,43",
+      "valorUF": 6508.12,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00075",
+      "rolSII": "07002-00075",
+      "ufM2": 1.2,
+      "m2": 5423.43,
+      "superficieM2": 5423.43,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -1190,10 +1232,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "6.122",
-      "valorUF": null,
+      "dimensiones": "6.079,57",
+      "valorUF": 7903.44,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00080",
+      "rolSII": "07002-00080",
+      "ufM2": 1.3,
+      "m2": 6079.57,
+      "superficieM2": 6079.57,
+      "colorSector": "azul"
     },
     {
       "id": "a7dd7381-6fa4-4a48-b8c6-e001abf7b7c9",
@@ -1226,7 +1274,7 @@
       ],
       "estado": "disponible",
       "titulo": "10",
-      "dimensiones": "5.006",
+      "dimensiones": "5.002,12",
       "hasSmartPin": true,
       "createdAt": 1786851727861,
       "_pinCentroid": [
@@ -1238,9 +1286,15 @@
         -51.39304820952352
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6752.86,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00081",
+      "rolSII": "07002-00081",
+      "ufM2": 1.35,
+      "m2": 5002.12,
+      "superficieM2": 5002.12,
+      "colorSector": "azul"
     },
     {
       "id": "966362fa-9535-43da-8d61-806e73e70d5d",
@@ -1277,7 +1331,7 @@
       ],
       "estado": "disponible",
       "titulo": "11",
-      "dimensiones": "5.005",
+      "dimensiones": "5.000,86",
       "hasSmartPin": true,
       "createdAt": 1786851747058,
       "_pinCentroid": [
@@ -1289,9 +1343,15 @@
         -86.80538848881766
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 5500.95,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00082",
+      "rolSII": "07002-00082",
+      "ufM2": 1.1,
+      "m2": 5000.86,
+      "superficieM2": 5000.86,
+      "colorSector": "azul"
     },
     {
       "tipo": "lote-libre",
@@ -1331,10 +1391,16 @@
         3.0299638549485977
       ],
       "pinPos": null,
-      "dimensiones": "5.705",
-      "valorUF": null,
+      "dimensiones": "5.703,25",
+      "valorUF": 7699.39,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00076",
+      "rolSII": "07002-00076",
+      "ufM2": 1.35,
+      "m2": 5703.25,
+      "superficieM2": 5703.25,
+      "colorSector": "azul"
     },
     {
       "id": "ce168744-b13e-4e13-b2f6-a4fa74fe543e",
@@ -1367,7 +1433,7 @@
       ],
       "estado": "disponible",
       "titulo": "06",
-      "dimensiones": "5.105",
+      "dimensiones": "5.705,58",
       "hasSmartPin": true,
       "createdAt": 1786852473010,
       "_pinCentroid": [
@@ -1379,9 +1445,15 @@
         23.402277284528424
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7702.53,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00077",
+      "rolSII": "07002-00077",
+      "ufM2": 1.35,
+      "m2": 5705.58,
+      "superficieM2": 5705.58,
+      "colorSector": "azul"
     },
     {
       "id": "8c7be588-4b4e-41c1-aab6-2cef55e35068",
@@ -1414,7 +1486,7 @@
       ],
       "estado": "disponible",
       "titulo": "07",
-      "dimensiones": "5.186",
+      "dimensiones": "5.186,52",
       "hasSmartPin": true,
       "createdAt": 1786852497924,
       "_pinCentroid": [
@@ -1426,9 +1498,15 @@
         43.47536624164655
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7001.8,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00078",
+      "rolSII": "07002-00078",
+      "ufM2": 1.35,
+      "m2": 5186.52,
+      "superficieM2": 5186.52,
+      "colorSector": "azul"
     },
     {
       "id": "5ac32b28-f2ad-4602-a95a-78603e95bf13",
@@ -1473,7 +1551,7 @@
       ],
       "estado": "vendido",
       "titulo": "08",
-      "dimensiones": "5.186",
+      "dimensiones": "5.186,52",
       "hasSmartPin": true,
       "createdAt": 1786853658827,
       "_pinCentroid": [
@@ -1487,7 +1565,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00079",
+      "rolSII": "07002-00079",
+      "ufM2": null,
+      "m2": 5186.52,
+      "superficieM2": 5186.52,
+      "colorSector": "azul"
     },
     {
       "id": "6a017210-b976-4296-85bd-b3288f4032ce",
@@ -1528,7 +1612,7 @@
       ],
       "estado": "disponible",
       "titulo": "17",
-      "dimensiones": "5.152",
+      "dimensiones": "5.052,42",
       "hasSmartPin": true,
       "createdAt": 1786854036487,
       "_pinCentroid": [
@@ -1537,9 +1621,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6568.15,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00088",
+      "rolSII": "07002-00088",
+      "ufM2": 1.3,
+      "m2": 5052.42,
+      "superficieM2": 5052.42,
+      "colorSector": "amarillo"
     },
     {
       "id": "d8b603e5-4517-4940-84bc-9a196cb9fd6a",
@@ -1568,7 +1658,7 @@
       ],
       "estado": "disponible",
       "titulo": "18",
-      "dimensiones": "5.000",
+      "dimensiones": "5.004,38",
       "hasSmartPin": true,
       "createdAt": 1786854053335,
       "_pinCentroid": [
@@ -1577,9 +1667,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6505.69,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00089",
+      "rolSII": "07002-00089",
+      "ufM2": 1.3,
+      "m2": 5004.38,
+      "superficieM2": 5004.38,
+      "colorSector": "amarillo"
     },
     {
       "id": "07c9d25f-010d-4436-8190-7e8d2d0b79cd",
@@ -1604,7 +1700,7 @@
       ],
       "estado": "disponible",
       "titulo": "21",
-      "dimensiones": "5.299",
+      "dimensiones": "5.286,37",
       "hasSmartPin": true,
       "createdAt": 1786854080983,
       "_pinCentroid": [
@@ -1613,9 +1709,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6607.96,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00092",
+      "rolSII": "07002-00092",
+      "ufM2": 1.25,
+      "m2": 5286.37,
+      "superficieM2": 5286.37,
+      "colorSector": "amarillo"
     },
     {
       "id": "838844b6-9ec8-4804-8a17-3ef5a82d7fe8",
@@ -1692,7 +1794,7 @@
       ],
       "estado": "disponible",
       "titulo": "22",
-      "dimensiones": "5.265",
+      "dimensiones": "5.265,39",
       "hasSmartPin": true,
       "createdAt": 1786854263876,
       "_pinCentroid": [
@@ -1701,9 +1803,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6581.74,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00093",
+      "rolSII": "07002-00093",
+      "ufM2": 1.25,
+      "m2": 5265.39,
+      "superficieM2": 5265.39,
+      "colorSector": "amarillo"
     },
     {
       "id": "4253fccd-062a-4219-b6ff-17f38c3da749",
@@ -1740,7 +1848,7 @@
       ],
       "estado": "disponible",
       "titulo": "48",
-      "dimensiones": "5.422",
+      "dimensiones": "5.002,89",
       "hasSmartPin": true,
       "createdAt": 1787008571577,
       "_pinCentroid": [
@@ -1752,9 +1860,15 @@
         132.06062110894374
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6003.47,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00119",
+      "rolSII": "07002-00119",
+      "ufM2": 1.2,
+      "m2": 5002.89,
+      "superficieM2": 5002.89,
+      "colorSector": "amarillo"
     },
     {
       "id": "ef55e55a-1ca6-455f-b11a-b1b29a109207",
@@ -1795,7 +1909,7 @@
       ],
       "estado": "disponible",
       "titulo": "47",
-      "dimensiones": "5.089",
+      "dimensiones": "5.000",
       "hasSmartPin": true,
       "createdAt": 1787008650451,
       "_pinCentroid": [
@@ -1807,9 +1921,15 @@
         135.06902458904537
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6000,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00118",
+      "rolSII": "07002-00118",
+      "ufM2": 1.2,
+      "m2": 5000,
+      "superficieM2": 5000,
+      "colorSector": "amarillo"
     },
     {
       "id": "24ecfd27-af7b-4d6c-9577-920edf629fb1",
@@ -1838,7 +1958,7 @@
       ],
       "estado": "disponible",
       "titulo": "46",
-      "dimensiones": "5.149",
+      "dimensiones": "5.000",
       "hasSmartPin": true,
       "createdAt": 1787008666467,
       "_pinCentroid": [
@@ -1850,9 +1970,15 @@
         137.20863274588942
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6000,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00117",
+      "rolSII": "07002-00117",
+      "ufM2": 1.2,
+      "m2": 5000,
+      "superficieM2": 5000,
+      "colorSector": "amarillo"
     },
     {
       "id": "17a1ad5f-d867-4f47-bc5a-6e724bd279b1",
@@ -1877,7 +2003,7 @@
       ],
       "estado": "disponible",
       "titulo": "45",
-      "dimensiones": "5.000",
+      "dimensiones": "5.459,58",
       "hasSmartPin": true,
       "createdAt": 1787008679591,
       "_pinCentroid": [
@@ -1886,9 +2012,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6551.5,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00116",
+      "rolSII": "07002-00116",
+      "ufM2": 1.2,
+      "m2": 5459.58,
+      "superficieM2": 5459.58,
+      "colorSector": "amarillo"
     },
     {
       "tipo": "lote-libre",
@@ -1948,10 +2080,16 @@
         113.30877175911776
       ],
       "pinPos": null,
-      "dimensiones": "5.100",
+      "dimensiones": "5.044,56",
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00087",
+      "rolSII": "07002-00087",
+      "ufM2": null,
+      "m2": 5044.56,
+      "superficieM2": 5044.56,
+      "colorSector": "rojo"
     },
     {
       "id": "8de231b2-41c9-4034-a28e-053a11bd2037",
@@ -1980,7 +2118,7 @@
       ],
       "estado": "vendido",
       "titulo": "19",
-      "dimensiones": "5.050",
+      "dimensiones": "5.015,63",
       "hasSmartPin": true,
       "createdAt": 1786854518456,
       "_pinCentroid": [
@@ -1994,7 +2132,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00090",
+      "rolSII": "07002-00090",
+      "ufM2": null,
+      "m2": 5015.63,
+      "superficieM2": 5015.63,
+      "colorSector": "rojo"
     },
     {
       "id": "dfb76c60-e8f4-48f4-bead-c60137b53f7b",
@@ -2023,7 +2167,7 @@
       ],
       "estado": "vendido",
       "titulo": "20",
-      "dimensiones": "5.162",
+      "dimensiones": "5.162,71",
       "hasSmartPin": true,
       "createdAt": 1786854533763,
       "_pinCentroid": [
@@ -2037,7 +2181,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00091",
+      "rolSII": "07002-00091",
+      "ufM2": null,
+      "m2": 5162.71,
+      "superficieM2": 5162.71,
+      "colorSector": "rojo"
     },
     {
       "id": "104429fe-0596-485e-9f8f-63bc86225d5d",
@@ -2074,7 +2224,7 @@
       ],
       "estado": "vendido",
       "titulo": "23",
-      "dimensiones": "5.162",
+      "dimensiones": "5.162,71",
       "hasSmartPin": true,
       "createdAt": 1786854554967,
       "_pinCentroid": [
@@ -2088,7 +2238,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00094",
+      "rolSII": "07002-00094",
+      "ufM2": null,
+      "m2": 5162.71,
+      "superficieM2": 5162.71,
+      "colorSector": "rojo"
     },
     {
       "id": "9a3db683-a2cc-4e62-aae3-07d2be092f0c",
@@ -2113,7 +2269,7 @@
       ],
       "estado": "vendido",
       "titulo": "13",
-      "dimensiones": "5.030",
+      "dimensiones": "5.122,14",
       "hasSmartPin": true,
       "createdAt": 1786855177635,
       "_pinCentroid": [
@@ -2124,7 +2280,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00084",
+      "rolSII": "07002-00084",
+      "ufM2": null,
+      "m2": 5122.14,
+      "superficieM2": 5122.14,
+      "colorSector": "rojo"
     },
     {
       "id": "f79bc4e3-1b23-439c-a02d-fab0d26ec6cd",
@@ -2149,7 +2311,7 @@
       ],
       "estado": "vendido",
       "titulo": "12",
-      "dimensiones": "5.032",
+      "dimensiones": "5.010,20",
       "hasSmartPin": true,
       "createdAt": 1786855188824,
       "_pinCentroid": [
@@ -2160,7 +2322,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00083",
+      "rolSII": "07002-00083",
+      "ufM2": null,
+      "m2": 5010.2,
+      "superficieM2": 5010.2,
+      "colorSector": "rojo"
     },
     {
       "tipo": "lote-libre",
@@ -2193,10 +2361,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "6.003",
+      "dimensiones": "6.003,66",
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00095",
+      "rolSII": "07002-00095",
+      "ufM2": null,
+      "m2": 6003.66,
+      "superficieM2": 6003.66,
+      "colorSector": "rojo"
     },
     {
       "tipo": "lote-libre",
@@ -2236,10 +2410,16 @@
         -175.77987992856293
       ],
       "pinPos": null,
-      "dimensiones": "5.314",
-      "valorUF": null,
+      "dimensiones": "5.314,44",
+      "valorUF": 6377.33,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00096",
+      "rolSII": "07002-00096",
+      "ufM2": 1.2,
+      "m2": 5314.44,
+      "superficieM2": 5314.44,
+      "colorSector": "gris"
     },
     {
       "id": "99401c0d-41a5-44fa-9cf5-d989403630cc",
@@ -2268,7 +2448,7 @@
       ],
       "estado": "disponible",
       "titulo": "26",
-      "dimensiones": "5.058",
+      "dimensiones": "5.058,48",
       "hasSmartPin": true,
       "createdAt": 1786855244489,
       "_pinCentroid": [
@@ -2280,9 +2460,15 @@
         -161.06561979528706
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 5817.25,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00097",
+      "rolSII": "07002-00097",
+      "ufM2": 1.15,
+      "m2": 5058.48,
+      "superficieM2": 5058.48,
+      "colorSector": "gris"
     },
     {
       "id": "a40f365c-f168-4e56-84f3-1bbbee835051",
@@ -2307,7 +2493,7 @@
       ],
       "estado": "disponible",
       "titulo": "27",
-      "dimensiones": "5.123",
+      "dimensiones": "5.457,51",
       "hasSmartPin": true,
       "createdAt": 1786855258000,
       "_pinCentroid": [
@@ -2316,9 +2502,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6276.14,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00098",
+      "rolSII": "07002-00098",
+      "ufM2": 1.15,
+      "m2": 5457.51,
+      "superficieM2": 5457.51,
+      "colorSector": "gris"
     },
     {
       "tipo": "lote-libre",
@@ -2351,10 +2543,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "6.215",
+      "dimensiones": "5.646,42",
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00086",
+      "rolSII": "07002-00086",
+      "ufM2": null,
+      "m2": 5646.42,
+      "superficieM2": 5646.42,
+      "colorSector": "rojo"
     },
     {
       "id": "1b8e6471-37a4-4f31-ad2d-d011eaecdeb3",
@@ -2379,7 +2577,7 @@
       ],
       "estado": "vendido",
       "titulo": "14",
-      "dimensiones": "5.269",
+      "dimensiones": "7.480,66",
       "hasSmartPin": true,
       "createdAt": 1786855464523,
       "_pinCentroid": [
@@ -2390,7 +2588,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00085",
+      "rolSII": "07002-00085",
+      "ufM2": null,
+      "m2": 7480.66,
+      "superficieM2": 7480.66,
+      "colorSector": "rojo"
     },
     {
       "tipo": "calle",
@@ -2506,10 +2710,16 @@
         138.4555478121122
       ],
       "pinPos": null,
-      "dimensiones": "7.832",
-      "valorUF": null,
+      "dimensiones": "8.290,88",
+      "valorUF": 8290.88,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00115",
+      "rolSII": "07002-00115",
+      "ufM2": 1,
+      "m2": 8290.88,
+      "superficieM2": 8290.88,
+      "colorSector": "verde"
     },
     {
       "id": "6e40218d-88fe-4cf8-9dba-fa2522905774",
@@ -2542,7 +2752,7 @@
       ],
       "estado": "vendido",
       "titulo": "43",
-      "dimensiones": "5.000",
+      "dimensiones": "5.062,62",
       "hasSmartPin": true,
       "createdAt": 1787008809188,
       "_pinCentroid": [
@@ -2556,7 +2766,13 @@
       "pinPos": null,
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00114",
+      "rolSII": "07002-00114",
+      "ufM2": null,
+      "m2": 5062.62,
+      "superficieM2": 5062.62,
+      "colorSector": "verde"
     },
     {
       "id": "9ae81d5e-47a9-43b5-b799-f723cdda6511",
@@ -2585,7 +2801,7 @@
       ],
       "estado": "disponible",
       "titulo": "42",
-      "dimensiones": "5.437",
+      "dimensiones": "5.373,45",
       "hasSmartPin": true,
       "createdAt": 1787008823063,
       "_pinCentroid": [
@@ -2594,9 +2810,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6448.14,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00113",
+      "rolSII": "07002-00113",
+      "ufM2": 1.2,
+      "m2": 5373.45,
+      "superficieM2": 5373.45,
+      "colorSector": "verde"
     },
     {
       "tipo": "lote-libre",
@@ -2656,10 +2878,16 @@
         151.126449415682
       ],
       "pinPos": null,
-      "dimensiones": "5.874",
-      "valorUF": null,
+      "dimensiones": "5.706,58",
+      "valorUF": 6847.9,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00112",
+      "rolSII": "07002-00112",
+      "ufM2": 1.2,
+      "m2": 5706.58,
+      "superficieM2": 5706.58,
+      "colorSector": "verde"
     },
     {
       "id": "b4f699f3-ec0b-4f0f-9c92-e33a98128683",
@@ -2692,7 +2920,7 @@
       ],
       "estado": "disponible",
       "titulo": "40",
-      "dimensiones": "5.896",
+      "dimensiones": "5.599,10",
       "hasSmartPin": true,
       "createdAt": 1787008995587,
       "_pinCentroid": [
@@ -2704,9 +2932,15 @@
         159.18668420938673
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6438.97,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00111",
+      "rolSII": "07002-00111",
+      "ufM2": 1.15,
+      "m2": 5599.1,
+      "superficieM2": 5599.1,
+      "colorSector": "verde"
     },
     {
       "id": "83a2c343-837f-4436-a03c-f7e3d89befaa",
@@ -2751,7 +2985,7 @@
       ],
       "estado": "disponible",
       "titulo": "39",
-      "dimensiones": "6.432",
+      "dimensiones": "6.409,51",
       "hasSmartPin": true,
       "createdAt": 1787009031485,
       "_pinCentroid": [
@@ -2763,9 +2997,15 @@
         168.93659815519956
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7050.46,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00110",
+      "rolSII": "07002-00110",
+      "ufM2": 1.1,
+      "m2": 6409.51,
+      "superficieM2": 6409.51,
+      "colorSector": "verde"
     },
     {
       "id": "24e78f02-e1fd-48d0-bae2-9f25d99257a8",
@@ -2810,7 +3050,7 @@
       ],
       "estado": "disponible",
       "titulo": "38",
-      "dimensiones": "6.502",
+      "dimensiones": "6.503,91",
       "hasSmartPin": true,
       "createdAt": 1787009045151,
       "_pinCentroid": [
@@ -2822,9 +3062,15 @@
         176.4716352265484
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7154.3,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00109",
+      "rolSII": "07002-00109",
+      "ufM2": 1.1,
+      "m2": 6503.91,
+      "superficieM2": 6503.91,
+      "colorSector": "verde"
     },
     {
       "id": "0229dfa3-27df-487a-a97c-0e0891bed0ed",
@@ -2857,7 +3103,7 @@
       ],
       "estado": "disponible",
       "titulo": "37",
-      "dimensiones": "6.503",
+      "dimensiones": "6.489,68",
       "hasSmartPin": true,
       "createdAt": 1787009067395,
       "_pinCentroid": [
@@ -2869,9 +3115,15 @@
         -176.23474055625854
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7138.65,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00108",
+      "rolSII": "07002-00108",
+      "ufM2": 1.1,
+      "m2": 6489.68,
+      "superficieM2": 6489.68,
+      "colorSector": "verde"
     },
     {
       "tipo": "calle",
@@ -2967,10 +3219,16 @@
         150.65845003792936
       ],
       "pinPos": null,
-      "dimensiones": "5.090",
+      "dimensiones": "5.090,78",
       "valorUF": null,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00103",
+      "rolSII": "07002-00103",
+      "ufM2": null,
+      "m2": 5090.78,
+      "superficieM2": 5090.78,
+      "colorSector": "rojo"
     },
     {
       "id": "d26f566a-f1fc-4246-a97c-132532af8f11",
@@ -3007,7 +3265,7 @@
       ],
       "estado": "disponible",
       "titulo": "49",
-      "dimensiones": "5.136",
+      "dimensiones": "6.016,83",
       "hasSmartPin": true,
       "createdAt": 1787009399470,
       "_pinCentroid": [
@@ -3019,9 +3277,15 @@
         149.86425727899478
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7521.04,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00120",
+      "rolSII": "07002-00120",
+      "ufM2": 1.25,
+      "m2": 6016.83,
+      "superficieM2": 6016.83,
+      "colorSector": "amarillo"
     },
     {
       "id": "7ef1d556-badc-472e-b444-0201c63c25a5",
@@ -3046,7 +3310,7 @@
       ],
       "estado": "disponible",
       "titulo": "50",
-      "dimensiones": "6.578",
+      "dimensiones": "6.212,12",
       "hasSmartPin": true,
       "createdAt": 1787009599670,
       "_pinCentroid": [
@@ -3055,9 +3319,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 7765.15,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00121",
+      "rolSII": "07002-00121",
+      "ufM2": 1.25,
+      "m2": 6212.12,
+      "superficieM2": 6212.12,
+      "colorSector": "amarillo"
     },
     {
       "id": "cec44678-4318-496e-b65f-766ce444f4cc",
@@ -3086,7 +3356,7 @@
       ],
       "estado": "disponible",
       "titulo": "51",
-      "dimensiones": "6.612",
+      "dimensiones": "6.075,93",
       "hasSmartPin": true,
       "createdAt": 1787009609714,
       "_pinCentroid": [
@@ -3098,9 +3368,15 @@
         154.57650290636184
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6987.32,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00122",
+      "rolSII": "07002-00122",
+      "ufM2": 1.15,
+      "m2": 6075.93,
+      "superficieM2": 6075.93,
+      "colorSector": "verde"
     },
     {
       "tipo": "lote-libre",
@@ -3144,10 +3420,16 @@
         163.75499803090196
       ],
       "pinPos": null,
-      "dimensiones": "5.091",
-      "valorUF": null,
+      "dimensiones": "5.091,37",
+      "valorUF": 6109.64,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00102",
+      "rolSII": "07002-00102",
+      "ufM2": 1.2,
+      "m2": 5091.37,
+      "superficieM2": 5091.37,
+      "colorSector": "gris"
     },
     {
       "id": "decf930a-2dbc-4576-a61b-6d8d4a2f68bb",
@@ -3172,7 +3454,7 @@
       ],
       "estado": "disponible",
       "titulo": "30",
-      "dimensiones": "5.216",
+      "dimensiones": "5.216,72",
       "hasSmartPin": true,
       "createdAt": 1787009467726,
       "_pinCentroid": [
@@ -3181,9 +3463,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 6260.06,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00101",
+      "rolSII": "07002-00101",
+      "ufM2": 1.2,
+      "m2": 5216.72,
+      "superficieM2": 5216.72,
+      "colorSector": "gris"
     },
     {
       "tipo": "lote-libre",
@@ -3223,10 +3511,16 @@
         -173.0848815338142
       ],
       "pinPos": null,
-      "dimensiones": "5.034",
-      "valorUF": null,
+      "dimensiones": "5.034,79",
+      "valorUF": 5790.01,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00100",
+      "rolSII": "07002-00100",
+      "ufM2": 1.15,
+      "m2": 5034.79,
+      "superficieM2": 5034.79,
+      "colorSector": "gris"
     },
     {
       "id": "c8e37dc0-5136-470a-b9f0-30489765eadc",
@@ -3251,7 +3545,7 @@
       ],
       "estado": "disponible",
       "titulo": "28",
-      "dimensiones": "5.109",
+      "dimensiones": "5.103,44",
       "hasSmartPin": true,
       "createdAt": 1787009487147,
       "_pinCentroid": [
@@ -3263,9 +3557,15 @@
         -163.01742004837317
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 5868.96,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00099",
+      "rolSII": "07002-00099",
+      "ufM2": 1.15,
+      "m2": 5103.44,
+      "superficieM2": 5103.44,
+      "colorSector": "gris"
     },
     {
       "tipo": "lote-libre",
@@ -3306,10 +3606,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "5.039",
-      "valorUF": null,
+      "dimensiones": "5.027,95",
+      "valorUF": 5530.75,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00104",
+      "rolSII": "07002-00104",
+      "ufM2": 1.1,
+      "m2": 5027.95,
+      "superficieM2": 5027.95,
+      "colorSector": "verde"
     },
     {
       "id": "7cf73061-2c9b-4ab3-962a-177f64856164",
@@ -3342,7 +3648,7 @@
       ],
       "estado": "disponible",
       "titulo": "34",
-      "dimensiones": "5.001",
+      "dimensiones": "5.000,28",
       "hasSmartPin": true,
       "createdAt": 1787009952754,
       "_pinCentroid": [
@@ -3351,9 +3657,15 @@
       ],
       "pinPosition": null,
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 5500.31,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00105",
+      "rolSII": "07002-00105",
+      "ufM2": 1.1,
+      "m2": 5000.28,
+      "superficieM2": 5000.28,
+      "colorSector": "verde"
     },
     {
       "tipo": "lote-libre",
@@ -3390,10 +3702,16 @@
       "hasSmartPin": true,
       "pinPosition": null,
       "pinPos": null,
-      "dimensiones": "5.000",
-      "valorUF": null,
+      "dimensiones": "5.000,23",
+      "valorUF": 5500.25,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00106",
+      "rolSII": "07002-00106",
+      "ufM2": 1.1,
+      "m2": 5000.23,
+      "superficieM2": 5000.23,
+      "colorSector": "verde"
     },
     {
       "id": "da8d55ca-dbb9-451c-96cc-7e22090f2990",
@@ -3418,7 +3736,7 @@
       ],
       "estado": "disponible",
       "titulo": "36",
-      "dimensiones": "5.000",
+      "dimensiones": "5.002,97",
       "hasSmartPin": true,
       "createdAt": 1787009984281,
       "_pinCentroid": [
@@ -3430,9 +3748,15 @@
         -169.11136887069262
       ],
       "pinPos": null,
-      "valorUF": null,
+      "valorUF": 5503.27,
       "hashtags": [],
-      "caracteristicas": ""
+      "caracteristicas": "",
+      "preRol": "07002-00107",
+      "rolSII": "07002-00107",
+      "ufM2": 1.1,
+      "m2": 5002.97,
+      "superficieM2": 5002.97,
+      "colorSector": "verde"
     }
   ],
   "geo": {

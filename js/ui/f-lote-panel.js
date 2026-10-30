@@ -13,10 +13,10 @@
 
   // Referencias DOM (Edición)
   let _panel, _closeBtn, _btnCancel, _btnSave, _btnRemovePin;
-  let _inNumero, _inEstado, _inDimensiones, _inUF, _inHashtags, _lblCLP;
+  let _inNumero, _inPreRol, _inEstado, _inDimensiones, _inUfM2, _inUF, _inHashtags, _lblCLP;
 
   // Referencias DOM (Espectador)
-  let _specCloseBtn, _specPillEstado, _specTitle, _specValArea, _specValUF, _specValCLP, _specBtnFoto, _specBtnWsp, _specBtnPdf;
+  let _specCloseBtn, _specPillEstado, _specTitle, _specValPreRol, _specValArea, _specRowUfM2, _specValUfM2, _specDivUfM2, _specValUF, _specValCLP, _specBtnFoto, _specBtnWsp, _specBtnPdf;
   let _specBtnContact, _specForm, _specFormNote, _specSubmitTxt;
   let _formOpen = false;
 
@@ -78,10 +78,13 @@
     document.dispatchEvent(new CustomEvent('kpkLoteSelected', { detail: { loteId: id } }));
 
     // Cargar datos actuales
+    const preRol = line.preRol || line.rolSII || '';
     _inNumero.value = line.titulo || '';
+    if (_inPreRol) _inPreRol.value = preRol;
     _inEstado.value = line.estado || 'disponible';
     _inDimensiones.value = line.dimensiones || '';
-    _inUF.value = line.valorUF || '';
+    if (_inUfM2) _inUfM2.value = (line.ufM2 != null && line.ufM2 !== '') ? line.ufM2 : '';
+    _inUF.value = line.valorUF != null ? line.valorUF : '';
     if (_inHashtags) {
       const rawTags = line.hashtags ? (Array.isArray(line.hashtags) ? line.hashtags.join(', ') : line.hashtags) : (line.caracteristicas || '');
       _inHashtags.value = rawTags;
@@ -96,20 +99,42 @@
 
     // Si es modo espectador, poblar datos estéticos
     if (isSpectator) {
-      _specTitle.textContent = line.titulo || `Lote ${id}`;
+      const tit = line.titulo || '';
+      _specTitle.textContent = tit ? (/^lote/i.test(tit) ? tit : `Lote ${tit}`) : `Lote ${id}`;
       
       const st = line.estado || 'disponible';
       _specPillEstado.dataset.status = st;
       _specPillEstado.textContent = st.charAt(0).toUpperCase() + st.slice(1);
       
+      if (_specValPreRol) {
+        _specValPreRol.textContent = preRol || '---';
+      }
+
       _specValArea.textContent = line.dimensiones ? `${line.dimensiones} m²` : '---';
-      _specValUF.textContent = line.valorUF ? `${line.valorUF} UF` : '---';
+
+      if (_specValUfM2) {
+        if (line.ufM2 != null && line.ufM2 !== '') {
+          const ufm2Num = parseFloat(line.ufM2);
+          _specValUfM2.textContent = !isNaN(ufm2Num)
+            ? `${ufm2Num.toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 2 })} UF/m²`
+            : `${line.ufM2} UF/m²`;
+          if (_specRowUfM2) _specRowUfM2.style.display = 'flex';
+          if (_specDivUfM2) _specDivUfM2.style.display = 'block';
+        } else {
+          _specValUfM2.textContent = '---';
+          if (_specRowUfM2) _specRowUfM2.style.display = (st === 'vendido') ? 'none' : 'flex';
+          if (_specDivUfM2) _specDivUfM2.style.display = (st === 'vendido') ? 'none' : 'block';
+        }
+      }
       
+      const isVendido = st === 'vendido';
       const ufNum = parseFloat(line.valorUF);
       if (!isNaN(ufNum) && ufNum > 0) {
+        _specValUF.textContent = `${ufNum.toLocaleString('es-CL', { maximumFractionDigits: 2 })} UF`;
         const clp = Math.round(ufNum * _ufValue);
         _specValCLP.textContent = _formatCLP(clp);
       } else {
+        _specValUF.textContent = isVendido ? 'Vendido' : '---';
         _specValCLP.textContent = '---';
       }
 
@@ -175,9 +200,11 @@
     const proyecto = _getProjectName();
     const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
     set('spec-f-lote', line.titulo || `Lote ${line.id}`);
+    set('spec-f-prerol', line.preRol || line.rolSII || '');
     set('spec-f-proyecto', proyecto);
     set('spec-f-estado', line.estado || '');
     set('spec-f-superficie', line.dimensiones ? `${line.dimensiones} m²` : '');
+    set('spec-f-ufm2', line.ufM2 != null ? String(line.ufM2) : '');
     set('spec-f-uf', line.valorUF != null ? String(line.valorUF) : '');
     set('spec-f-subject', `[${proyecto}] Consulta — ${line.titulo || line.id}`);
     if (note) note.textContent = enabled ? 'Recibirás confirmación por correo.' : '';
@@ -207,16 +234,18 @@
       ? rawHashVal.split(/[\s,;.]+|(?=#)/).map(t => t.replace(/^#+/, '').trim()).filter(Boolean).map(t => `#${t}`)
       : [];
 
+    const current = window.FerrariState.getLine(_currentLoteId) || {};
     const updates = {
       titulo: _inNumero.value.trim(),
+      preRol: _inPreRol ? _inPreRol.value.trim() : (current.preRol || ''),
+      rolSII: _inPreRol ? _inPreRol.value.trim() : (current.rolSII || ''),
       estado: _inEstado.value,
       dimensiones: _inDimensiones.value.trim(),
+      ufM2: _inUfM2 && _inUfM2.value !== '' ? parseFloat(_inUfM2.value) : null,
       valorUF: _inUF.value ? parseFloat(_inUF.value) : null,
       hashtags: parsedHashtags,
       caracteristicas: rawHashVal
     };
-
-    const current = window.FerrariState.getLine(_currentLoteId);
     if (current && current.loteGrupoId) {
       const next = (window.allDrawnLines || []).map(function (line) {
         return line.loteGrupoId === current.loteGrupoId
@@ -298,17 +327,39 @@
     _btnRemovePin = document.getElementById('lote-btn-remove-pin');
     
     _inNumero = document.getElementById('lote-input-numero');
+    _inPreRol = document.getElementById('lote-input-prerol');
     _inEstado = document.getElementById('lote-input-estado');
     _inDimensiones = document.getElementById('lote-input-dimensiones');
+    _inUfM2 = document.getElementById('lote-input-ufm2');
     _inUF = document.getElementById('lote-input-uf');
     _inHashtags = document.getElementById('lote-input-hashtags');
     _lblCLP = document.getElementById('lote-clp-preview');
+
+    // Auto-cálculo de UF Total a partir de UF/m² y superficie
+    function _calcTotalUF() {
+      const ufm2 = parseFloat(_inUfM2 ? _inUfM2.value : '');
+      const rawDim = _inDimensiones ? _inDimensiones.value : '';
+      const m2 = parseFloat(String(rawDim).replace(/\./g, '').replace(',', '.'));
+      if (!isNaN(ufm2) && ufm2 > 0 && !isNaN(m2) && m2 > 0) {
+        const total = Math.round(m2 * ufm2 * 100) / 100;
+        _inUF.value = total;
+        _updateCLPPreview();
+      }
+    }
+    if (_inUfM2) _inUfM2.addEventListener('input', _calcTotalUF);
+    if (_inDimensiones) _inDimensiones.addEventListener('input', () => {
+      if (_inUfM2 && _inUfM2.value) _calcTotalUF();
+    });
 
     // Elementos Modo Espectador
     _specCloseBtn = document.getElementById('lote-spectator-close');
     _specPillEstado = document.getElementById('spec-pill-estado');
     _specTitle = document.getElementById('spec-title');
+    _specValPreRol = document.getElementById('spec-val-prerol');
     _specValArea = document.getElementById('spec-val-area');
+    _specRowUfM2 = document.getElementById('spec-row-ufm2');
+    _specValUfM2 = document.getElementById('spec-val-ufm2');
+    _specDivUfM2 = document.getElementById('spec-div-ufm2');
     _specValUF = document.getElementById('spec-val-uf');
     _specValCLP = document.getElementById('spec-val-clp');
     _specBtnFoto = document.getElementById('spec-btn-foto');
@@ -357,14 +408,16 @@
         
         let infoLote = '';
         if (line) {
+          const rol = (line.preRol || line.rolSII) ? `\n📋 Pre-Rol SII: ${line.preRol || line.rolSII}` : '';
           const dims = line.dimensiones ? `\n📐 Superficie: ${line.dimensiones} m²` : '';
-          const valor = line.valorUF ? `\n💵 Precio: ${line.valorUF} UF` : '';
+          const ufm2 = (line.ufM2 != null && line.ufM2 > 0) ? `\n🏷️ UF/m²: ${line.ufM2} UF` : '';
+          const valor = line.valorUF ? `\n💵 Precio: ${Number(line.valorUF).toLocaleString('es-CL')} UF` : '';
           let clpText = '';
           if (line.valorUF) {
             const clp = Math.round(parseFloat(line.valorUF) * _ufValue);
             clpText = ` (~ ${_formatCLP(clp)} CLP)`;
           }
-          infoLote = `${dims}${valor}${clpText}`;
+          infoLote = `${rol}${dims}${ufm2}${valor}${clpText}`;
         }
         
         const msg = `¡Hola! 👋 Me interesa obtener más información sobre el *${titulo}* del proyecto *${proyecto}*.` +
@@ -524,10 +577,12 @@
     });
 
     const proyecto = _getProjectName();
-    const titulo = line.titulo || `Lote ${_currentLoteId}`;
+    const titulo = line.titulo ? (/^lote/i.test(line.titulo) ? line.titulo : `Lote ${line.titulo}`) : `Lote ${_currentLoteId}`;
+    const prerol = line.preRol || line.rolSII || 'En trámite';
+    const ufm2Text = line.ufM2 ? `${line.ufM2} UF/m²` : 'No especificado';
     const estado = (line.estado || 'disponible').toUpperCase();
     const dimensiones = line.dimensiones ? `${line.dimensiones} m²` : 'No especificada';
-    const valorUF = line.valorUF ? `${line.valorUF} UF` : 'No especificado';
+    const valorUF = line.valorUF ? `${Number(line.valorUF).toLocaleString('es-CL', { maximumFractionDigits: 2 })} UF` : 'No especificado';
     const clpVal = line.valorUF ? Math.round(parseFloat(line.valorUF) * _ufValue) : 0;
     const valorCLP = clpVal ? _formatCLP(clpVal) : 'No especificado';
     const caracteristicas = line.caracteristicas || 'Sin características adicionales registradas.';
@@ -586,45 +641,63 @@
 
     // ─── DATOS TÉCNICOS (TABLA DE ESPECIFICACIONES) ───
     doc.setFillColor(lightBg[0], lightBg[1], lightBg[2]);
-    doc.roundedRect(15, 52, 180, 52, 3, 3, 'F');
+    doc.roundedRect(15, 52, 180, 56, 3, 3, 'F');
 
     // Columna 1
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(grayText[0], grayText[1], grayText[2]);
-    doc.text("Superficie del Terreno", 25, 63);
+    doc.text("Superficie del Terreno", 25, 62);
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(15);
+    doc.setFontSize(13);
     doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
-    doc.text(dimensiones, 25, 71);
+    doc.text(dimensiones, 25, 70);
 
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(grayText[0], grayText[1], grayText[2]);
-    doc.text("Valor en UF", 25, 86);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(15);
-    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-    doc.text(valorUF, 25, 94);
-
-    // Columna 2
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
-    doc.text("Valor Estimado CLP", 115, 63);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(15);
-    doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
-    doc.text(valorCLP, 115, 71);
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
-    doc.text("Ubicación del Loteo", 115, 86);
+    doc.text("Pre-Rol SII", 25, 80);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
-    doc.text("Sector Alerce Andino", 115, 93);
+    doc.text(prerol, 25, 87);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
+    doc.text("Valor UF / m²", 25, 96);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+    doc.text(ufm2Text, 25, 103);
+
+    // Columna 2
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
+    doc.text("Valor Total UF", 115, 62);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+    doc.text(valorUF, 115, 70);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
+    doc.text("Valor Estimado CLP", 115, 80);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
+    doc.text(valorCLP, 115, 87);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(grayText[0], grayText[1], grayText[2]);
+    doc.text("Ubicación del Loteo", 115, 96);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
+    doc.text("Sector Alerce Andino", 115, 103);
 
     // ─── CUALIDADES / CARACTERÍSTICAS ───
     doc.setFont("helvetica", "bold");
